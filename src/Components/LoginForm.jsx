@@ -1,20 +1,70 @@
-import React from 'react'
-import { Link } from 'react-router-dom'
-
+import React, { useState } from 'react'
+import axios from 'axios';
+import { BASE_URL } from '../Utils/const';
+import { Link, useNavigate } from 'react-router-dom';
+import { useSelector , useDispatch } from 'react-redux';
+import { userLogin } from '../Redux/Slice/AuthSlice';
 function LoginForm() {
+    const [formData , setFormData]= useState({
+      username : '',
+      password : ''
+    });
+    
+    const navigate = useNavigate();
+    const [err , setErr]= useState('');
+    const [loading , setLoading] = useState('');
+
+    const dispatch= useDispatch();
+   
+
+    const handleChange=(e)=>{
+      const {name , value} = e.target;
+      setFormData({
+        ...formData,
+        [name]:value
+      });
+      
+    };
+
+
+    const handleSubmit=(e) =>{
+      e.preventDefault();
+      setErr('');
+      setLoading(true);
+      console.log(formData)
+      
+        axios.post(BASE_URL+'/login',formData).then(resp =>{
+          console.log(resp.data);
+          localStorage.setItem('token',resp.data.token);
+          localStorage.setItem('role',resp.data.role);
+          dispatch(userLogin())
+          navigate("/")
+        }).catch(error =>{
+          console.log(error.response)
+          setErr("Bad Credentials (Incorrect Email or Password ... !)")
+          setLoading(false);
+
+        });
+      
+    }
+    
   return (
     <>
         <div className="flex min-h-full flex-1 flex-col justify-center px-6 py-12 lg:px-8">
         <div className="sm:mx-auto sm:w-full sm:max-w-sm">
          
-          <h2 className="mt-10 text-center text-2xl font-bold leading-9 tracking-tight text-gray-900">
+          <h2 className="mt-3 text-center text-2xl font-bold leading-9 tracking-tight text-indigo-900">
             LOG IN 
           </h2>
-          <h2 className="mt-10 text-center text-2xl font-bold leading-9 tracking-tight text-gray-500">
-            New To Unleash ? <a className=' text-orange-500' href="">Sign Up</a>
+          <h2 className="mt-3 text-center text-2xl font-bold leading-9 tracking-tight text-gray-500">
+            New To Unleash ? <Link to="/signup" className=' text-orange-500' >Sign Up</Link>
           </h2>
         </div>
-
+        <div className=' text-red-500 text-center font-bold pt-3' >
+            {err && (
+              <h2>{err}</h2>
+            )}
+          </div>
         <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
           <form className="space-y-6" action="#" method="POST">
             <div>
@@ -23,12 +73,14 @@ function LoginForm() {
               </label>
               <div className="mt-2">
                 <input
-                  id="email"
-                  name="email"
+                  id="username"
+                  name="username"
                   type="email"
                   autoComplete="email"
+                  value={formData.username}
+                  onChange={handleChange}
                   required
-                  className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-orange-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-orange-600 sm:text-sm sm:leading-6"
+                  className="block w-full p-4 rounded-2xl border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-orange-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-orange-600 sm:text-sm sm:leading-6"
                 />
               </div>
             </div>
@@ -49,17 +101,19 @@ function LoginForm() {
                   id="password"
                   name="password"
                   type="password"
+                  value={formData.password}
+                  onChange={handleChange}
                   autoComplete="current-password"
                   required
-                  className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-orange-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-orange-600 sm:text-sm sm:leading-6"
+                  className="block w-full rounded-2xl border-0 p-4 py-1.5 text-gray-900 shadow-sm ring-1  ring-inset ring-orange-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-orange-600 sm:text-sm sm:leading-6"
                 />
               </div>
             </div>
 
             <div>
               <button
-                type="submit"
-                className="flex w-full justify-center rounded-md bg-orange-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-orange-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 "
+                onClick={handleSubmit}
+                className="flex w-full justify-center rounded-2xl bg-orange-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-orange-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 "
               >
                 Log in
               </button>
@@ -69,7 +123,7 @@ function LoginForm() {
           
         </div>
       </div>
-    </>
+    </> 
   )
 }
 
