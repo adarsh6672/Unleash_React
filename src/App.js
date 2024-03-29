@@ -8,6 +8,8 @@ import CounselorSignUp from './Pages/LoginSignup/CounselorSignUp';
 import OtpLogin from './Pages/LoginSignup/OtpLogin';
 import Dashboard from './Pages/Dashboard/Dashboard';
 import Profile from './Pages/Dashboard/Profile';
+import OtpForgot from './Pages/LoginSignup/OtpForgot';
+import UpdatePassword from './Pages/LoginSignup/UpdatePassword';
 
 function App() {
   return (
@@ -20,6 +22,8 @@ function App() {
         <Route path='/otp' element={<OtpLogin />} />
         <Route path='/dashboard' element={<Dashboard />} />
         <Route path='/profile' element={<Profile />} />
+        <Route path='/forgotpassword' element={<OtpForgot />} />
+        <Route path='/updatepassword' element={<UpdatePassword />} />
       </Routes>
     </BrowserRouter>
   );

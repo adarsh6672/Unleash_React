@@ -1,9 +1,9 @@
 import React, { useState } from 'react'
 import axios from 'axios';
-import { BASE_URL } from '../Utils/const';
+import { BASE_URL } from '../../Utils/const';
 import { Link, useNavigate } from 'react-router-dom';
 import { useSelector , useDispatch } from 'react-redux';
-import { userLogin } from '../Redux/Slice/AuthSlice';
+import { userLogin } from '../../Redux/Slice/AuthSlice';
 function LoginForm() {
     const [formData , setFormData]= useState({
       username : '',
@@ -45,6 +45,29 @@ function LoginForm() {
           setLoading(false);
 
         });
+      
+    }
+
+    const forgotPassword= ()=>{
+      if(formData.username===''){
+        setErr("Enter The Mail Id");
+      }else{
+        setLoading(true)
+        let email = formData.username;
+        localStorage.setItem("forgotmail",email);
+        axios.post(BASE_URL+'/password/forgot',{
+          email
+        }).then(resp =>{
+          console.log(resp.data);
+          navigate("/forgotpassword");
+        }).catch(error =>{
+          console.log(error.response)
+          setErr("Email Not Found... !")
+          setLoading(false);
+
+        });
+        
+      }
       
     }
     
@@ -91,9 +114,14 @@ function LoginForm() {
                   Password
                 </label>
                 <div className="text-sm">
-                  <a href="#" className="font-semibold text-indigo-600 hover:text-indigo-500">
+                  {!loading && (
+                    <div 
+                    onClick={forgotPassword}
+                   className="font-semibold text-indigo-600 hover:text-indigo-500">
                     Forgot password?
-                  </a>
+                  </div>
+                  )}
+                  
                 </div>
               </div>
               <div className="mt-2">
@@ -111,12 +139,31 @@ function LoginForm() {
             </div>
 
             <div>
-              <button
+              {!loading && (
+                <button
                 onClick={handleSubmit}
                 className="flex w-full justify-center rounded-2xl bg-orange-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-orange-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 "
               >
                 Log in
               </button>
+              )}
+               
+              {loading && (
+                <button
+                type="submit"
+                className="flex w-full justify-center rounded-2xl bg-orange-500 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-orange-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 "
+              >
+                <div
+              className="inline-block h-8 w-8 animate-spin rounded-full text-white border-4 border-solid border-current border-r-transparent align-[-0.125em] motion-reduce:animate-[spin_1.5s_linear_infinite]"
+              role="status">
+              <span
+                className="!absolute !-m-px !h-px !w-px !overflow-hidden !whitespace-nowrap  !border-0 !p-0 ![clip:rect(0,0,0,0)]"
+              >Loading...</span>
+            </div>
+              </button>
+              )}
+
+              
             </div>
           </form>
 

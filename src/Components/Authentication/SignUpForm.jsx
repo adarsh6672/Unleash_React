@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from 'react'
 import axios from 'axios'
-import { BASE_URL } from '../Utils/const';
+import { BASE_URL } from '../../Utils/const';
 import { Link, useNavigate } from 'react-router-dom';
+
 
 function SignUpForm({isCounselor}) {
     const [counselor , setCounselor]= useState("USER SIGN UP");
@@ -41,6 +42,7 @@ function SignUpForm({isCounselor}) {
         setErr('');
         setLoading(true);
         console.log(formData)
+        localStorage.setItem("email",formData.email);
         
           axios.post(BASE_URL+'/register',formData).then(resp =>{
             console.log(resp.data)

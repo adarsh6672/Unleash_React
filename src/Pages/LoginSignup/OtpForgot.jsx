@@ -4,23 +4,19 @@ import { useState, useRef , useEffect } from 'react';
 import axios from 'axios';
 import { BASE_URL } from '../../Utils/const';
 import { useLocation, useNavigate } from 'react-router-dom';
-import { useDispatch ,useSelector } from 'react-redux';
-import { userLogin } from '../../Redux/Slice/AuthSlice';
 
-function OtpLogin() {
+function OtpForgot() {
 
     const [otp, setOtp] = useState('');
     const inputRefs = useRef([]);
     const [err , setErr] = useState('');
     const [loading , setLoading] = useState(false);
-
-    const dispatch = useDispatch();
+    const email = localStorage.getItem("forgotmail")
     const navig = useNavigate();
 
-    const location = useLocation();
-    const email= location.state;
     const length = 6;
 
+    
     const [ minutes, setMinutes ] = useState(1);
     const [seconds, setSeconds ] =  useState(30);
     const [counter , setCounter] = useState(false);
@@ -63,6 +59,8 @@ function OtpLogin() {
       // Focus on the first input on component mount
       inputRefs.current[0].focus();
     }, []);
+
+    
   
     const handleChange = (event, index) => {
       const newChar = event.target.value;
@@ -106,19 +104,17 @@ function OtpLogin() {
         setLoading(true);
         console.log(otp)
         
-        await axios.post(BASE_URL+'/otp/verify',{
-          "otp": otp,
-          "email": localStorage.getItem("email")
+        await axios.post(BASE_URL+'/password/forgot/otpverify',{
+          email: email,
+          otp: otp
         }).then(res =>{
             console.log(res.data.token)
-            localStorage.setItem('token',res.data.token);
-            localStorage.setItem('role',res.data.role);
-            dispatch(userLogin());
-            navig("/");
+            navig("/updatepassword");
             
         }).catch(error =>{
             console.log(error)
             setLoading(false);
+            setErr("Invalid OTP")
         })
     }else{
         setErr("Enter 6 Digit OTP")
@@ -178,7 +174,7 @@ function OtpLogin() {
                           </button>
                         )}
                         
-                        <div className="flex justify-center text-center mt-5">
+                      <div className="flex justify-center text-center mt-5">
                       <div className='text-blue-700 font-bold'>
                           { minutes === 0 && seconds === 0
                               ? null
@@ -202,4 +198,4 @@ function OtpLogin() {
   )
 }
 
-export default OtpLogin
+export default OtpForgot
