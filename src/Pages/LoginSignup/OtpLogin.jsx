@@ -6,6 +6,7 @@ import { BASE_URL } from '../../Utils/const';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { useDispatch ,useSelector } from 'react-redux';
 import { userLogin } from '../../Redux/Slice/AuthSlice';
+import { setUserData } from '../../Redux/Slice/UserDataSlice';
 
 function OtpLogin() {
 
@@ -110,7 +111,8 @@ function OtpLogin() {
           "otp": otp,
           "email": localStorage.getItem("email")
         }).then(res =>{
-            console.log(res.data.token)
+            console.log(res.data)
+            dispatch(setUserData(res.data))
             localStorage.setItem('token',res.data.token);
             localStorage.setItem('role',res.data.role);
             dispatch(userLogin());

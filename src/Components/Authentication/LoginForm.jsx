@@ -3,6 +3,7 @@ import axios from 'axios';
 import { BASE_URL } from '../../Utils/const';
 import { Link, useNavigate } from 'react-router-dom';
 import { useSelector , useDispatch } from 'react-redux';
+import { setUserData } from '../../Redux/Slice/UserDataSlice';
 import { userLogin } from '../../Redux/Slice/AuthSlice';
 function LoginForm() {
     const [formData , setFormData]= useState({
@@ -35,6 +36,7 @@ function LoginForm() {
       
         axios.post(BASE_URL+'/login',formData).then(resp =>{
           console.log(resp.data);
+          dispatch(setUserData(resp.data))
           localStorage.setItem('token',resp.data.token);
           localStorage.setItem('role',resp.data.role);
           dispatch(userLogin())
