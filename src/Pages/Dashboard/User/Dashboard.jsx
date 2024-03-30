@@ -1,7 +1,6 @@
 import React from 'react'
 import DashHeader from '../../../Components/SidePanel/DashHeader'
 import Sidebar from '../../../Components/SidePanel/User'
-import Content from '../../../Components/Authentication/Content'
 
 function Dashboard() {
   return (
@@ -9,7 +8,10 @@ function Dashboard() {
         <DashHeader />
         <div className='flex '> 
             <Sidebar />
-            <Content />
+            <div className='sm:w-full  p-4'>
+            <h2>Content Area</h2>
+            <p>This is the main content area of your dashboard.</p>
+        </div>
         </div>
     </>
   )

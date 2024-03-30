@@ -2,8 +2,26 @@ import React from 'react'
 import logo from '../Assets/imgs/logo.png'
 import { Link } from 'react-router-dom'
 import { useSelector } from 'react-redux'
+import { useNavigate } from 'react-router-dom'
 function Header() {
+
+    const navigate = useNavigate()
+
     const isLogin = useSelector(state => state.auth.isLogin)
+    const role = useSelector(state=> state.userData.userRole)
+    const handleRouting=()=>{
+        if(role==='USER'){
+            navigate("/user/dashboard")
+        }else if(role === 'Unverified'){
+            navigate("/counselor/profileVerification")
+        }else if(role === 'COUNSELOR'){
+            navigate("/")
+        }else if(role === 'ADMIN'){
+            navigate("/")
+        }else{
+            navigate("/")
+        }
+    }
 
   return (
     <>
@@ -52,11 +70,11 @@ function Header() {
             {isLogin && (
                 <div className='sm:col-span-4 '>
                 <div className='flex justify-evenly pt-6'>
-                    <Link to="/dashboard">
+                    <div onClick={handleRouting}>
                     <button className='bg-orange-500 hover:bg-orange-400 text-white font-bold py-2 mb-3 w-48 px-4 rounded-2xl'>
                         My Dashboard
                     </button>
-                    </Link>
+                    </div>
                    
                 </div>
                 </div>

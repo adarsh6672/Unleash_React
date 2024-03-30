@@ -1,10 +1,9 @@
 import React from 'react'
 import { useSelector } from 'react-redux'
-import UserDataSlice from '../Redux/Slice/UserDataSlice'
 import { Navigate } from 'react-router-dom'
 const UserRoute = ({children}) => {
 
-    const role = useSelector(state=> state.userData.userData.role);
+    const role = useSelector(state=> state.userData.userRole);
     console.log(role);
     const a = 'USER'
     if(role==='USER'){
@@ -12,7 +11,7 @@ const UserRoute = ({children}) => {
     }else{
         return <Navigate to="/"/> }
   return (
-    <div>UserRoute</div>
+    <div></div>
   )
 }
 

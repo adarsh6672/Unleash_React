@@ -11,6 +11,8 @@ import Profile from './Pages/Dashboard/User/Profile';
 import OtpForgot from './Pages/LoginSignup/OtpForgot';
 import UpdatePassword from './Pages/LoginSignup/UpdatePassword';
 import UserRoute from './PrivateRoutes/UserRoute';
+import Unverified from './PrivateRoutes/Unverified';
+import Unverifiedform from './Pages/Dashboard/Unverified/Unverifiedform';
 
 function App() {
   return (
@@ -21,12 +23,14 @@ function App() {
         <Route path='/signup' element={<UserSignup />} />
         <Route path='/counselorSignup' element={<CounselorSignUp />} />
         <Route path='/otp' element={<OtpLogin />} />
-        <Route path='/dashboard' element={<UserRoute>
-          <Dashboard />
-          </UserRoute>} />
-        <Route path='/profile' element={<Profile />} />
         <Route path='/forgotpassword' element={<OtpForgot />} />
         <Route path='/updatepassword' element={<UpdatePassword />} />
+        
+        <Route path='/user/dashboard' element={<UserRoute> <Dashboard /> </UserRoute>} />
+        <Route path='/user/profile' element={<UserRoute> <Profile /> </UserRoute>} />
+        
+        <Route path='counselor/profileVerification' element={<Unverified> <Unverifiedform /> </Unverified>} />
+
       </Routes>
     </BrowserRouter>
   );

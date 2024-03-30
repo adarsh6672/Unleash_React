@@ -5,7 +5,9 @@ const initialState = {
     userName : null,
     userRole : null
 }
-
+if(localStorage.getItem("role")){
+    initialState.userRole=localStorage.getItem("role");
+}
 
 const userDateSlice = createSlice({
     name : "userData",
@@ -13,6 +15,8 @@ const userDateSlice = createSlice({
     reducers:{
         setUserData : (state , action)=>{
             state.userData = action.payload
+            localStorage.setItem("role",action.payload.role)
+            state.userRole=action.payload.role
         },
         clearUserData: (state)=>{
             state.userData=null
