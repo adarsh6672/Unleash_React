@@ -1,6 +1,25 @@
-import React from 'react'
-
+import axios from 'axios'
+import React, { useEffect, useState } from 'react'
+import { BASE_URL } from '../../Utils/const'
 function VerificationForm() {
+
+    const token = localStorage.getItem("token");
+    const [selection , setSelection] = useState();
+    const [formData , setFormData] = useState();
+    
+
+    useEffect(()=>{
+         axios.get(BASE_URL+'/counselor/getselectiondata',{
+            headers: {
+                'Authorization':`Bearer ${token}`
+            }
+        }).then(resp=>{
+            setSelection(resp.data)
+            console.log(resp.data)
+        }).catch(err=>{
+            console.log(err)
+        })
+    },[])
   return (
     <>
          <div className='text-center font-bold text-orange-500 text-2xl'>Upload Details</div>
@@ -12,10 +31,11 @@ function VerificationForm() {
                 <label for="countries" class="block mb-2 text-sm font-medium text-gray-900 ">Select Qualification</label>
                 <select id="countries" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 ">
                     <option selected>Choose a Qualification</option>
-                    <option value="US">M Phil Phsycology</option>
-                    <option value="CA">Canada</option>
-                    <option value="FR">France</option>
-                    <option value="DE">Germany</option>
+                    {selection && selection.qualifications.map((qualification) => (
+                    <option key={qualification.id} value={qualification.id}>
+                        {qualification.qualification}
+                    </option>
+                ))}
                 </select>
                 </div>
 
@@ -23,10 +43,9 @@ function VerificationForm() {
                 <label for="countries" class="block mb-2 text-sm font-medium text-gray-900 ">Select Gender</label>
                 <select id="countries" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 ">
                     <option selected>Gender </option>
-                    <option value="US">M Phil Phsycology</option>
-                    <option value="CA">Canada</option>
-                    <option value="FR">France</option>
-                    <option value="DE">Germany</option>
+                    <option value="1">Male</option>
+                    <option value="2">Female</option>
+                    <option value="3">Other</option>
                 </select>
                 </div>
 
@@ -34,10 +53,23 @@ function VerificationForm() {
                 <label for="countries" class="block mb-2 text-sm font-medium text-gray-900 ">Select Language</label>
                 <select id="countries" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 ">
                     <option selected>Choose</option>
-                    <option value="US">M Phil Phsycology</option>
-                    <option value="CA">Canada</option>
-                    <option value="FR">France</option>
-                    <option value="DE">Germany</option>
+                    {selection && selection.languages.map((language) => (
+                    <option key={language.id} value={language.id}>
+                        {language.language}
+                    </option>
+                ))}
+                </select>
+                </div>
+
+                <div class="my-5  mx-auto">
+                <label for="countries" class="block mb-2 text-sm font-medium text-gray-900 ">Select Specialization</label>
+                <select id="countries" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 ">
+                    <option selected>Choose</option>
+                    {selection && selection.specializations.map((specialization) => (
+                    <option key={specialization.id} value={specialization.id}>
+                        {specialization.specilization}
+                    </option>
+                ))}
                 </select>
                 </div>
 
@@ -58,16 +90,7 @@ function VerificationForm() {
             </div>
 
 
-            <div class="my-5  mx-auto">
-                <label for="countries" class="block mb-2 text-sm font-medium text-gray-900 ">Select Specialization</label>
-                <select id="countries" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 ">
-                    <option selected>Choose</option>
-                    <option value="US">M Phil Phsycology</option>
-                    <option value="CA">Canada</option>
-                    <option value="FR">France</option>
-                    <option value="DE">Germany</option>
-                </select>
-                </div>
+            
 
                 <label className=" my-5 block mb-2 text-sm font-medium text-gray-900 " for="file_input">Upload Proof Of Qualification</label>
                 <input className="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 p-1" id="file_input" type="file"/>
