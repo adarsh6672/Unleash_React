@@ -3,13 +3,16 @@ import { Link } from 'react-router-dom'
 import logo from './../../Assets/imgs/logo.png'
 import { IoLogOut } from "react-icons/io5";
 import { IoMdNotifications } from "react-icons/io";
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { userLogout } from '../../Redux/Slice/AuthSlice';
 import {useNavigate} from 'react-router-dom'
+import { UseSelector } from 'react-redux';
 
 function DashHeader() {
     const dispatch = useDispatch();
     const navigate = useNavigate();
+    const role = useSelector(state=> state.userData.userRole);
+
     const logout =()=>{
         dispatch(userLogout());
         navigate("/")
@@ -29,7 +32,9 @@ function DashHeader() {
             
             </div>
             <div className=' sm:col-span-8'>
-                
+                <div className='text-end font-bold text-indigo-800 pt-7 text-xl'>
+                    {role}
+                </div>
             </div>
             
                 <div className='sm:col-span-2 '>

@@ -119,7 +119,7 @@ function LoginForm() {
                   {!loading && (
                     <div 
                     onClick={forgotPassword}
-                   className="font-semibold text-indigo-600 hover:text-indigo-500">
+                   className="font-semibold cursor-pointer text-indigo-600 hover:text-indigo-500">
                     Forgot password?
                   </div>
                   )}

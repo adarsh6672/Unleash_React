@@ -1,17 +1,18 @@
 import React from 'react'
 import { useSelector } from 'react-redux';
 import { Navigate } from 'react-router-dom';
-function CounselorRoute({children}) {
-
-  const role = useSelector(state=> state.userData.userRole);
-    console.log(role);
+const Unautherized = ({children}) => {
+ 
+    const isLogin = useSelector(state=> state.auth.isLogin);
     
-    if(role==='COUNSELOR'){
+    
+    if(!isLogin){
         return children
     }else{
         return <Navigate to="/"/> }
-  
-  
+  return (
+    <div>Unverified</div>
+  )
 }
 
-export default CounselorRoute
+export default Unautherized

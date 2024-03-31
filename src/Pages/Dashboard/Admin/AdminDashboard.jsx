@@ -1,13 +1,13 @@
 import React from 'react'
 import DashHeader from '../../../Components/SidePanel/DashHeader'
-import UserSidebar from '../../../Components/SidePanel/UserSidebar'
+import AdminSidepanal from '../../../Components/SidePanel/AdminSidePanal'
 
-function Dashboard() {
+function AdminDashboard() {
   return (
     <>
         <DashHeader />
         <div className='flex '> 
-            <UserSidebar/>
+            <AdminSidepanal />
             <div className='sm:w-full  p-4'>
             <h2>Content Area</h2>
             <p>This is the main content area of your dashboard.</p>
@@ -17,4 +17,4 @@ function Dashboard() {
   )
 }
 
-export default Dashboard
+export default AdminDashboard

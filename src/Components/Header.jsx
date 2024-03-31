@@ -15,9 +15,9 @@ function Header() {
         }else if(role === 'Unverified'){
             navigate("/counselor/profileVerification")
         }else if(role === 'COUNSELOR'){
-            navigate("/")
+            navigate("/counselor/dashboard")
         }else if(role === 'ADMIN'){
-            navigate("/")
+            navigate("/admin/dashboard")
         }else{
             navigate("/")
         }

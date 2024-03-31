@@ -13,24 +13,41 @@ import UpdatePassword from './Pages/LoginSignup/UpdatePassword';
 import UserRoute from './PrivateRoutes/UserRoute';
 import Unverified from './PrivateRoutes/Unverified';
 import Unverifiedform from './Pages/Dashboard/Unverified/Unverifiedform';
+import CounselorRoute from './PrivateRoutes/CounselorRoute';
+import CounselorDashboard from './Pages/Dashboard/Counselor/CounselorDashboard';
+import AdminRoutes from './PrivateRoutes/AdminRoutes';
+import AdminDashboard from './Pages/Dashboard/Admin/AdminDashboard';
+import Patients from './Pages/Dashboard/Admin/Patients';
+import Cousellors from './Pages/Dashboard/Admin/Cousellors';
+import Unautherized from './PrivateRoutes/Unautherized';
+import NewRequest from './Pages/Dashboard/Admin/NewRequest';
 
 function App() {
   return (
     <BrowserRouter>
       <Routes >
         <Route path='/' element={<Home />} />
-        <Route path='/login' element={<Login />} />
-        <Route path='/signup' element={<UserSignup />} />
-        <Route path='/counselorSignup' element={<CounselorSignUp />} />
-        <Route path='/otp' element={<OtpLogin />} />
-        <Route path='/forgotpassword' element={<OtpForgot />} />
-        <Route path='/updatepassword' element={<UpdatePassword />} />
+        <Route path='/login' element={<Unautherized><Login /></Unautherized>} />
+        <Route path='/signup' element={<Unautherized><UserSignup /></Unautherized>} />
+        <Route path='/counselorSignup' element={<Unautherized><CounselorSignUp /></Unautherized>} />
+        <Route path='/otp' element={<Unautherized><OtpLogin /></Unautherized>} />
+        <Route path='/forgotpassword' element={<Unautherized><OtpForgot /></Unautherized>} />
+        <Route path='/updatepassword' element={<Unautherized><UpdatePassword /></Unautherized>} />
         
         <Route path='/user/dashboard' element={<UserRoute> <Dashboard /> </UserRoute>} />
         <Route path='/user/profile' element={<UserRoute> <Profile /> </UserRoute>} />
+
+        <Route path='/admin/dashboard' element={<AdminRoutes> <AdminDashboard /> </AdminRoutes>} />
+        <Route path='/admin/patients' element={<AdminRoutes> <Patients /> </AdminRoutes>} />
+        <Route path='/admin/counsellors' element={<AdminRoutes> <Cousellors /> </AdminRoutes>} />
+        <Route path='/admin/newrequests' element={<AdminRoutes> <NewRequest /> </AdminRoutes>} />
+
+
         
         <Route path='counselor/profileVerification' element={<Unverified> <Unverifiedform /> </Unverified>} />
 
+
+        <Route path='counselor/dashboard' element={<CounselorRoute> <CounselorDashboard /> </CounselorRoute>} />
       </Routes>
     </BrowserRouter>
   );

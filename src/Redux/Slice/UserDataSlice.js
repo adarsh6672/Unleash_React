@@ -37,5 +37,5 @@ const userDateSlice = createSlice({
 })
 
 
-export const {setUserData,clearUserData,} = userDateSlice.actions
+export const {setUserData,clearUserData,setUserRole} = userDateSlice.actions
 export default userDateSlice.reducer
