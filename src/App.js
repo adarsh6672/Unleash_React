@@ -21,6 +21,7 @@ import Patients from './Pages/Dashboard/Admin/Patients';
 import Cousellors from './Pages/Dashboard/Admin/Cousellors';
 import Unautherized from './PrivateRoutes/Unautherized';
 import NewRequest from './Pages/Dashboard/Admin/NewRequest';
+import ViewProfile from './Pages/Dashboard/Admin/ViewProfile';
 
 function App() {
   return (
@@ -41,6 +42,8 @@ function App() {
         <Route path='/admin/patients' element={<AdminRoutes> <Patients /> </AdminRoutes>} />
         <Route path='/admin/counsellors' element={<AdminRoutes> <Cousellors /> </AdminRoutes>} />
         <Route path='/admin/newrequests' element={<AdminRoutes> <NewRequest /> </AdminRoutes>} />
+        <Route path='/admin/request/viewprofile/:userId' element={<AdminRoutes> <ViewProfile /> </AdminRoutes>} />
+
 
 
         

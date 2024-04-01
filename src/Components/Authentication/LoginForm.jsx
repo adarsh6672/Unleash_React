@@ -27,14 +27,45 @@ function LoginForm() {
       
     };
 
+    const validateForm = () => {
+      let isValid = true;
+        
+      // Validate email
+      if (!formData.username) {
+        setErr("Invalid Mail Id")
+        isValid = false;
+      }
+      var re = /\S+@\S+\.\S+/;
+      if(!re.test(formData.username)){
+        setErr("Invalid Mail Id")
+        isValid=false;
+      }
+  
+      // Validate password
+      if (formData.password.length<6) {
+        setErr("Password Must Be 6 Characters")
+        isValid=false;
+      }
+        var pass = formData.password;
+        var reg = /^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)[A-Za-z\d]{7,}$/;
+        var test = reg.test(pass);
+        // if (!test) {
+        //     isValid = false;
+        //     setErr("Password must contain at least one uppercase letter, one lowercase letter, and one digit");
+        // }
+        
+      
+      return isValid;
+    };
+
 
     const handleSubmit=(e) =>{
       e.preventDefault();
       setErr('');
-      setLoading(true);
       console.log(formData)
-      
-        axios.post(BASE_URL+'/login',formData).then(resp =>{
+      if(validateForm()){
+          setLoading(true);
+          axios.post(BASE_URL+'/login',formData).then(resp =>{
           console.log(resp.data);
           dispatch(setUserData(resp.data))
           localStorage.setItem('token',resp.data.token);
@@ -47,6 +78,9 @@ function LoginForm() {
           setLoading(false);
 
         });
+      }
+      
+        
       
     }
 

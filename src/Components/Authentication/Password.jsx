@@ -98,7 +98,7 @@ function Password() {
                 <input
                   id="confpassword"
                   name="confpassword"
-                  type="confpassword"
+                  type="password"
                   value={formData.confpassword}
                   onChange={handleChange}
                   required

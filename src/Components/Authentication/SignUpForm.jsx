@@ -28,6 +28,41 @@ function SignUpForm({isCounselor}) {
     },[]);
 
     
+
+    const validateForm = () => {
+      let isValid = true;
+        
+      
+        var pass = formData.password;
+        var reg = /^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)[A-Za-z\d]{6,}$/;
+        var test = reg.test(pass);
+        if (test===false) {
+            isValid = false;
+            setErr("Password must contain at least one uppercase letter, one lowercase letter, and one digit");
+        }
+        if(formData.phone.length<10){
+          setErr("Enter Valid Mobile Number")
+          isValid= false;
+        }
+              // Validate email
+        if (!formData.email) {
+          setErr("Invalid Mail Id")
+          isValid = false;
+        }
+        var re = /\S+@\S+\.\S+/;
+        if(!re.test(formData.email)){
+          setErr("Invalid Mail Id")
+          isValid=false;
+        }
+
+        if(formData.fullname.length<2){
+          setErr("Enter valid User name")
+        }
+      
+      return isValid;
+    };
+
+
       const handleChange=(e)=>{
         const {name , value} = e.target;
         setFormData({
@@ -39,20 +74,24 @@ function SignUpForm({isCounselor}) {
   
       const handleSubmit=(e) =>{
         e.preventDefault();
-        setErr('');
-        setLoading(true);
-        console.log(formData)
-        localStorage.setItem("email",formData.email);
+        if(validateForm()){
+          
+          setErr('');
+          setLoading(true);
+          console.log(formData)
+          localStorage.setItem("email",formData.email);
+          
+            axios.post(BASE_URL+'/register',formData).then(resp =>{
+              console.log(resp.data)
+              navigate("/otp" ,{state:formData.email})
+            }).catch(error =>{
+              console.log(error.response)
+              setErr(error.response.data)
+              setLoading(false);
+  
+            });
+        }
         
-          axios.post(BASE_URL+'/register',formData).then(resp =>{
-            console.log(resp.data)
-            navigate("/otp" ,{state:formData.email})
-          }).catch(error =>{
-            console.log(error.response)
-            setErr(error.response.data)
-            setLoading(false);
-
-          });
         
       }
     

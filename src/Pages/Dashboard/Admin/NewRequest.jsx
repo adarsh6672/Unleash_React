@@ -4,11 +4,13 @@ import AdminSidepanal from '../../../Components/SidePanel/AdminSidePanal'
 import axios from 'axios';
 import { BASE_URL } from '../../../Utils/const';
 import { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 function NewRequest() {
 
     const [TABLE_ROWS , setTableRows]= useState([]);
     const TABLE_HEAD=['NAME' , 'E MAIL ID' , 'PHONE','JOINED ON' ,'ACTION']
     const token = localStorage.getItem("token");
+    const navigate = useNavigate();
     useEffect(()=>{
         axios.get(BASE_URL+'/admin/fetchnewrequests',{
             headers: {
@@ -23,18 +25,10 @@ function NewRequest() {
     },[])
 
 
-    const blockUser = async(id)=>{
-        console.log(id)
-        await axios.put(BASE_URL+`/admin/blockuser/${id}`,null,{
-          headers: {
-            'Authorization':`Bearer ${token}` 
-        }
-        }).then(res=>{
-          console.log(res)
-          
-        }).catch(err=>{
-          console.log(err)
-        })
+    
+
+      const handleVerify=(id)=>{
+        navigate(`/admin/request/viewprofile/${id}`)
       }
   return (
     <>
@@ -84,15 +78,9 @@ function NewRequest() {
                 </div>
               </td>
               <td className="p-4 ">
-                
-
-                  
-                  <div as="a" href="#" variant="small"  className="cursor-pointer border-2 border-orange-500 rounded-2xl font-medium text-orange-500" value={id} onClick={(e)=>blockUser(id)}>
+                  <div  variant="small"  className="cursor-pointer border-2 border-orange-500 rounded-2xl font-medium text-orange-500" value={id} onClick={()=>handleVerify(id)}>
                   VERIFY
                   </div>
-                
-
-                
               </td>
             </tr>
           ))}
