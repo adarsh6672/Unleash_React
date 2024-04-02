@@ -1,8 +1,9 @@
 import React from 'react'
 import logo from '../Assets/imgs/logo.png'
-import { Link } from 'react-router-dom'
+import { Link, NavLink } from 'react-router-dom'
 import { useSelector } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
+
 function Header() {
 
     const navigate = useNavigate()
@@ -36,10 +37,22 @@ function Header() {
                 </Link>
             
             </div>
+
+            
             <div className=' sm:col-span-5'>
                 <div className="hidden md:block">
                     <div className="ml-10 flex  justify-end space-x-24 mt-10">
-                        <a href="#" className="text-gray-800 hover:text-orange-500 font-bold">Our Counsellors</a>
+                    {/* <div className='py-5 '>
+                <NavLink
+                    to="/counsellors"
+                    className={({ isActive }) =>
+                        isActive ? 'text-orange-500' : 'text-gray-800 hover:text-orange-500 font-bold'
+                        }
+                    >
+                    Our Counsellors
+                </NavLink>
+                </div> */}
+                        <NavLink to='/counsellors' className="text-gray-800 hover:text-orange-500 font-bold">Our Counsellors</NavLink>
                         <a href="#" className="text-gray-800 hover:text-orange-500 font-bold">Plan & Pricing</a>
                         <a href="#" className="text-gray-800 hover:text-orange-500 font-bold">Article Hub</a>
                     </div>

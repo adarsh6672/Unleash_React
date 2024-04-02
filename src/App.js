@@ -22,12 +22,14 @@ import Cousellors from './Pages/Dashboard/Admin/Cousellors';
 import Unautherized from './PrivateRoutes/Unautherized';
 import NewRequest from './Pages/Dashboard/Admin/NewRequest';
 import ViewProfile from './Pages/Dashboard/Admin/ViewProfile';
+import CounsellorsList from './Pages/Home/CounsellorsList';
 
 function App() {
   return (
     <BrowserRouter>
       <Routes >
         <Route path='/' element={<Home />} />
+        <Route path='/counsellors' element={<CounsellorsList/>} />
         <Route path='/login' element={<Unautherized><Login /></Unautherized>} />
         <Route path='/signup' element={<Unautherized><UserSignup /></Unautherized>} />
         <Route path='/counselorSignup' element={<Unautherized><CounselorSignUp /></Unautherized>} />
