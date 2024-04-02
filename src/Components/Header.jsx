@@ -3,6 +3,8 @@ import logo from '../Assets/imgs/logo.png'
 import { Link, NavLink } from 'react-router-dom'
 import { useSelector } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
+import { useState } from 'react'
+import { GiHamburgerMenu } from "react-icons/gi";
 
 function Header() {
 
@@ -10,6 +12,7 @@ function Header() {
 
     const isLogin = useSelector(state => state.auth.isLogin)
     const role = useSelector(state=> state.userData.userRole)
+    const [isOpen, setIsOpen] = useState(false);
     const handleRouting=()=>{
         if(role==='USER'){
             navigate("/user/dashboard")
@@ -27,7 +30,7 @@ function Header() {
   return (
     <>
         <div className='min-h-24 grid gap-4 sm:grid-cols-12 border-b-2  border-b-orange-500'>
-            <div className='sm:col-span-3'>
+            <div className='sm:col-span-3 flex justify-around'>
                 <Link to="/">
                 <img
                 className="mx-auto h-20 w-auto"
@@ -35,26 +38,35 @@ function Header() {
                 alt="Unleash"
                 />
                 </Link>
-            
+                <div className="relative  sm:hidden">
+            <button
+                onClick={() => setIsOpen(!isOpen)}
+                className=" font-bold py-2 px-4 rounded mt-7 text-2xl rounded-md text-orange-500 border-2 border-orange-400 inline-flex items-center"
+            >
+                <GiHamburgerMenu />
+            </button>
+            {isOpen && (
+                <div className="absolute right-0 mt-2 w-48 rounded-md shadow-lg">
+                <div className="rounded-md bg-white shadow-xs">
+                    <div className="py-1" role="menu" aria-orientation="vertical" aria-labelledby="options-menu">
+                    <a href="#" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100" role="menuitem">Our Counsellors</a>
+                    <a href="#" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100" role="menuitem">Plan & Pricing</a>
+                    <a href="#" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100" role="menuitem">Article Hub</a>
+                    </div>
+                </div>
+                </div>
+            )}
+            </div>
             </div>
 
+            
             
             <div className=' sm:col-span-5'>
                 <div className="hidden md:block">
                     <div className="ml-10 flex  justify-end space-x-24 mt-10">
-                    {/* <div className='py-5 '>
-                <NavLink
-                    to="/counsellors"
-                    className={({ isActive }) =>
-                        isActive ? 'text-orange-500' : 'text-gray-800 hover:text-orange-500 font-bold'
-                        }
-                    >
-                    Our Counsellors
-                </NavLink>
-                </div> */}
                         <NavLink to='/counsellors' className="text-gray-800 hover:text-orange-500 font-bold">Our Counsellors</NavLink>
-                        <a href="#" className="text-gray-800 hover:text-orange-500 font-bold">Plan & Pricing</a>
-                        <a href="#" className="text-gray-800 hover:text-orange-500 font-bold">Article Hub</a>
+                        <NavLink  className="text-gray-800 hover:text-orange-500 font-bold">Plan & Pricing</NavLink>
+                        <NavLink href="#" className="text-gray-800 hover:text-orange-500 font-bold">Article Hub</NavLink>
                     </div>
                 </div>
             </div>
