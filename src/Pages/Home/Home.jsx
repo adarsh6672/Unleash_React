@@ -9,6 +9,8 @@ import { FaUser } from "react-icons/fa";
 import { BsCalendar2DateFill } from "react-icons/bs";
 import { FaBusinessTime } from "react-icons/fa";
 import { FaArrowRight } from "react-icons/fa";
+import Footer from '../../Components/Footer';
+import Feedbacks from '../../Components/Feedbacks/Feedbacks';
 
 
 
@@ -75,56 +77,72 @@ function Home() {
                   24/7 Support
                 </div>
             </div>
-          </div>
+        </div>
+        <div className='bg-gradient-to-b from-white to-slate-300 '>
+            {/* icons */}
           <div className='flex justify-around '>
             <h1 className='font-bold text-3xl text-center border-b-4 border-orange-400 pb-2  max-w-lg mt-8'>How It Works</h1>
           </div>
-          <div className='flex justify-around  text-6xl text-orange-400 p-10'>
-            <div>
-              <div className='rounded-full border-4 border-blue-600 p-3 max-w-fit'>
+          <div className='flex justify-around  text-6xl text-orange-400 p-10 '>
+            <div className=''>
+              <div className='rounded-full border-4 border-indigo-800 p-3 max-w-fit my-5'>
                 <FaUser />
               </div>
-              <span>hello</span>
+              <p className='text-xl text-black text-center'>Select</p>
+              <p className='text-xl text-black text-center'>Counselor</p>
             </div>
-
             
-            
-            <div className='text-blue-600'>
+            <div className='text-indigo-800 my-5'>
               <FaArrowRight />
             </div>
 
             <div>
-              <div className='rounded-full border-4 border-blue-600 p-3 max-w-fit'>
+              <div className='rounded-full border-4 border-indigo-800 p-3 max-w-fit my-5'>
               <BsCalendar2DateFill />
               </div>
-              <p className='text-xl text-black'>Schedule</p>
-              <p className='text-xl text-black'>Time & Confirm</p>
+              <p className='text-xl text-black '>Schedule</p>
+              <p className='text-xl text-black text-center'>Time & Confirm</p>
             </div>
 
-            <div className='text-blue-600'>
+            <div className='text-indigo-800 my-5'>
               <FaArrowRight />
             </div>
 
             <div>
-              <div className='rounded-full border-4 border-blue-600 p-3 max-w-fit'>
+              <div className='rounded-full border-4 border-indigo-800 p-3 max-w-fit my-5'>
               <IoMdChatbubbles />
               </div>
-              <span>hello</span>
+              <p className='text-xl text-black text-center'>Start</p>
+              <p className='text-xl text-black text-center'>Session</p>
             </div>
 
-            <div className='text-blue-600'>
+            <div className='text-indigo-800 my-5'>
               <FaArrowRight />
             </div>
 
             <div>
-              <div className='rounded-full border-4 border-blue-600 p-3 max-w-fit'>
+              <div className='rounded-full border-4 border-indigo-800 p-3 max-w-fit my-5'>
               <FaBusinessTime />
               </div>
-              <span>hello</span>
+              <p className='text-xl text-black text-center'>Re Schedule</p>
+              <p className='text-xl text-black text-center'>If Needed</p>
             </div>
-
-            
           </div>
+
+          <div className='relative flex justify-end pr-24'>
+            <div className='absolute rounded-full h-32 w-32 mr-56 bg-orange-500'></div>
+          </div>
+          <div className='flex justify-around relative z-0'>
+            <h1 className='font-bold text-3xl text-center border-b-4 border-orange-400 pb-2 bg-transparent max-w-lg mt-8'>What People Says About Unleash...!</h1>
+          </div>
+
+          <div className='relative flex justify-start pb-24 pl-24'>
+            <div className='absolute rounded-full h-44 w-44 ml-80 bg-indigo-800 z-0'></div>
+          </div>
+          
+          <Feedbacks />
+        </div>
+        <Footer />
     </>
   )
 }
