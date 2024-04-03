@@ -18,7 +18,7 @@ function Home() {
   return (
     <>
         <Header />
-        <div className='h-52 pb-14 md:h-auto  bg-no-repeat bg-cover sm:grid grid-cols-12' style={{backgroundImage:`url(${image})`}}>
+        <div className='h-52 pb-14 md:h-auto bg-right bg-no-repeat bg-cover sm:grid grid-cols-12' style={{backgroundImage:`url(${image})`}}>
         
           <div className='hidden ml-10 lg:mt-28 md:block lg:col-span-4 md:col-span-6 py-6  max-h-72 px-12  w-auto6 mt-10 rounded-2xl opacity-85 bg-white text-center'>
             <h1 className='md:text-2xl lg:text-orange-400 text-4xl mb-6 font-bold '>Talk . Resolve . Heal </h1>
