@@ -8,7 +8,7 @@ import { useNavigate, useParams } from 'react-router-dom'
 function ViewProfile() {
     const token = localStorage.getItem("token")
     const [data , setData] = useState();
-    const [profilePic , setProfilePic]= useState();
+    
     const {userId} = useParams();
     const navigate = useNavigate();
     useEffect(()=>{
@@ -24,16 +24,7 @@ function ViewProfile() {
             console.log(err)
         })
 
-        axios.get(BASE_URL+`/admin/profilephoto/${userId}`,{
-            responseType : 'arraybuffer',
-            headers: {
-                'Authorization':`Bearer ${token}` 
-            }
-        }).then(response =>{
-            console.log(response)
-              const url = URL.createObjectURL(new Blob([response.data]));
-              setProfilePic(url)
-        })
+        
     },[])
 
     const handleApproval=async()=>{
@@ -55,9 +46,11 @@ function ViewProfile() {
             <AdminSidepanal />
             <div className='sm:w-full  p-4  flex flex-col items-center'>
                 <h2 className='text-2xl text-orange-500 font-bold text-center'>Counsellor Profile Verification</h2>
+                {data && (
                 <div className=' m-12'>
-                <img src={profilePic} className='rounded-full h-48 w-48 shadow-lg border-2 border-orange-500 shadow-slate-400' alt='' />   
+                <img src={data.profilePic} className='rounded-full h-48 w-48 shadow-lg border-2 border-orange-500 shadow-slate-400' alt='' />   
                 </div>
+                )}
 
                 {data && (
                     <div className=' grid gap-6 grid-cols-6 w-2/3 '>

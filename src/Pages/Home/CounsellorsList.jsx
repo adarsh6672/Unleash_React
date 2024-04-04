@@ -1,10 +1,13 @@
-import React from 'react'
+
 import Header from '../../Components/Header'
 import image from '../../Assets/imgs/banner.png'
 import FilterCounselor from '../../Components/Filter/FilterCounselor'
 import Footer from '../../Components/Footer'
 
 function CounsellorsList() {
+
+  
+
   return (
     <>
         <Header />
@@ -22,7 +25,7 @@ function CounsellorsList() {
               </button>
           </div>
         </div>
-        <div className='block md:hidden px-5 text-center  text-black h-72  w-full'>
+        <div className='block md:hidden px-5 text-center  text-black py-5  w-full'>
             <h1 className='text-md text-orange-400 font-bold  '> We Have Best Professionals</h1>
             <h1 className='text-md lg:text-lg font-bold  '>  Licenced And Verified , Who Can Help You Heal !</h1>
             <button
@@ -32,8 +35,8 @@ function CounsellorsList() {
                 Get A Recommendation
               </button>
           </div>
-          <FilterCounselor onSelectedDateChanged/>
-          
+          <FilterCounselor/>
+
           <Footer />
     </>
   )

@@ -16,6 +16,7 @@ function VerificationForm() {
     const [qaulfile , setQualfile] = useState();
     const [expfile , setExpfile] = useState();
     const [photo , setPhoto]= useState();
+    const [loading , setLoading]= useState(false)
     
 
     useEffect(()=>{
@@ -45,6 +46,7 @@ function VerificationForm() {
 
 
     const handleUpload =async()=>{
+        setLoading(true)
         const formData = new FormData();
         formData.append('qualification',qaulfile);
         formData.append('experience',expfile);
@@ -63,6 +65,7 @@ function VerificationForm() {
             console.log(resp.data)
         }).catch(err=>{
             console.log(err)
+            setLoading(false)
         })
 
         await axios.post(BASE_URL+'/counselor/documentupload',formData,{
@@ -74,6 +77,7 @@ function VerificationForm() {
             navigate('/')
         }).catch(err =>{
             console.log(err)
+            setLoading(false)
         })
     }
   return (
@@ -172,12 +176,30 @@ function VerificationForm() {
                 <input onChange={e=>setPhoto(e.target.files[0])}
                 className="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 p-1" id="file_input" type="file"/>
 
+{loading && (
                 <button
-                onClick={handleUpload}
-                className="flex w-1/6  justify-center text-center rounded-xl bg-orange-500 px-3 py-1.5 my-4 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-orange-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 "
+                type="submit"
+                className="flex w-full justify-center rounded-2xl bg-orange-500 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-orange-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 "
               >
-                Upload
+                <div
+              className="inline-block h-8 w-8 animate-spin rounded-full text-white border-4 border-solid border-current border-r-transparent align-[-0.125em] motion-reduce:animate-[spin_1.5s_linear_infinite]"
+              role="status">
+              <span
+                className="!absolute !-m-px !h-px !w-px !overflow-hidden !whitespace-nowrap  !border-0 !p-0 ![clip:rect(0,0,0,0)]"
+              >Loading...</span>
+            </div>
               </button>
+              )}
+              
+                {!loading && (
+                  <button
+                  
+                  onClick={handleUpload}
+                  className="flex w-full cursor-pointer justify-center rounded-2xl bg-orange-500 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-orange-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 "
+                >
+                  Submit
+                </button>
+                )}
             </div>
         </div>
 

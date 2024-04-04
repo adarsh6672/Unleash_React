@@ -51,8 +51,11 @@ function Footer() {
                             Get Call Back
                         </button>
 
-                    <div className='flex justify-around text-white text-2xl'>
-                        <FaFacebook /> <FaInstagram /> <FaYoutube /> <BsTwitterX />
+                    <div className='flex justify-around text-white text-2xl '>
+                        <FaFacebook className='hover:text-orange-500 hover:text-3xl'/>
+                         <FaInstagram className='hover:text-orange-500 hover:text-3xl'/> 
+                         <FaYoutube className='hover:text-orange-500 hover:text-3xl'/> 
+                         <BsTwitterX className='hover:text-orange-500 hover:text-3xl'/>
                     </div>
             </div>
         </div>

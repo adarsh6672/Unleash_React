@@ -86,7 +86,7 @@ function SignUpForm({isCounselor}) {
               navigate("/otp" ,{state:formData.email})
             }).catch(error =>{
               console.log(error.response)
-              setErr(error.response.data)
+              setErr(error.response)
               setLoading(false);
   
             });
