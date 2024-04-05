@@ -57,11 +57,13 @@ function ViewProfile() {
                     <div className='col-span-3  h-32 text-end px-4 font-bold '>
                             <h2 className="m-2">Email</h2>
                             <h2 className="m-2">Phone</h2>
-                            <h2 className="m-2">Gender</h2>
+                            
                             <h2 className="m-2">Qualification</h2>
+                            <h2 className="m-2">Specialization</h2>
                             <h2 className="m-2">Year Of Experience</h2>
                             <h2 className="m-2">Language Spoken</h2>
-                            <h2 className="m-2">Specialization</h2>
+                            <h2 className="m-2">Gender</h2>
+                            
 
                             <button
                                 onClick={handleApproval}
@@ -70,18 +72,23 @@ function ViewProfile() {
                                 APPROVE
                             </button>
                     </div>
-                    <div className='col-span-3  h-32'>
+                    <div className='col-span-3  h-auto'>
                             <h2 className="m-2">{data.email}</h2>
                             <h2 className="m-2">{data.phone}</h2>
-                            <h2 className="m-2">{data.gender.gender}</h2>
+                            
                             <h2 className="m-2">{data.qualification.qualification}</h2>
+                            {data.specializations.map((data)=>(
+                                <span className='pl-2' key={data.id}>{data.specilization}</span>
+                            ))}
                             <h2 className="m-2">{data.yoe} Yrs</h2>
                             { data.languages.map((data)=>(
-                                <span className='p-3' key={data.id}>{data.language}</span>
+                                <span className='pl-2' key={data.id}>{data.language}</span>
                             ))}
-                            <h2 className="m-2">{data.specialization.specilization}</h2>
+                            <h2 className="m-2">{data.gender.gender}</h2>
+                           
+                            
                             <button
-                                className="my-5 w-44 justify-center rounded-2xl border-2 border-red-400 px-3 py-1.5 text-sm font-semibold leading-6 text-red-500 shadow-sm  focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 "
+                                className="my-5 w-44  rounded-2xl border-2 border-red-400 px-3 py-1.5 text-sm font-semibold leading-6 text-red-500 shadow-sm  focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 "
                             >
                                 REJECT
                             </button>

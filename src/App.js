@@ -23,6 +23,7 @@ import Unautherized from './PrivateRoutes/Unautherized';
 import NewRequest from './Pages/Dashboard/Admin/NewRequest';
 import ViewProfile from './Pages/Dashboard/Admin/ViewProfile';
 import CounsellorsList from './Pages/Home/CounsellorsList';
+import Submitted from './Pages/Dashboard/Unverified/Submitted';
 
 function App() {
   return (
@@ -49,7 +50,9 @@ function App() {
 
 
         
-        <Route path='counselor/profileVerification' element={<Unverified> <Unverifiedform /> </Unverified>} />
+        <Route path='/counselor/profileVerification' element={<Unverified> <Unverifiedform /> </Unverified>} />
+        <Route path='/counselor/submitted' element={<Unverified> <Submitted /> </Unverified>} />
+
 
 
         <Route path='counselor/dashboard' element={<CounselorRoute> <CounselorDashboard /> </CounselorRoute>} />

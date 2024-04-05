@@ -12,7 +12,7 @@ function Unverified() {
                 <NavLink
                     to="/counselor/profileverification"
                     className={({ isActive }) =>
-                        isActive ? 'py-1 my-5  pl-3 pr-5 bg-white text-indigo-700 rounded-l-2xl ' : 'py-1 my-5 pr-5  rounded-l-2xl ml-16'
+                        isActive ? 'py-1 my-5  pl-3 pr-5 bg-white text-indigo-700 rounded-l-2xl ' : 'py-1 my-5  pl-3 pr-5 bg-white text-indigo-700 rounded-l-2xl'
                         }>
                         Document Verification
                 </NavLink>

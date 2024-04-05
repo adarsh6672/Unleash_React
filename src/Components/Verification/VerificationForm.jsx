@@ -11,7 +11,7 @@ function VerificationForm() {
     const [qualification , setQualification]= useState();
     const [laguages , setLanguages]= useState([]);
     const [yoe , setYoe] = useState();
-    const [specialization , setSpecialization]= useState();
+    const [specialization , setSpecialization]= useState([]);
     const [gender , setGender] = useState();
     const [qaulfile , setQualfile] = useState();
     const [expfile , setExpfile] = useState();
@@ -44,6 +44,16 @@ function VerificationForm() {
         setLanguages(prevLang=> prevLang.filter((_, i) => i !== index))
     }
 
+    const handleSpecialization=(e)=>{
+        if(!specialization.includes(e)){
+            setSpecialization(prev => [...prev,e])
+        }
+    }
+
+    const removeSpecialization=(index)=>{
+        setSpecialization(prev=> prev.filter((_,i)=> i !== index))
+    }
+
 
     const handleUpload =async()=>{
         setLoading(true)
@@ -56,7 +66,7 @@ function VerificationForm() {
             genderId : gender,
             languages : laguages,
             yoe : yoe,
-            specializationId : specialization
+            specializations : specialization
         },{
             headers :{
                 'Authorization':`Bearer ${token}`
@@ -74,7 +84,7 @@ function VerificationForm() {
             }
         }).then(resp=>{
             console.log(resp.data)
-            navigate('/')
+            navigate('/counselor/submitted')
         }).catch(err =>{
             console.log(err)
             setLoading(false)
@@ -134,7 +144,15 @@ function VerificationForm() {
 
                 <div className="my-5  mx-auto">
                 <label for="countries" className="block mb-2 text-sm font-medium text-gray-900 ">Select Specialization</label>
-                <select id="countries" onChange={e=>setSpecialization(e.target.value)}
+                {laguages && (
+                    <ul className='flex gap-5'>
+                    {specialization.map((item, index) => (
+                        <li className='flex' key={index} onClick={()=>removeSpecialization(index)}>{selection.specializations[item-1].specilization }<IoIosClose /></li>
+                        
+                    ))}
+                </ul>
+                )}
+                <select id="countries" onChange={e=>handleSpecialization(e.target.value)}
                 className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 ">
                     <option selected>Choose</option>
                     {selection && selection.specializations.map((specialization) => (

@@ -92,13 +92,14 @@ function FilterCounselor() {
         </div>
 
         <div className='sm:grid md:grid-cols-8 lg:grid-cols-12 gap-6 p-10 '>
-            <div className='bg-slate-100 rounded-xl col-span-3 max-h-80 my-2 p-2 shadow-lg shadow-slate-300'>
+            {data && data.map((item)=>(
+                <div className='bg-slate-100 rounded-xl col-span-4 max-h-80 my-2 p-2 shadow-lg shadow-slate-300'>
                 <div className='flex justify-around'>
-                        <img src="https://imgv3.fotor.com/images/blog-richtext-image/female-professional-corporate-headshots.png" alt="" 
+                        <img src={item.user.profilePic} alt="" 
                         className='h-24 w-24 rounded-full object-cover' />
                         <div className='p-3'>
-                            <h1 className='font-bold py-3'>Name name</h1>
-                            <h1>M.Phil Phsycology</h1>
+                            <h1 className='font-bold py-3'>{item.user.fullname}</h1>
+                            <h1>{item.qualification.qualification}</h1>
                         </div>
                 </div>
                 <div className='p-2 '>
@@ -106,7 +107,10 @@ function FilterCounselor() {
                             <FaCircleCheck />
                             <h1 className='font-bold text-black mx-2 mb-2'>Specialization</h1>
                         </div>
-                        <h1 className='ml-6'>Anxiety , Depression , Stress</h1>
+                        {item.specializations.map((sp)=>(
+                            <span className='ml-6'>{sp.specilization}</span>
+                        ))}
+                        
                 </div>
                 <div className='p-2 '>
                         <div className='text-orange-500 flex '>
@@ -116,14 +120,14 @@ function FilterCounselor() {
                         <h1 className='ml-6'>Mar 25 , 2024 10:00 AM</h1>
                 </div>
                 <div className='flex justify-around py-2 font-bold'>
-                    <button className='bg-slate-400 py-1.5 px-2 rounded-xl text-white shadow-sm shadow-slate-500'>View Profile</button>
-                    <button className='bg-orange-400 py-1.5 px-2 rounded-xl text-white shadow-sm shadow-slate-500'>Book Session</button>
+                    <button className='bg-white py-1.5 px-2 rounded-lg text-orange-500 shadow-sm shadow-slate-500'>View Profile</button>
+                    <button className='bg-orange-500 py-1.5 px-2 rounded-lg text-white shadow-sm shadow-slate-500'>Book Session</button>
                 </div>
             </div>
-            <div className='bg-slate-100 rounded-xl col-span-3 h-48 my-2'></div>
-            <div className='bg-slate-100 rounded-xl col-span-3 h-48 my-2'></div>
-            <div className='bg-slate-100 rounded-xl col-span-3 h-48 my-2'></div>
-            <div className='bg-slate-100 rounded-xl col-span-3 h-48 my-2'></div>
+
+            ))}
+            
+            
 
         </div>
     </>
