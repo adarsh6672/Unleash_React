@@ -24,6 +24,7 @@ import NewRequest from './Pages/Dashboard/Admin/NewRequest';
 import ViewProfile from './Pages/Dashboard/Admin/ViewProfile';
 import CounsellorsList from './Pages/Home/CounsellorsList';
 import Submitted from './Pages/Dashboard/Unverified/Submitted';
+import OpenProfile from './Pages/Home/OpenProfile';
 
 function App() {
   return (
@@ -31,6 +32,8 @@ function App() {
       <Routes >
         <Route path='/' element={<Home />} />
         <Route path='/counsellors' element={<CounsellorsList/>} />
+        <Route path='/open-profile' element={<OpenProfile />} />
+
         <Route path='/login' element={<Unautherized><Login /></Unautherized>} />
         <Route path='/signup' element={<Unautherized><UserSignup /></Unautherized>} />
         <Route path='/counselorSignup' element={<Unautherized><CounselorSignUp /></Unautherized>} />
