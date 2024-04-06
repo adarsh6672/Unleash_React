@@ -11,10 +11,12 @@ import { FaBusinessTime } from "react-icons/fa";
 import { FaArrowRight } from "react-icons/fa";
 import Footer from '../../Components/Footer';
 import Feedbacks from '../../Components/Feedbacks/Feedbacks';
+import {useNavigate} from 'react-router-dom'
 
 
 
 function Home() {
+  const nav = useNavigate();
   return (
     <>
         <Header />
@@ -53,6 +55,7 @@ function Home() {
                 <button
                 
                 className="w-auto mt-10  justify-center rounded-xl bg-orange-400  p-2.5 text-lg font-medium  text-white shadow-sm shadow-slate-700 hover:bg-orange-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 "
+                onClick={()=>nav("/counsellors")}
               >
                 View Our Counsellors
               </button>

@@ -25,6 +25,7 @@ import ViewProfile from './Pages/Dashboard/Admin/ViewProfile';
 import CounsellorsList from './Pages/Home/CounsellorsList';
 import Submitted from './Pages/Dashboard/Unverified/Submitted';
 import OpenProfile from './Pages/Home/OpenProfile';
+import TimeSchedule from './Pages/Dashboard/Counselor/TimeSchedule';
 
 function App() {
   return (
@@ -59,6 +60,8 @@ function App() {
 
 
         <Route path='counselor/dashboard' element={<CounselorRoute> <CounselorDashboard /> </CounselorRoute>} />
+        <Route path='counselor/time-schedule' element={<CounselorRoute> <TimeSchedule /> </CounselorRoute>} />
+
       </Routes>
     </BrowserRouter>
   );

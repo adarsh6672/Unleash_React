@@ -4,13 +4,13 @@ import axios from 'axios';
 import { useEffect } from 'react';
 import { BASE_URL } from '../../Utils/const';
 import { FaCircleCheck } from "react-icons/fa6";
-
+import {useNavigate} from 'react-router-dom'
 
 function FilterCounselor() {
     const [date , setDate] = useState('');
     const [selection , setSelection] = useState();
     const [specialization , setSpecialization]= useState();
-
+    const navigate = useNavigate();
 
     useEffect(()=>{
         
@@ -41,6 +41,10 @@ function FilterCounselor() {
 
     const handleLanguage=()=>{
       
+    }
+
+    const handleViewProfile=(index)=>{
+        navigate("/open-profile" ,{state: index })
     }
   return (
     <>
@@ -92,7 +96,7 @@ function FilterCounselor() {
         </div>
 
         <div className='sm:grid md:grid-cols-8 lg:grid-cols-12 gap-6 p-10 '>
-            {data && data.map((item)=>(
+            {data && data.map((item ,index)=>(
                 <div className='bg-slate-100 rounded-xl col-span-4 max-h-80 my-2 p-2 shadow-lg shadow-slate-300'>
                 <div className='flex justify-around'>
                         <img src={item.user.profilePic} alt="" 
@@ -120,7 +124,8 @@ function FilterCounselor() {
                         <h1 className='ml-6'>Mar 25 , 2024 10:00 AM</h1>
                 </div>
                 <div className='flex justify-around py-2 font-bold'>
-                    <button className='bg-white py-1.5 px-2 rounded-lg text-orange-500 shadow-sm shadow-slate-500'>View Profile</button>
+                    <button className='bg-white py-1.5 px-2 rounded-lg text-orange-500 shadow-sm shadow-slate-500'
+                    onClick={()=>{handleViewProfile(data[index])}}>View Profile</button>
                     <button className='bg-orange-500 py-1.5 px-2 rounded-lg text-white shadow-sm shadow-slate-500'>Book Session</button>
                 </div>
             </div>
