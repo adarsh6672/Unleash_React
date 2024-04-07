@@ -34,6 +34,11 @@ function FilterCounselor() {
       })
   },[])
 
+    const convert=(d)=>{
+        const dt = new Date(d);
+        dt.setTime(dt.getTime() + (5 * 60 * 60 * 1000) + (30 * 60 * 1000))
+        return dt.toDateString();
+    }
     const handleDate =(d)=>{
       setDate(d);
       
@@ -41,6 +46,10 @@ function FilterCounselor() {
 
     const handleLanguage=()=>{
       
+    }
+
+    const handleSessionBooking=(id)=>{
+        navigate('/user/counselor-slot',{state: id })
     }
 
     const handleViewProfile=(index)=>{
@@ -119,14 +128,21 @@ function FilterCounselor() {
                 <div className='p-2 '>
                         <div className='text-orange-500 flex '>
                             <FaCircleCheck />
+                          
                             <h1 className='font-bold text-black mx-2 '>Next Avilable At</h1>
                         </div>
-                        <h1 className='ml-6'>Mar 25 , 2024 10:00 AM</h1>
+                        {item.nextAvailable && (      
+                            <h1 className='ml-6'>{convert(item.nextAvailable.slot)}</h1>
+                        )}
+                        {!item.nextAvailable && (      
+                            <h1 className='ml-6'>Not Available</h1>
+                        )}
                 </div>
-                <div className='flex justify-around py-2 font-bold'>
+                <div className='flex justify-around py-2 '>
                     <button className='bg-white py-1.5 px-2 rounded-lg text-orange-500 shadow-sm shadow-slate-500'
                     onClick={()=>{handleViewProfile(data[index])}}>View Profile</button>
-                    <button className='bg-orange-500 py-1.5 px-2 rounded-lg text-white shadow-sm shadow-slate-500'>Book Session</button>
+                    <button className='bg-orange-500 py-1.5 px-2 rounded-lg text-white shadow-sm shadow-slate-500'
+                    onClick={()=>handleSessionBooking(item.user.id)}>Book Session</button>
                 </div>
             </div>
 

@@ -26,6 +26,9 @@ import CounsellorsList from './Pages/Home/CounsellorsList';
 import Submitted from './Pages/Dashboard/Unverified/Submitted';
 import OpenProfile from './Pages/Home/OpenProfile';
 import TimeSchedule from './Pages/Dashboard/Counselor/TimeSchedule';
+import CounselorSlots from './Pages/Dashboard/User/CounselorSlots';
+import CounselorProfile from './Pages/Dashboard/Counselor/CounselorProfile';
+
 
 function App() {
   return (
@@ -44,6 +47,8 @@ function App() {
         
         <Route path='/user/dashboard' element={<UserRoute> <Dashboard /> </UserRoute>} />
         <Route path='/user/profile' element={<UserRoute> <Profile /> </UserRoute>} />
+        <Route path='/user/counselor-slot' element={<UserRoute> <CounselorSlots /> </UserRoute>} />
+
 
         <Route path='/admin/dashboard' element={<AdminRoutes> <AdminDashboard /> </AdminRoutes>} />
         <Route path='/admin/patients' element={<AdminRoutes> <Patients /> </AdminRoutes>} />
@@ -61,6 +66,8 @@ function App() {
 
         <Route path='counselor/dashboard' element={<CounselorRoute> <CounselorDashboard /> </CounselorRoute>} />
         <Route path='counselor/time-schedule' element={<CounselorRoute> <TimeSchedule /> </CounselorRoute>} />
+        <Route path='counselor/profile' element={<CounselorRoute> <CounselorProfile /> </CounselorRoute>} />
+
 
       </Routes>
     </BrowserRouter>

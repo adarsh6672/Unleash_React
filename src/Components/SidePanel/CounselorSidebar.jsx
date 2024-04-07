@@ -4,7 +4,7 @@ function CounselorSidebar() {
   return (
     <>
         
-        <div className='hidden md:block sm:w-1/5 bg-indigo-700 rounded-e-3xl h-screen  text-white font-bold text-xl '>
+        <div className='hidden md:block sm:w-1/5 bg-indigo-700 rounded-e-3xl min-h-screen max-h-max  text-white font-bold text-xl '>
             <div className='block text-end my-5 '>
 
                 <div className='py-5 '>
@@ -85,7 +85,7 @@ function CounselorSidebar() {
 
                 <div className='py-5'>
                 <NavLink
-                    to="/dashb  ard"
+                    to="/counselor/profile"
                     className={({ isActive }) =>
                         isActive ? 'py-1 my-5 pl-28 pr-5 bg-white text-indigo-700 rounded-l-2xl ml-16' : 'py-1 my-5  pr-5  rounded-l-2xl pl-2'
                         }

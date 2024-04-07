@@ -6,16 +6,31 @@ import { RiGraduationCapFill } from "react-icons/ri";
 import { FaCheckCircle } from "react-icons/fa";
 import { FaStar } from "react-icons/fa";
 import { IoChatboxEllipses } from "react-icons/io5";
+import {useNavigate} from 'react-router-dom'
 
 
 const OpenProfile = () => {
     const location = useLocation();
-
+    const navigate = useNavigate();
     const data = location.state;
     console.log(data)
+
+    const handleSessionBooking=()=>{
+        navigate('/user/counselor-slot',{state: data.user.id })
+    }
+
+    const convert=(d)=>{
+        const dt = new Date(d);
+        dt.setTime(dt.getTime() + (5 * 60 * 60 * 1000) + (30 * 60 * 1000))
+        return dt.toDateString();
+    }
     return (
         <>
             <Header />
+            <div className=' '>
+                <button className='bg-orange-500 mt-10 ml-10 p-2 px-10 rounded-2xl text-white'
+                onClick={()=>navigate(-1)}>Back</button>
+            </div>
             {data && (
                 <div className='sm:grid grid-cols-12 p-10 pt-10 gap-5 '>
                 <div className=' col-span-3 '>
@@ -24,7 +39,8 @@ const OpenProfile = () => {
                         className='h-64 w-64 object-cover rounded-lg' />
                         <h1 className='text-center font-bold pt-5 '>{data.user.fullname}</h1> 
                         <h1 className='p-5'>{data.qualification.qualification}</h1>
-                        <button className='bg-orange-500 text-white rounded-lg text-center p-2 mb-10'>
+                        <button className='bg-orange-500 text-white rounded-lg text-center p-2 mb-10'
+                        onClick={handleSessionBooking}>
                         Book A Session
                     </button>
                     </div>                    
@@ -45,12 +61,18 @@ const OpenProfile = () => {
                         </div>
                         <div>
                             <h1 className='font-bold text-xl mb-10'>Next Avilable At</h1>
-                            <h1>Apr 20, 2024 10:00 PM</h1>
+                            {data.nextAvailable && (
+                                <h1>{convert(data.nextAvailable.slot)}</h1>
+                            )}
+                            {!data.nextAvailable && (
+                                <h1>Not Available</h1>
+                            )}
+                            
                         </div>
                    </div>
                    <div className='col-span-1 flex'>
                         <div className='text-orange-500 text-5xl px-10'>
-                            <FaCheckCircle />
+                            <FaStar />
                         </div>
                         <div>
                             <h1 className='font-bold text-xl mb-10'>Specializations</h1>
