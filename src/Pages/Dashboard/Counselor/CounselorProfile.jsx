@@ -12,7 +12,7 @@ function CounselorProfile() {
   const navigate= useNavigate();
     const token = localStorage.getItem("token");
     const [profileData , setProfileData] = useState();
-    const [fullname , setFullname] = useState();
+    const [fullname , setFullname] = useState(null);
     const [selection , setSelection] = useState();
     const [qualification , setQualification]= useState();
     const [laguages , setLanguages]= useState([]);
@@ -34,7 +34,7 @@ function CounselorProfile() {
         }
         }).then(res=>{
           setProfileData(res.data)
-          initialSet(profileData)
+          initialSet(res.data)
         }).catch(err=>{
           console.log(err)
         })
@@ -106,10 +106,9 @@ function CounselorProfile() {
   const handleUpload =async()=>{
       setLoading(true)
       
-      await axios.post(BASE_URL+'/counselor/dataupload',{
+      await axios.post(BASE_URL+'/counselor/profile-data-updation',{
           qualificationId : qualification,
           fullname : fullname,
-          genderId : gender,
           languages : laguages,
           yoe : yoe,
           specializations : specialization
@@ -119,6 +118,7 @@ function CounselorProfile() {
           }
       }).then(resp=>{
           console.log(resp.data)
+          setLoading(false)
       }).catch(err=>{
           console.log(err)
           setLoading(false)
@@ -127,7 +127,7 @@ function CounselorProfile() {
         const formData = new FormData();
         formData.append('qualification',qaulfile);
         formData.append('experience',expfile);
-        await axios.post(BASE_URL+'/counselor/documentupload',formData,{
+        await axios.post(BASE_URL+'/counselor/documentUpdation',formData,{
           headers :{
               'Authorization':`Bearer ${token}`
           }
@@ -160,66 +160,74 @@ function CounselorProfile() {
             </div>
             )}
 
-            {profileData && (
+            
                 <div className="flex min-h-full flex-1 flex-col justify-center px-6  lg:px-8">
                 <div className="sm:mx-auto sm:w-full sm:max-w-xl">
     
-    
-                    <div>
-                      <label  className="block text-sm font-medium  text-gray-900">
-                       Full Name
-                      </label>
-                      <div className="mt-2">
-                        <input
-                          id="fullname"
-                          name="fullname"
-                          type="text"
-                          onChange={(e)=>setFullname(e.target.value)}
-                          value={fullname}
-                          required
-                          className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2 "
-                        />
+                {profileData && (
+                  <div>
+                  <label  className="block text-sm font-medium  text-gray-900">
+                   Full Name
+                  </label>
+                  <div className="mt-2">
+                    <input
+                      id="fullname"
+                      name="fullname"
+                      type="text"
+                      onChange={(e)=>setFullname(e.target.value)}
+                      value={fullname}
+                      required
+                      className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2 "
+                    />
+                  </div>
+                  </div>
+
+                )}
+                    
+                    {profileData && (
+                      <div className="my-5  mx-auto">
+                      <label for="countries" className="block mb-2 text-sm font-medium text-gray-900 ">Mail Id</label>
+                      <div 
+                       className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 ">
+                          {profileData.user.email}
                       </div>
                       </div>
-    
-                    <div className="my-5  mx-auto">
-                    <label for="countries" className="block mb-2 text-sm font-medium text-gray-900 ">Mail Id</label>
-                    <div 
-                     className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 ">
-                        {profileData.user.email}
-                    </div>
-                    </div>
-    
+                    )}
                     
     
-                    <div className="my-5  mx-auto">
-                    <label for="countries" className="block mb-2 text-sm font-medium text-gray-900 ">Gender</label>
-                    <div 
-                     className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 ">
-                        Male
-                    </div>
-                    </div>
-    
-                    <div className="my-5  mx-auto">
-                    <label for="countries" className="block mb-2 text-sm font-medium text-gray-900 ">Language</label>
-                    {laguages && (
-                        <ul className='flex gap-5'>
-                        {laguages.map((item, index) => (
-                            <li className='flex' key={index} onClick={()=>removeLanguage(index)}>{selection.languages[item-1].language }<IoIosClose /></li>
-                            
-                        ))}
-                    </ul>
+                    
+                    {profileData && (
+                      <div className="my-5  mx-auto">
+                      <label for="countries" className="block mb-2 text-sm font-medium text-gray-900 ">Gender</label>
+                      <div 
+                       className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 ">
+                          {profileData.gender.gender}
+                      </div>
+                      </div>
                     )}
-                    <select id="countries"  onChange={(e)=>handleLanguage(e.target.value)}
-                     className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 ">
-                        <option selected>Choose</option>
-                        {selection && selection.languages.map((language) => (
-                        <option key={language.id} value={language.id}>
-                            {language.language}
-                        </option>
-                    ))}
-                    </select>
-                    </div>
+                    
+                       <div className="my-5  mx-auto">
+                       <label for="countries" className="block mb-2 text-sm font-medium text-gray-900 ">Language</label>
+                       {laguages && (
+                           <ul className='flex gap-5'>
+                           {laguages.map((item, index) => (
+                               <li className='flex' key={index} onClick={()=>removeLanguage(index)}>{selection.languages[item-1].language }<IoIosClose /></li>
+                               
+                           ))}
+                       </ul>
+                       )}
+                       <select id="countries"  onChange={(e)=>handleLanguage(e.target.value)}
+                        className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 ">
+                           <option selected>Choose</option>
+                           {selection && selection.languages.map((language) => (
+                           <option key={language.id} value={language.id}>
+                               {language.language}
+                           </option>
+                       ))}
+                       </select>
+                       </div>
+
+                  
     
                     <div className="my-5  mx-auto">
                     <label for="countries" className="block mb-2 text-sm font-medium text-gray-900 ">Specialization</label>
@@ -262,7 +270,7 @@ function CounselorProfile() {
                     <label for="countries" className="block mb-2 text-sm font-medium text-gray-900 ">Qualification</label>
                     <select id="countries" value={qualification} onChange={(e)=>handleQualification(e.target.value)}
                      className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 ">
-                        <option selected>Choose a Qualification</option>
+                        <option selected> Qualification</option>
                         {selection && selection.qualifications.map((qualification) => (
                         <option key={qualification.id} value={qualification.id}>
                             {qualification.qualification}
@@ -318,7 +326,7 @@ function CounselorProfile() {
                     )}
                 </div>
             </div>
-            )}
+           
             
             </div>
         </div>

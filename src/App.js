@@ -28,6 +28,8 @@ import OpenProfile from './Pages/Home/OpenProfile';
 import TimeSchedule from './Pages/Dashboard/Counselor/TimeSchedule';
 import CounselorSlots from './Pages/Dashboard/User/CounselorSlots';
 import CounselorProfile from './Pages/Dashboard/Counselor/CounselorProfile';
+import UpdationRequest from './Pages/Dashboard/Admin/UpdationRequest';
+import OpenUpdation from './Pages/Dashboard/Admin/OpenUpdation';
 
 
 function App() {
@@ -55,6 +57,10 @@ function App() {
         <Route path='/admin/counsellors' element={<AdminRoutes> <Cousellors /> </AdminRoutes>} />
         <Route path='/admin/newrequests' element={<AdminRoutes> <NewRequest /> </AdminRoutes>} />
         <Route path='/admin/request/viewprofile/:userId' element={<AdminRoutes> <ViewProfile /> </AdminRoutes>} />
+        <Route path='/admin/updation-requests' element={<AdminRoutes> <UpdationRequest/> </AdminRoutes>} />
+        <Route path='/admin/request/view-updation/' element={<AdminRoutes> <OpenUpdation /> </AdminRoutes>} />
+
+
 
 
 
