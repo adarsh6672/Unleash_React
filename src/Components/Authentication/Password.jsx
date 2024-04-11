@@ -35,7 +35,7 @@ function Password() {
         setLoading(true);
         console.log(formData)
         
-          axios.post(BASE_URL+'/password/forgot/newpassword',{
+          axios.post(BASE_URL+'/auth/password/forgot/newpassword',{
             email : localStorage.getItem("forgotmail"),
             password : formData.password
           }).then(resp =>{

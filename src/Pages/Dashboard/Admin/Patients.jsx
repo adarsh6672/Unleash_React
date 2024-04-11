@@ -10,7 +10,7 @@ function Patients() {
     const [update , setUpdate]= useState(false);
     const token = localStorage.getItem("token");
     useEffect(()=>{
-        axios.get(BASE_URL+'/admin/fetchpatients',{
+        axios.get(BASE_URL+'/user/admin/fetchpatients',{
             headers: {
                 'Authorization':`Bearer ${token}` 
             }
@@ -24,7 +24,7 @@ function Patients() {
 
     const blockUser = async(id)=>{
       console.log(id)
-      await axios.put(BASE_URL+`/admin/blockuser/${id}`,null,{
+      await axios.put(BASE_URL+`/user/admin/blockuser/${id}`,null,{
         headers: {
           'Authorization':`Bearer ${token}` 
       }
@@ -38,7 +38,7 @@ function Patients() {
 
     const unBlockUser = async(id)=>{
       console.log(id)
-      await axios.put(BASE_URL+`/admin/unblockuser/${id}`,null,{
+      await axios.put(BASE_URL+`/user/admin/unblockuser/${id}`,null,{
         headers: {
           'Authorization':`Bearer ${token}` 
       }

@@ -12,7 +12,7 @@ function NewRequest() {
     const token = localStorage.getItem("token");
     const navigate = useNavigate();
     useEffect(()=>{
-        axios.get(BASE_URL+'/admin/fetchnewrequests',{
+        axios.get(BASE_URL+'/user/admin/fetchnewrequests',{
             headers: {
                 'Authorization':`Bearer ${token}` 
             }

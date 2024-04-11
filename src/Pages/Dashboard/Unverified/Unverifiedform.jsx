@@ -15,7 +15,7 @@ function Unverifiedform() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   useEffect(()=>{
-      axios.get(BASE_URL+'/counselor/verificationstatus',{
+      axios.get(BASE_URL+'/user/counselor/verificationstatus',{
         headers: {
           'Authorization':`Bearer ${token}` 
       }

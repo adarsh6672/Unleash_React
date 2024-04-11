@@ -25,9 +25,9 @@ const CounselorSlots = () => {
     useEffect(()=>{
         date.setHours(0)
         console.log(date)
-        axios.get(BASE_URL+'/user/get-time-slots',{
+        axios.get(BASE_URL+'/consultation/counselor/get-time-slots',{
             params: {
-                date: date.toISOString(),
+                date: date.toLocaleString(),
                 counselorId: counselorId
               },
             headers :{
@@ -62,7 +62,7 @@ const CounselorSlots = () => {
         cpdate.setMilliseconds(0);
         console.log(date+'-------------------------------------------------------')
         // const formattedDate = cpdate.toLocaleString('en-US', options);
-        const isodate= cpdate.toISOString()
+        const isodate= cpdate.toLocaleString()
         
         setSlot(isodate)
         console.log(slot + '---------------'+newSlot)
@@ -92,8 +92,6 @@ const CounselorSlots = () => {
             
             const array = datas.map(isoDate => {
                 const dat = new Date(isoDate.slot);
-                
-                dat.setTime(dat.getTime() + (5 * 60 * 60 * 1000) + (30 * 60 * 1000))
                 return dat.getHours();
             });
     
@@ -109,13 +107,16 @@ const CounselorSlots = () => {
                 <button className='bg-orange-500 mt-10 ml-10 p-2 px-10 rounded-2xl text-white'
                 onClick={()=>navigate(-1)}>Back</button>
             </div>
-            <h1 className='font-bold text-center text-3xl  text-indigo-800 p-10 bg-slate-100'>STIME SLOTS AVILABLE</h1>
-            <div className='sm:w-full  p-4 sm:grid grid-cols-12 bg-slate-100 pb-20'>
-                <div className='col-span-3'>
-                    <Datepicker minDate={new Date()}  inline onSelectedDateChanged={e=>handleDate(e)} />
+            <h1 className='font-bold text-center text-3xl  text-indigo-800 pb-5 bg-slate-100'>STIME SLOTS AVILABLE</h1>
+            <div className='sm:w-full  p-4 sm:grid grid-cols-12 px-10 bg-slate-100 pb-20 '>
+                <div className='col-span-3 mx-auto'>
+                    <Datepicker minDate={new Date()} showTodayButton={false} showClearButton={false}  inline onSelectedDateChanged={e=>handleDate(e)} />
                 </div>
                
-                <div className='col-span-8  max-h-60'>
+                <div className='col-span-9   bg-white rounded-lg shadow-md shadow-slate-300 p-10 m-1'>
+                {!localDateArray[0] && (
+                        <h1 className='text-center text-xl mt-10 text-red-500'>No Time Slots Avilable On This Date</h1>
+                    )}
                     <div className='sm:grid lg:grid-cols-6 md:grid-cols-2 col-span-6 gap-6'>
                     {localDateArray && time.map((item, index) => (
                     <div key={index} className={localDateArray.includes(index+6) && newSlot !== index ? 'text-orange-500 border border-orange-500 text-center max-h-10 p-2 cursor-pointer' 
@@ -127,17 +128,18 @@ const CounselorSlots = () => {
                     </div>
                     ))}
                     </div>
-                    {!localDateArray[0] && (
-                        <h1 className='text-center text-xl text-red-500'>No Time Slots Avilable On This Date</h1>
-                    )}
+                    
+                    
+                   
+                </div>
+                <div className='mx-auto col-span-12'>
+              
 
                     {localDateArray[0] && (
                         <div className='col-span-6 flex justify-center p-10'>
                             <button className='bg-indigo-800 p-3 text-white font-bold rounded-md text-md' onClick={handleSubmit}>Book Session</button>  
                         </div>
                     )}
-                    
-                   
                 </div>
                 
             </div>

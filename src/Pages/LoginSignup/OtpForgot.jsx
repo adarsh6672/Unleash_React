@@ -46,7 +46,7 @@ function OtpForgot() {
 
     const handleResend=()=>{
       setResend(!resend);
-      axios.post(BASE_URL+'/password/forgot',{
+      axios.post(BASE_URL+'/auth/password/forgot',{
         email:localStorage.getItem("forgotmail")
       }).then(resp =>{
         console.log(resp.data);
@@ -104,7 +104,7 @@ function OtpForgot() {
         setLoading(true);
         console.log(otp)
         
-        await axios.post(BASE_URL+'/password/forgot/otpverify',{
+        await axios.post(BASE_URL+'/auth/password/forgot/otpverify',{
           email: email,
           otp: otp
         }).then(res =>{

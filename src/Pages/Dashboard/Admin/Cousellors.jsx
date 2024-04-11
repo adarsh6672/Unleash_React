@@ -12,7 +12,7 @@ function Cousellors() {
     const [update , setUpdate]= useState(false);
     const token = localStorage.getItem("token");
     useEffect(()=>{
-        axios.get(BASE_URL+'/admin/fetchcounsellors',{
+        axios.get(BASE_URL+'/user/admin/fetchcounsellors',{
             headers: {
                 'Authorization':`Bearer ${token}` 
             }
@@ -26,7 +26,7 @@ function Cousellors() {
 
     const blockUser = async(id)=>{
       console.log(id)
-      await axios.put(BASE_URL+`/admin/blockuser/${id}`,null,{
+      await axios.put(BASE_URL+`/user/admin/blockuser/${id}`,null,{
         headers: {
           'Authorization':`Bearer ${token}` 
       }
@@ -40,7 +40,7 @@ function Cousellors() {
 
     const unBlockUser = async(id)=>{
       console.log(id)
-      await axios.put(BASE_URL+`/admin/unblockuser/${id}`,null,{
+      await axios.put(BASE_URL+`/user/admin/unblockuser/${id}`,null,{
         headers: {
           'Authorization':`Bearer ${token}` 
       }

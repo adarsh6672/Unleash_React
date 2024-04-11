@@ -16,7 +16,7 @@ const OpenUpdation = () => {
 
 
     const handleApproval=async()=>{
-        await axios.post(BASE_URL+`/admin/approve-update/${data.id}`,null,{
+        await axios.post(BASE_URL+`/user/admin/approve-update/${data.id}`,null,{
             headers: {
                 'Authorization':`Bearer ${token}` 
             }

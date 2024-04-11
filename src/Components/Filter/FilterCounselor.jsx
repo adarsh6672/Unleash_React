@@ -5,6 +5,8 @@ import { useEffect } from 'react';
 import { BASE_URL } from '../../Utils/const';
 import { FaCircleCheck } from "react-icons/fa6";
 import {useNavigate} from 'react-router-dom'
+import moment from "moment";
+
 
 function FilterCounselor() {
     const [date , setDate] = useState('');
@@ -36,8 +38,9 @@ function FilterCounselor() {
 
     const convert=(d)=>{
         const dt = new Date(d);
-        dt.setTime(dt.getTime() + (5 * 60 * 60 * 1000) + (30 * 60 * 1000))
-        return dt.toDateString();
+        const date = moment(d, "YYYY-MM-DDTHH:mm");
+        return date.format(" h:mm A  - ddd MMMM  YYYY");
+        
     }
     const handleDate =(d)=>{
       setDate(d);
@@ -132,7 +135,7 @@ function FilterCounselor() {
                             <h1 className='font-bold text-black mx-2 '>Next Avilable At</h1>
                         </div>
                         {item.nextAvailable && (      
-                            <h1 className='ml-6'>{convert(item.nextAvailable.slot)}</h1>
+                            <h1 className='ml-6'>{convert(item.nextAvailable)}</h1>
                         )}
                         {!item.nextAvailable && (      
                             <h1 className='ml-6'>Not Available</h1>

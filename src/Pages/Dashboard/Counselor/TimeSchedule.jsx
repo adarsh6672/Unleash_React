@@ -22,9 +22,9 @@ const TimeSchedule = () => {
     useEffect(()=>{
         date.setHours(0)
         console.log(date)
-        axios.get(BASE_URL+'/counselor/get-my-slots',{
+        axios.get(BASE_URL+'/consultation/counselor/get-my-slots',{
             params: {
-                date: date.toISOString()
+                date: date.toLocaleString()
               },
             headers :{
                 'Authorization':`Bearer ${token}`
@@ -54,9 +54,8 @@ const TimeSchedule = () => {
         cpdate.setMinutes(0);
         cpdate.setSeconds(0);
         cpdate.setMilliseconds(0);
-        console.log(date+'-------------------------------------------------------')
-        // const formattedDate = cpdate.toLocaleString('en-US', options);
-        const isodate= cpdate.toISOString()
+        console.log(cpdate.toLocaleDateString())
+        const isodate= cpdate.toLocaleString()
        
         if(newSlot.includes(index)){
             var temp= newSlot.filter((item, i) => item !== index);
@@ -81,7 +80,7 @@ const TimeSchedule = () => {
     const handleSubmit=async()=>{
         console.log(slot)
         
-        await axios.post(BASE_URL+'/counselor/schedule-time-slot',slot,{
+        await axios.post(BASE_URL+'/consultation/counselor/schedule-time-slot',slot,{
             headers :{
                 'Authorization':`Bearer ${token}`
             }
@@ -101,7 +100,7 @@ const TimeSchedule = () => {
             const array = datas.map(isoDate => {
                 const dat = new Date(isoDate.slot);
                 
-                dat.setTime(dat.getTime() + (5 * 60 * 60 * 1000) + (30 * 60 * 1000))
+                
                 return dat.getHours();
             });
     

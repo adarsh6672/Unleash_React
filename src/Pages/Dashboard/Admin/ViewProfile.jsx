@@ -13,7 +13,7 @@ function ViewProfile() {
     const navigate = useNavigate();
     useEffect(()=>{
         
-        axios.get(BASE_URL+`/admin/profileverification/${userId}`,{
+        axios.get(BASE_URL+`/user/admin/profileverification/${userId}`,{
             headers: {
                 'Authorization':`Bearer ${token}` 
             }
@@ -28,7 +28,7 @@ function ViewProfile() {
     },[])
 
     const handleApproval=async()=>{
-        await axios.put(BASE_URL+`/admin/vefify/counselor/${userId}`,null,{
+        await axios.put(BASE_URL+`/user/admin/vefify/counselor/${userId}`,null,{
             headers: {
                 'Authorization':`Bearer ${token}` 
             }

@@ -12,7 +12,7 @@ function UpdationRequest() {
     const token = localStorage.getItem("token");
     const navigate = useNavigate();
     useEffect(()=>{
-        axios.get(BASE_URL+'/admin/updation-requests',{
+        axios.get(BASE_URL+'/user/admin/updation-requests',{
             headers: {
                 'Authorization':`Bearer ${token}` 
             }

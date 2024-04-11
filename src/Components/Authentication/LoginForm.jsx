@@ -65,7 +65,7 @@ function LoginForm() {
       console.log(formData)
       if(validateForm()){
           setLoading(true);
-          axios.post(BASE_URL+'/login',formData).then(resp =>{
+          axios.post(BASE_URL+'/auth/login',formData).then(resp =>{
           console.log(resp.data);
           dispatch(setUserData(resp.data))
           localStorage.setItem('token',resp.data.token);
@@ -91,7 +91,7 @@ function LoginForm() {
         setLoading(true)
         let email = formData.username;
         localStorage.setItem("forgotmail",email);
-        axios.post(BASE_URL+'/password/forgot',{
+        axios.post(BASE_URL+'/auth/password/forgot',{
           email
         }).then(resp =>{
           console.log(resp.data);

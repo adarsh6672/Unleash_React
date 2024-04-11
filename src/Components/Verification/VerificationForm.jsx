@@ -21,7 +21,7 @@ function VerificationForm() {
 
     useEffect(()=>{
         
-         axios.get(BASE_URL+'/counselor/getselectiondata',{
+         axios.get(BASE_URL+'/user/counselor/getselectiondata',{
             headers: {
                 'Authorization':`Bearer ${token}`
             }
@@ -78,7 +78,7 @@ function VerificationForm() {
             setLoading(false)
         })
 
-        await axios.post(BASE_URL+'/counselor/documentupload',formData,{
+        await axios.post(BASE_URL+'/user/counselor/documentupload',formData,{
             headers :{
                 'Authorization':`Bearer ${token}`
             }

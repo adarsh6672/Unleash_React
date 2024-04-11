@@ -28,7 +28,7 @@ function CounselorProfile() {
 
 
     useEffect(()=>{
-        axios.get(BASE_URL+'/counselor/get-profile-data',{
+        axios.get(BASE_URL+'/user/counselor/get-profile-data',{
           headers :{
             'Authorization':`Bearer ${token}`
         }
@@ -43,7 +43,7 @@ function CounselorProfile() {
 
     useEffect(()=>{
         
-      axios.get(BASE_URL+'/counselor/getselectiondata',{
+      axios.get(BASE_URL+'/user/counselor/getselectiondata',{
          headers: {
              'Authorization':`Bearer ${token}`
          }

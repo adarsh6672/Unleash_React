@@ -81,7 +81,7 @@ function SignUpForm({isCounselor}) {
           console.log(formData)
           localStorage.setItem("email",formData.email);
           
-            axios.post(BASE_URL+'/register',formData).then(resp =>{
+            axios.post(BASE_URL+'/auth/register',formData).then(resp =>{
               console.log(resp.data)
               navigate("/otp" ,{state:formData.email})
             }).catch(error =>{

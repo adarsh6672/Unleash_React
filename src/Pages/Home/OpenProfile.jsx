@@ -7,6 +7,7 @@ import { FaCheckCircle } from "react-icons/fa";
 import { FaStar } from "react-icons/fa";
 import { IoChatboxEllipses } from "react-icons/io5";
 import {useNavigate} from 'react-router-dom'
+import moment from 'moment';
 
 
 const OpenProfile = () => {
@@ -21,8 +22,8 @@ const OpenProfile = () => {
 
     const convert=(d)=>{
         const dt = new Date(d);
-        dt.setTime(dt.getTime() + (5 * 60 * 60 * 1000) + (30 * 60 * 1000))
-        return dt.toDateString();
+        const date = moment(d, "YYYY-MM-DDTHH:mm");
+        return date.format(" h:mm A  - ddd MMMM  YYYY");
     }
     return (
         <>
@@ -62,7 +63,7 @@ const OpenProfile = () => {
                         <div>
                             <h1 className='font-bold text-xl mb-10'>Next Avilable At</h1>
                             {data.nextAvailable && (
-                                <h1>{convert(data.nextAvailable.slot)}</h1>
+                                <h1>{convert(data.nextAvailable)}</h1>
                             )}
                             {!data.nextAvailable && (
                                 <h1>Not Available</h1>
