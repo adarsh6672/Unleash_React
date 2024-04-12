@@ -14,6 +14,9 @@ const TimeSchedule = () => {
     const[date , setDate]= useState(new Date());
     const[localDateArray , setLocalDateArray]=useState([])
     const[newSlot , setNewSlot] = useState([])
+    const[isOpen , setIsOpen]= useState(false);
+    const[isDeleting ,setIsDeleting]= useState(false)
+    const [delDate , setDeldate] = useState();
     
     const time=["6 AM",'7 AM','8 AM','9 AM','10 AM','11 AM','12 PM','1 PM','2 PM','3 PM','4 PM','5 PM','6 PM','7 PM','8 PM' ,'9 PM' ,'10 PM']
     
@@ -66,7 +69,9 @@ const TimeSchedule = () => {
             console.log(slot)
         }else{
             if(localDateArray.includes(index+6)){
-                alert("already selected")
+                setDeldate(isodate)
+                setIsDeleting(true)
+                
             }else{
                 setSlot(prev=>([...prev,isodate]))
                 setNewSlot(prev=>([...prev,index]))
@@ -94,6 +99,27 @@ const TimeSchedule = () => {
         })
     }
 
+  
+
+    const removeAll=async()=>{
+        date.setHours(0)
+        console.log(date.toLocaleString())
+        await axios.delete(BASE_URL+'/consultation/counselor/remove-slots',{
+            params:{
+                date : date.toLocaleString()
+            },
+            headers :{
+                'Authorization':`Bearer ${token}`
+            }
+        }).then(res=>{
+            setUpdated(!updated)
+            console.log(res)
+        }).catch(err=>{
+            console.log(err)
+        })
+        setIsOpen(false)
+    }
+
     const isoToLocal=(datas)=>{
        
             
@@ -107,6 +133,26 @@ const TimeSchedule = () => {
             setLocalDateArray(array);
             console.log(localDateArray)
         }
+
+    const removeAvailability=async()=>{
+        await axios.delete(BASE_URL+'/consultation/counselor/remove-slot',{
+            params:{
+                date : delDate.toLocaleString()
+            },
+            headers :{
+                'Authorization':`Bearer ${token}`
+            }
+        }).then(res=>{
+            setUpdated(!updated)
+            console.log(res)
+        }).catch(err=>{
+            console.log(err)
+        })
+         setIsDeleting(false)
+    }
+   
+    
+    
         
     
     return (
@@ -114,13 +160,14 @@ const TimeSchedule = () => {
             <DashHeader/>
             <div className='flex gap-3'>
             <CounselorSidebar/>
-            <div className='sm:w-full  p-4 sm:grid grid-cols-12'>
-                <div className='col-span-4'>
-                    <Datepicker minDate={new Date()}  inline onSelectedDateChanged={e=>handleDate(e)} />
+            <div className='sm:w-full  p-4 sm:grid grid-cols-12 bg-slate-100'>
+                <div className='col-span-3 mx-auto'>
+                    <Datepicker minDate={new Date()}  showTodayButton={false} showClearButton={false} inline onSelectedDateChanged={e=>handleDate(e)} />
                 </div>
-               
-                <div className='col-span-8 grid grid-cols-6 gap-6 max-h-60'>
-                {time.map((item, index) => (
+                <div className='col-span-9   bg-white rounded-lg shadow-md shadow-slate-300 p-10 m-1 max-h-80 mt-3'>
+                
+                    <div className='sm:grid lg:grid-cols-6 md:grid-cols-2 col-span-6 gap-6'>
+                    {time.map((item, index) => (
                     <div key={index} className={localDateArray.includes(index+6) ? 'bg-slate-300 text-center max-h-10 p-2 cursor-pointer' 
                     : newSlot.includes(index) ? 'bg-orange-400 text-white text-center max-h-10 p-2 cursor-pointer'
                     : 'text-orange-500 border border-orange-500 text-center max-h-10 p-2 cursor-pointer'
@@ -129,14 +176,49 @@ const TimeSchedule = () => {
                        {item}
                     </div>
                     ))}
-                    <div className='col-span-6 flex justify-center max-h-7'>
-                        <button className='bg-green-600 px-3 text-white font-bold ' onClick={handleSubmit}>Submit</button>  
                     </div>
+               
+                </div>
+                <div className=' flex  col-span-12 justify-around '>
+                        <div className='col-span-6 '>
+                            {/* <button className='bg-orange-500 text-white  p-2 rounded-md mx-2' onClick={selectAll}>Select All Slots</button> */}
+                            <button className='bg-white border-2 border-red-500 text-red-500  p-2 rounded-md mx-2' onClick={()=>setIsOpen(true)}>Remove All Existing Schedule</button>
+                            
+                        </div>
+
+                    
+                        <div className='col-span-6   '>
+                            <button className='bg-indigo-800 p-3 text-white  rounded-md text-md' onClick={handleSubmit}>Make Visible</button>  
+                        </div>
+                   
                 </div>
                 
             </div>
                     
             </div>
+            {isOpen && (
+                <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
+                <div className="bg-white p-4 rounded shadow-md">
+                    <p>Are you sure you want to remove all?</p>
+                    <div className="mt-4 flex justify-end">
+                        <button className="mr-2 bg-red-500 hover:bg-red-600 text-white px-4 py-2 rounded" onClick={removeAll}>Confirm</button>
+                        <button className="bg-gray-300 hover:bg-gray-400 text-gray-800 px-4 py-2 rounded" onClick={()=>setIsOpen(false)}>Cancel</button>
+                    </div>
+                </div>
+            </div>
+            )}
+
+            {isDeleting && (
+                <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
+                <div className="bg-white p-4 rounded shadow-md">
+                    <p>Are you sure you want to remove existing slot ? </p>
+                    <div className="mt-4 flex justify-end">
+                        <button className="mr-2 bg-red-500 hover:bg-red-600 text-white px-4 py-2 rounded" onClick={removeAvailability}>Confirm</button>
+                        <button className="bg-gray-300 hover:bg-gray-400 text-gray-800 px-4 py-2 rounded" onClick={()=>setIsDeleting(false)}>Cancel</button>
+                    </div>
+                </div>
+            </div>
+            )}
             
         </>
     );
