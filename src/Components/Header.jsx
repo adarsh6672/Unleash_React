@@ -64,9 +64,13 @@ function Header() {
             <div className=' sm:col-span-5'>
                 <div className="hidden md:block">
                     <div className="ml-10 flex  justify-end space-x-24 mt-10">
-                        <NavLink to='/counsellors' className="text-gray-800 hover:text-orange-500 font-bold">Our Counsellors</NavLink>
-                        <NavLink  className="text-gray-800 hover:text-orange-500 font-bold">Plan & Pricing</NavLink>
-                        <NavLink href="#" className="text-gray-800 hover:text-orange-500 font-bold">Article Hub</NavLink>
+                        <NavLink to='/counsellors' 
+                        className={({ isActive }) => isActive ? 'text-orange-500 font-bold' : 'text-gray-800 hover:text-orange-500 font-bold'}
+                        >Our Counsellors</NavLink>
+                        <NavLink to='/plan-pricing' className={({ isActive }) => isActive ? 'text-orange-500 font-bold' : 'text-gray-800 hover:text-orange-500 font-bold'}
+                        >Plan & Pricing</NavLink>
+                        <NavLink to='/wo'  className={({ isActive }) => isActive ? 'text-orange-500 font-bold' : 'text-gray-800 hover:text-orange-500 font-bold'}
+                        >Article Hub</NavLink>
                     </div>
                 </div>
             </div>

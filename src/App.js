@@ -30,6 +30,8 @@ import CounselorSlots from './Pages/Dashboard/User/CounselorSlots';
 import CounselorProfile from './Pages/Dashboard/Counselor/CounselorProfile';
 import UpdationRequest from './Pages/Dashboard/Admin/UpdationRequest';
 import OpenUpdation from './Pages/Dashboard/Admin/OpenUpdation';
+import Plans from './Pages/Dashboard/Admin/Plans';
+import PlanPricing from './Pages/Home/PlanPricing';
 
 
 function App() {
@@ -39,6 +41,8 @@ function App() {
         <Route path='/' element={<Home />} />
         <Route path='/counsellors' element={<CounsellorsList/>} />
         <Route path='/open-profile' element={<OpenProfile />} />
+        <Route path='/plan-pricing' element={<PlanPricing />} />
+
 
         <Route path='/login' element={<Unautherized><Login /></Unautherized>} />
         <Route path='/signup' element={<Unautherized><UserSignup /></Unautherized>} />
@@ -59,6 +63,9 @@ function App() {
         <Route path='/admin/request/viewprofile/:userId' element={<AdminRoutes> <ViewProfile /> </AdminRoutes>} />
         <Route path='/admin/updation-requests' element={<AdminRoutes> <UpdationRequest/> </AdminRoutes>} />
         <Route path='/admin/request/view-updation/' element={<AdminRoutes> <OpenUpdation /> </AdminRoutes>} />
+        <Route path='/admin/plans/' element={<AdminRoutes><Plans /></AdminRoutes>} />
+
+
 
 
 
