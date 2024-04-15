@@ -32,6 +32,7 @@ import UpdationRequest from './Pages/Dashboard/Admin/UpdationRequest';
 import OpenUpdation from './Pages/Dashboard/Admin/OpenUpdation';
 import Plans from './Pages/Dashboard/Admin/Plans';
 import PlanPricing from './Pages/Home/PlanPricing';
+import Payment from './Pages/Dashboard/User/Payment';
 
 
 function App() {
@@ -54,6 +55,8 @@ function App() {
         <Route path='/user/dashboard' element={<UserRoute> <Dashboard /> </UserRoute>} />
         <Route path='/user/profile' element={<UserRoute> <Profile /> </UserRoute>} />
         <Route path='/user/counselor-slot' element={<UserRoute> <CounselorSlots /> </UserRoute>} />
+        <Route path='/user/payment' element={<UserRoute> <Payment /> </UserRoute>} />
+
 
 
         <Route path='/admin/dashboard' element={<AdminRoutes> <AdminDashboard /> </AdminRoutes>} />

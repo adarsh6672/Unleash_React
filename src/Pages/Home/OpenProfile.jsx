@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import Header from '../../Components/Header';
 import {useLocation} from 'react-router-dom'
 import Footer from '../../Components/Footer';
@@ -15,6 +15,10 @@ const OpenProfile = () => {
     const navigate = useNavigate();
     const data = location.state;
     console.log(data)
+
+    useEffect(() => {
+        window.scrollTo(0, 0);
+      }, []);
 
     const handleSessionBooking=()=>{
         navigate('/user/counselor-slot',{state: data.user.id })

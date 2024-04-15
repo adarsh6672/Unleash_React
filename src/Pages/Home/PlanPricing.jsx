@@ -8,6 +8,7 @@ import Footer from '../../Components/Footer';
 function PlanPricing() {
     const navigate = useNavigate()
     const[plans , setPlans] = useState([])
+    
 
     useEffect(()=>{
         axios.get(BASE_URL+'/plan/public/get-all-plans').then(res=>{
@@ -17,6 +18,13 @@ function PlanPricing() {
         console.log(err)
         })
     },[])
+
+
+    const handlePlan=(item)=>{
+        const plan= item;
+        console.log(plan)
+        navigate('/user/payment',{state:plan})
+    }
   return (
    <>
     <Header/>
@@ -25,8 +33,8 @@ function PlanPricing() {
     </div>
 
     <div className='sm:grid grid-cols-12 gap-14 px-10 pb-14'>
-        {plans && plans.map((item)=>(
-             <div className='col-span-4 bg-slate-200 p-5 rounded-2xl shadow-md shadow-slate-300 mt-6 '>
+        {plans && plans.map((item, index)=>(
+             <div className='col-span-4 bg-slate-100 p-5 rounded-2xl shadow-md shadow-slate-300 mt-6 '>
                 <img src={item.iconUrl} alt="" className='h-48 w-48 mx-auto rounded-xl ' />
                 <h1 className='text-center text-orange-500 font-bold text-2xl mt-3'>{item.planName}</h1>
                 <h1 className='text-center text-lg mt-3 text-indigo-800'>{item.noOfSession} Sessions</h1>
@@ -35,7 +43,8 @@ function PlanPricing() {
 
                 <h1 className='text-center text-indigo-800 font-bold text-3xl mt-6'>₹ {item.price}</h1>
 
-                <div className='text-center bg-orange-500 font-semibold p-1.5 rounded-xl text-white shadow-md shadow-white mt-6 cursor-pointer'>
+                <div className='text-center bg-orange-500 w-1/2 mx-auto font-semibold p-1.5  rounded-2xl text-white shadow-md shadow-slate-400 mt-6 cursor-pointer'
+                onClick={()=>handlePlan(item)}>
                     Buy Now
                 </div>
              </div>
