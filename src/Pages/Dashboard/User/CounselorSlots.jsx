@@ -12,13 +12,12 @@ const CounselorSlots = () => {
     const counselorId = location.state;
     const[updated , setUpdated]= useState(false)
     const token = localStorage.getItem("token")
-    const[slot , setSlot]= useState(null);
     const[date , setDate]= useState(new Date());
-    const[localDateArray , setLocalDateArray]=useState([])
     const[newSlot , setNewSlot] = useState(null)
+    const[avilable ,setAvailable] = useState([]);
     const navigate = useNavigate();
+    const [error , setError] =useState();
     
-    const time=["6 AM",'7 AM','8 AM','9 AM','10 AM','11 AM','12 PM','1 PM','2 PM','3 PM','4 PM','5 PM','6 PM','7 PM','8 PM' ,'9 PM' ,'10 PM']
     
     
 
@@ -35,7 +34,7 @@ const CounselorSlots = () => {
             }
         }).then(res=>{
             console.log(res.data);
-            isoToLocal(res.data);
+            setAvailable(res.data);
         }).catch(err=>{
             console.log(err)
         })
@@ -45,59 +44,66 @@ const CounselorSlots = () => {
     const handleDate=(d)=>{
         setDate(d)
         console.log(d.toISOString())
-        setSlot();
         setNewSlot()
+        setError()
         setUpdated(!updated)
 
     }
 
     const handleTime=(i)=>{
-        
+        setError();
+        if(avilable[i].booked===true){
+            setError("Already Booked By SomeOne")
+            return;
+        }
         setNewSlot(i);
-        console.log(i+'=====================================')
-        const cpdate= date;
-        cpdate.setHours(i+6);
-        cpdate.setMinutes(0);
-        cpdate.setSeconds(0);
-        cpdate.setMilliseconds(0);
-        console.log(date+'-------------------------------------------------------')
-        // const formattedDate = cpdate.toLocaleString('en-US', options);
-        const isodate= cpdate.toLocaleString()
-        
-        setSlot(isodate)
-        console.log(slot + '---------------'+newSlot)
-        
+        console.log(avilable[i])
         date.setHours(0)
         
     }
     const handleSubmit=async()=>{
-        console.log(slot)
-        
-        // await axios.post(BASE_URL+'/counselor/schedule-time-slot',slot,{
-        //     headers :{
-        //         'Authorization':`Bearer ${token}`
-        //     }
-        // }).then(res=>{
-        //     console.log(res)
-        //     setNewSlot()
-        //     setSlot()
-        //     setUpdated(!updated)
-        // }).catch(err=>{
-        //     console.log(err)
-        // })
-    }
-
-    const isoToLocal=(datas)=>{
-       
-            
-            const array = datas.map(isoDate => {
-                const dat = new Date(isoDate.slot);
-                return dat.getHours();
-            });
-    
-            setLocalDateArray(array);
-            console.log(localDateArray)
+        setError()
+        if(!newSlot){
+            setError("Select One Slot....!")
+            return;
         }
+
+        await axios.post(BASE_URL+'/consultation/session/book-slot',null,{
+            params: {
+                slotId : avilable[newSlot].id
+              },
+            headers :{
+                'Authorization':`Bearer ${token}`
+            }
+        }).then(res=>{
+            console.log(res.data)
+            const data= res.data;
+            navigate('/user/booked',{state:data})
+        }).catch(err=>{
+            console.log(err)
+        })
+
+
+        
+        
+    }
+    function formatTime(datestring) {
+        const date = new Date(datestring);
+        const options = { hour: "2-digit", minute: "2-digit", hour12: true };
+        const formattedTime = date.toLocaleString("en-US", options);
+        return formattedTime;
+      }
+
+      if(avilable){
+        avilable.sort((a, b) => {
+            const dateA = new Date(a.slot);
+            const dateB = new Date(b.slot);
+            return dateA - dateB;
+          });
+      }
+      
+
+    
         
 
     return (
@@ -108,23 +114,27 @@ const CounselorSlots = () => {
                 onClick={()=>navigate(-1)}>Back</button>
             </div>
             <h1 className='font-bold text-center text-3xl  text-indigo-800 pb-5 bg-slate-100'>STIME SLOTS AVILABLE</h1>
+            {error && (
+                        <h1 className='text-center text-xl m-5  text-red-500 '>{error}</h1>
+                    )}
             <div className='sm:w-full  p-4 sm:grid grid-cols-12 px-10 bg-slate-100 pb-20 '>
                 <div className='col-span-3 mx-auto'>
                     <Datepicker minDate={new Date()} showTodayButton={false} showClearButton={false}  inline onSelectedDateChanged={e=>handleDate(e)} />
                 </div>
                
                 <div className='col-span-9   bg-white rounded-lg shadow-md shadow-slate-300 p-10 m-1'>
-                {!localDateArray[0] && (
+                
+                {!avilable[0] && (
                         <h1 className='text-center text-xl mt-10 text-red-500'>No Time Slots Avilable On This Date</h1>
                     )}
                     <div className='sm:grid lg:grid-cols-6 md:grid-cols-2 col-span-6 gap-6'>
-                    {localDateArray && time.map((item, index) => (
-                    <div key={index} className={localDateArray.includes(index+6) && newSlot !== index ? 'text-orange-500 border border-orange-500 text-center max-h-10 p-2 cursor-pointer' 
+                    {avilable[0] && avilable.map((item, index) => (
+                    <div key={index} className={item.booked === true ? 'text-black border bg-slate-300 text-center max-h-10 p-2 cursor-pointer' 
                     : newSlot === index ? 'bg-orange-400 text-white text-center max-h-10 p-2 cursor-pointer'
-                    : 'hidden'
+                    : 'text-orange-500 border border-orange-500 text-center max-h-10 p-2 cursor-pointer'
                     }
                     onClick={()=>handleTime(index)}>
-                       {item}
+                       {formatTime(item.slot)}
                     </div>
                     ))}
                     </div>
@@ -133,9 +143,9 @@ const CounselorSlots = () => {
                    
                 </div>
                 <div className='mx-auto col-span-12'>
-              
+                    
 
-                    {localDateArray[0] && (
+                    {avilable && (
                         <div className='col-span-6 flex justify-center p-10'>
                             <button className='bg-indigo-800 p-3 text-white font-bold rounded-md text-md' onClick={handleSubmit}>Book Session</button>  
                         </div>
