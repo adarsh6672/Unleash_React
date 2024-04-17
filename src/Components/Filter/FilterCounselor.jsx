@@ -143,7 +143,7 @@ function FilterCounselor() {
                 </div>
                 <div className='flex justify-around py-2 '>
                     <button className='bg-white py-1.5 px-2 rounded-lg text-orange-500 shadow-sm shadow-slate-500'
-                    onClick={()=>{handleViewProfile(data[index])}}>View Profile</button>
+                    onClick={()=>{handleViewProfile(data[index].user.id)}}>View Profile</button>
                     <button className='bg-orange-500 py-1.5 px-2 rounded-lg text-white shadow-sm shadow-slate-500'
                     onClick={()=>handleSessionBooking(item.user.id)}>Book Session</button>
                 </div>

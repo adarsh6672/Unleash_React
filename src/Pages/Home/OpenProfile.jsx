@@ -8,17 +8,36 @@ import { FaStar } from "react-icons/fa";
 import { IoChatboxEllipses } from "react-icons/io5";
 import {useNavigate} from 'react-router-dom'
 import moment from 'moment';
+import { useState } from 'react';
+import axios from 'axios';
+import { BASE_URL } from '../../Utils/const';
 
 
 const OpenProfile = () => {
     const location = useLocation();
     const navigate = useNavigate();
-    const data = location.state;
+    const [data ,setData]= useState();
+    const id = location.state;
     console.log(data)
+    const token = localStorage.getItem("token")
 
     useEffect(() => {
         window.scrollTo(0, 0);
       }, []);
+
+    useEffect(()=>{
+        axios.get(BASE_URL+'/public/get-counselor-profile',{
+            params :{
+                counsId:id
+            },
+            headers :{
+                'Authorization':`Bearer ${token}`
+            }
+        }).then(res=>{
+            console.log(res.data)
+            setData(res.data);
+        })
+    },[])
 
     const handleSessionBooking=()=>{
         navigate('/user/counselor-slot',{state: data.user.id })

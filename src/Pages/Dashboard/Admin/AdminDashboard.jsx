@@ -9,8 +9,8 @@ function AdminDashboard() {
         <div className='flex '> 
             <AdminSidepanal />
             <div className='sm:w-full  p-4'>
-            <h2>Content Area</h2>
-            <p>This is the main content area of your dashboard.</p>
+            <h2>Welcome To Unleash.</h2>
+            
         </div>
         </div>
     </>
