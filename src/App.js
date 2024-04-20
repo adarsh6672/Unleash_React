@@ -36,6 +36,7 @@ import Payment from './Pages/Dashboard/User/Payment';
 import SubscribedRoutes from './PrivateRoutes/SubscribedRoutes';
 import SessionBooked from './Pages/Dashboard/User/SessionBooked';
 import SessionPage from './Pages/Dashboard/User/SessionPage';
+import Chat from './Components/Chat/Chat';
 
 
 function App() {
@@ -61,6 +62,7 @@ function App() {
         <Route path='/user/payment' element={<UserRoute> <Payment /> </UserRoute>} />
         <Route path='/user/booked' element={<UserRoute> <SessionBooked /> </UserRoute>} />
         <Route path='/user/sessions' element={<UserRoute> <SessionPage /> </UserRoute>} />
+        <Route path='/user/chat' element={<UserRoute> <Chat /></UserRoute>} />
 
 
 

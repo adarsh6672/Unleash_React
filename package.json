@@ -4,6 +4,7 @@
   "private": true,
   "dependencies": {
     "@reduxjs/toolkit": "^2.2.2",
+    "@stomp/stompjs": "^7.0.0",
     "@testing-library/jest-dom": "^5.17.0",
     "@testing-library/react": "^13.4.0",
     "@testing-library/user-event": "^13.5.0",
@@ -18,8 +19,11 @@
     "react-razorpay": "^2.0.1",
     "react-redux": "^9.1.0",
     "react-scripts": "5.0.1",
+    "react-stomp": "^5.1.0",
     "react-tailwindcss-datepicker": "^1.6.6",
     "react-tailwindcss-datetimepicker": "^3.0.5",
+    "sockjs": "^0.3.24",
+    "sockjs-client": "^1.6.1",
     "tailwind-datepicker-react": "^1.4.3",
     "tailwind-scrollbar-hide": "^1.1.7",
     "web-vitals": "^2.1.4"

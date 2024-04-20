@@ -38,6 +38,25 @@ function Dashboard() {
     const formattedDate = date.toLocaleDateString("en-US", options);
     return formattedDate;
   }
+
+  function isLessThanOneDayAfterCurrentTime(givenDateString) {
+
+    const givenDate = new Date(givenDateString);
+    const currentDate = new Date();
+  
+    // Add one day to the current date
+     givenDate.setDate(givenDate.getDate() +1)
+     console.log(givenDate)
+     console.log(currentDate)
+  
+    if(givenDate >= currentDate){
+      console.log(true)
+      return true
+    } else{
+      console.log(false)
+      return false
+    }
+  }
   return (
     <>
         <DashHeader />
@@ -62,9 +81,10 @@ function Dashboard() {
                 <h1 className='text-indigo-800 font-bold mb-2'>Active Plan</h1>
                 {data && data.plan !== null ?(
                     <div className='m-auto'>
-                    <h1 className='text-xl font-bold text-orange-500'>{data.plan.planName}</h1>
+                    <h1 className='text-2xl font-bold text-orange-500'>{data.plan.planName}</h1>
                     <h1 className='m-2'>{data.plan.noOfSession} Session</h1>
                     <h1>Chat Access</h1>
+                    <h1 className='text-indigo-800 p-1'>Session Balance - {data.subscription.sessionCount}</h1>
                   </div>
                 ):(
                   <div className='m-auto'>
@@ -77,7 +97,7 @@ function Dashboard() {
               </div>
               <div className='p-5 border-2 border-slate-100 rounded-lg shadow-lg shadow-slate-300 w-2/5 bg-slate-100 text-center'>
                   <h1 className='text-indigo-800 font-bold mb-2'>Active Counselor</h1>
-                  {data && data.counselorName !== null ?(
+                  {data && data.sessionBooking && isLessThanOneDayAfterCurrentTime(data.sessionBooking.avilability.slot) ?(
                       <div>
                       <h1 className='font-bold'>{data.counselorName}</h1>
                       <h1 className='text-orange-500 text-md underline cursor-pointer' onClick={()=>navigate('/open-profile',{state:data.counselorId})}>View Profile</h1>

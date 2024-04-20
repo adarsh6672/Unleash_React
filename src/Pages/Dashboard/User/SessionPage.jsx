@@ -5,6 +5,8 @@ import { BASE_URL } from '../../../Utils/const';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import img from '../../../Assets/imgs/sessionImg.jpg'
+import moment from 'moment';
+import { AxiosInstance } from '../../../Utils/AxiosInstance';
 
 
 function SessionPage() {
@@ -13,6 +15,9 @@ function SessionPage() {
   const [sessions , setSessions]= useState([])
   const navigate = useNavigate();
   const [upcoming , setUpcoming] = useState(true)
+  const [cancelslot , setCancelSlot] = useState();
+  const [isOpen , setIsOpen] = useState(false)
+  const [update , setUpdate] = useState(true)
   useEffect(()=>{
     axios.get(BASE_URL+'/consultation/session/get-dashboard-data',{
       headers :{
@@ -28,17 +33,16 @@ function SessionPage() {
   },[])
 
   useEffect(()=>{
-    axios.get(BASE_URL+'/consultation/session/get-allbookings',{
-        headers :{
-            'Authorization':`Bearer ${token}`
-        }
-    }).then(res=>{
-        setSessions(res.data)
-        console.log(res.data)
-      }).catch(err=>{
-        console.log(err)
-      })
-  },[])
+
+
+    AxiosInstance.get('/consultation/session/get-allbookings')
+    .then(resp=>{
+      setSessions(resp.data)
+      console.log(resp.data)
+    }).catch(error=>{
+      console.log('error in fetching data'+error)
+    })
+  },[update])
 
 
   function formatTime(timeString) {
@@ -58,12 +62,56 @@ function SessionPage() {
   const compareDate=(givenDateTimeString)=>{
     const givenDateTime = new Date(givenDateTimeString);
     const currentDateTime = new Date();
-    if (givenDateTime < currentDateTime.setHours(currentDateTime.getHours()+1)) {
+    if (givenDateTime < currentDateTime.setHours(currentDateTime.getHours()-1)) {
         return false;
     } else {
         return true;
     }
   }
+
+  const isSlotWithinOneHour = (slotTime) => {
+   
+
+    const slotTimeObj = moment(slotTime, 'YYYY-MM-DDTHH:mm:ss');
+
+    const currentTime = moment();
+    const differenceInHours = slotTimeObj.diff(currentTime, 'minutes');
+    console.log('diff' , differenceInHours)
+    return Math.abs(differenceInHours) >= -60 && Math.abs(differenceInHours) <= 0;
+};
+
+const isSlotCancel=(slotTime)=>{
+  const slotTimeObj = moment(slotTime, 'YYYY-MM-DDTHH:mm:ss');
+  const currentTime = moment();
+  const differenceInHours = slotTimeObj.diff(currentTime, 'hours');
+  return Math.abs(differenceInHours) >= 6;
+}
+
+const cancelSlot=(slotId)=>{
+  setCancelSlot(slotId)
+  console.log(slotId)
+  setIsOpen(true);
+}
+
+const cancelSlotHandler =async ()=>{
+ 
+  console.log("started")
+  await axios.put(BASE_URL+'/consultation/session/cancel-slot',null,{
+    params : {
+      slotId : sessions[cancelslot].sessionBooking.id
+    },
+    headers :{
+      'Authorization':`Bearer ${token}`
+  }
+  }).then(res=>{
+    console.log(res)
+    setUpdate(!update)
+    setIsOpen(false)
+  }).catch(err=>{
+    console.log(err)
+    setIsOpen(false)
+  })
+}
   return (
    <>
     <DashHeader />
@@ -96,8 +144,8 @@ function SessionPage() {
                 
                 <div className='sm:grid grid-cols-12 p-10 mt-10 justify-around w-4/5 mx-auto'> 
             
-                    {sessions && upcoming && sessions.map((item)=>(
-                        <div className='col-span-3 p-5 border-2 border-slate-100 rounded-lg shadow-lg shadow-slate-300 w-fit bg-slate-100 text-center'
+                    {sessions && upcoming && sessions.map((item ,index) =>(
+                        <div className='col-span-3 p-7 border-2 border-slate-100 rounded-lg shadow-lg shadow-slate-300 w-fit bg-slate-100 text-center'
                         style={{ display: compareDate(item.sessionBooking.avilability.slot) ? "block" : "none" }}>
                         <div>
                         <h1 className='font-bold p-2'>{item.counselorName}</h1>
@@ -105,6 +153,24 @@ function SessionPage() {
                         <h1 className='py-1'> SESSION ID : <span className='text-orange-500'>ULSID{item.sessionBooking.id}</span> </h1>
                         <h1 className='py-1'>DATE : <span className='text-orange-500'> {formatDate(item.sessionBooking.avilability.slot)}</span></h1>
                         <h1 className='py-1'>TIME : <span className='text-orange-500'>{formatTime(item.sessionBooking.avilability.slot)}</span></h1>
+                        {item.sessionBooking.status==='CANCELED' ? (
+                          <div className='text-red-600 font-bold text-xl'> Canceled</div>
+                        ):(
+                          <div>
+                            {isSlotWithinOneHour(item.sessionBooking.avilability.slot) ? (
+                          <button className='bg-orange-500 px-5 py-1 text-white rounded-md '>Join</button>
+                        ) : (
+                          <button className=' bg-slate-300 px-5 py-1 rounded-md '>Join</button>
+                        ) }
+
+                        {isSlotCancel(item.sessionBooking.avilability.slot) ? (
+                          <p className='text-indigo-800 cursor-pointer text-right mt-1'  onClick={()=>cancelSlot(index)}>Cancel</p>
+                        ):(
+                          <p></p>
+                        )}
+                          </div>
+                        )}
+                        
                       </div>
                       </div>
                     ))}
@@ -128,6 +194,18 @@ function SessionPage() {
 
             </div>
         </div>
+
+        {isOpen && (
+                <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
+                <div className="bg-white p-4 rounded shadow-md">
+                    <p>Are you sure you want to cancel this Slot ?</p>
+                    <div className="mt-4 flex justify-end">
+                        <button className="mr-2 bg-red-500 hover:bg-red-600 text-white px-4 py-2 rounded" onClick={cancelSlotHandler}>Confirm</button>
+                        <button className="bg-gray-300 hover:bg-gray-400 text-gray-800 px-4 py-2 rounded" onClick={()=>setIsOpen(false)}>Cancel</button>
+                    </div>
+                </div>
+            </div>
+            )}
    </>
   )
 }
