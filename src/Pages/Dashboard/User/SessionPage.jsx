@@ -177,7 +177,7 @@ const cancelSlotHandler =async ()=>{
 
 
                     {sessions && !upcoming && sessions.map((item)=>(
-                        <div className='col-span-3 p-5 border-2 border-slate-100 rounded-lg shadow-lg shadow-slate-300 w-fit bg-slate-100 text-center'
+                        <div className='col-span-3 p-5 m-3 border-2 border-slate-100 rounded-lg shadow-lg shadow-slate-300 w-fit bg-slate-100 text-center'
                         style={{ display: compareDate(item.sessionBooking.avilability.slot) ? "none" : "block" }}>
                         <div>
                         <h1 className='font-bold p-2'>{item.counselorName}</h1>

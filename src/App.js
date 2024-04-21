@@ -37,6 +37,7 @@ import SubscribedRoutes from './PrivateRoutes/SubscribedRoutes';
 import SessionBooked from './Pages/Dashboard/User/SessionBooked';
 import SessionPage from './Pages/Dashboard/User/SessionPage';
 import Chat from './Components/Chat/Chat';
+import ChatCounselor from './Pages/Dashboard/Counselor/ChatCounselor';
 
 
 function App() {
@@ -91,6 +92,8 @@ function App() {
         <Route path='counselor/dashboard' element={<CounselorRoute> <CounselorDashboard /> </CounselorRoute>} />
         <Route path='counselor/time-schedule' element={<CounselorRoute> <TimeSchedule /> </CounselorRoute>} />
         <Route path='counselor/profile' element={<CounselorRoute> <CounselorProfile /> </CounselorRoute>} />
+        <Route path='counselor/chat' element={<CounselorRoute> <ChatCounselor /> </CounselorRoute>} />
+
 
 
       </Routes>

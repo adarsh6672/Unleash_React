@@ -31,7 +31,7 @@ function CounselorSidebar() {
 
                 <div className='py-5 '>
                 <NavLink
-                    to="/dasboard"
+                    to="/counselor/chat"
                     className={({ isActive }) =>
                         isActive ? 'py-1 my-5  pr-5 bg-white text-indigo-700 rounded-l-2xl pl-2' : 'py-1 my-5  pr-5  rounded-l-2xl pl-2'
                         }

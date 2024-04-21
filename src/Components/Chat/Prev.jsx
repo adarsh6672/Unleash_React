@@ -25,7 +25,7 @@ const Chat = () => {
 
         let Sock = new SockJS('http://localhost:8082/ws');
         stompClient = over(Sock);
-        stompClient.connect({},onConnected, onError);
+        stompClient.connect({}, onConnected, onError);
     }
 
     const onConnected = () => {
@@ -34,9 +34,9 @@ const Chat = () => {
         stompClient.subscribe(`/user/public`, onMessageReceived);
 
         stompClient.send("/app/user.addUser",
-        {},
-        JSON.stringify({nickName: 1, fullName: 'adarsh', status: 'ONLINE'})
-    );
+            {},
+            JSON.stringify({ nickName: 1, fullName: 'adarsh', status: 'ONLINE' })
+        );
         userJoin();
     }
 
@@ -49,7 +49,7 @@ const Chat = () => {
     }
 
     const onMessageReceived = (payload) => {
-        var payloadData = JSON.parse(payload.body);
+        var payloadData = JSON.parse(payload.body);   
         switch (payloadData.status) {
             case "JOIN":
                 if (!privateChats.get(payloadData.senderName)) {
@@ -187,7 +187,60 @@ const Chat = () => {
                         connect
                     </button>
                 </div>}
+            <div>
+                <div className="user-form" id="username-page">
+                    <h2>Enter Chatroom</h2>
+                    <form >
+                        <label htmlFor="nickId">nickId:</label>
+                        <input type="text" id="nickId" name="nickId" required value={nickId} onChange={(e) => setnickId(e.target.value.trim())} />
+
+                        <label htmlFor="nickId">nickId:</label>
+                        <input type="text" id="nickId" name="nickId" required value={selectedUserId} onChange={(e) => setSelectedUserId(e.target.value.trim())} />
+
+                        <button type="submit" onClick={e => connect(e)}>Enter Chatroom</button>
+                    </form>
+                </div>
+
+                <div className="chat-container " id="chat-page">
+                    <div className="users-list">
+                        <div className="users-list-container">
+                            <h2>Online Users</h2>
+                            <ul id="connectedUsers">
+                                {connectedUsers.map(user => (
+                                    <li key={user.nickId} className="user-item" id={user.nickId}>
+                                        {/* User display logic here */}
+                                    </li>
+                                ))}
+                            </ul>
+                        </div>
+                        <div>
+                            <p id="connected-user-fullname">{fullname}</p>
+                            <button onClick={logout}>Logout</button>
+                        </div>
+                    </div>
+
+                    <div className="chat-area">
+                        <div className="chat-area" id="chat-messages">
+                            {/* Chat messages display */}
+                        </div>
+
+                        <form onSubmit={sendMessage} id="messageForm" name="messageForm" className="">
+                            <div className="message-input">
+                                <input autoComplete="off" type="text" id="message" placeholder="Type your message..."
+                                    value={messageContent} onChange={(e) => setMessageContent(e.target.value)} />
+                                <button>Send</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
         </div>
+
+
+
+
+
+
     )
 }
 
