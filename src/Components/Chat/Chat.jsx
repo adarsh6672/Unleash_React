@@ -89,7 +89,7 @@ function Chat() {
         if (id === selectedUserId) {
             return;
         }
-        setSelectedUserId(id)
+        setSelectedUserId(id);
 
     }
 
@@ -104,10 +104,12 @@ function Chat() {
         console.log('recieved')
         console.log('Message received', payload);
         const message = JSON.parse(payload.body);
-        if (selectedUserId && `${selectedUserId}` == message.senderId) {
+        console.log(selectedUserId , typeof(selectedUserId))
+        console.log(message.senderId , typeof(message.senderId))
+        
+            console.log('passing the condition ')
             setHistory(prev => [...prev,message])   
-        }
-
+       
     };
 
     const fetchAndDisplayConnectedUsers = async () => {
@@ -163,7 +165,7 @@ function Chat() {
                 <UserSidebar />
                 <div className='sm:w-full  p-4  '>
                     {/* <div className=''> */}
-                    <div className='  sm:grid grid-cols-12 rounded-t-lg bg-slate-100  rounded-lg  shadow-md shadow-slate-400  h-5/6'>
+                    <div className='  sm:grid grid-cols-12 rounded-t-lg bg-slate-100  rounded-lg  shadow-md shadow-slate-400  '>
                         <div className='col-span-3 '>
                             <div className='text-center border-r-2 p-3 border-slate-300 bg-orange-200 shadow-md rounded-t-lg shadow-slate-400'>
                                 <h1>Counselors</h1>

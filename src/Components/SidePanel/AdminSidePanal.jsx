@@ -5,7 +5,7 @@ function AdminSidepanal() {
   return (
     <>
         
-        <div className='hidden md:block sm:w-1/5 bg-indigo-700 rounded-e-3xl  text-white font-bold text-xl '>
+        <div className='hidden md:block sm:w-1/5 bg-indigo-700 rounded-e-3xl min-h-[41.5rem] max-h-fit text-white font-bold text-xl '>
             <div className='block text-end my-5 '>
 
                 <div className='py-5 '>

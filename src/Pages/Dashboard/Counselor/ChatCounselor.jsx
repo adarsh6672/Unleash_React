@@ -13,9 +13,8 @@ var stompClient = null;
 function ChatCounselor() {
 
 
-    const [nickId, setnickId] = useState(3);
-    const [fullname, setFullname] = useState();
-    const [selectedUserId, setSelectedUserId] = useState(6);
+    const [nickId, setnickId] = useState();
+    const [selectedUserId, setSelectedUserId] = useState();
     const [connectedUsers, setConnectedUsers] = useState([]);
     const [messageContent, setMessageContent] = useState();
     const [history, setHistory] = useState([])
@@ -23,20 +22,20 @@ function ChatCounselor() {
     const chatEndRef = useRef(null);
 
 
-    // useEffect(() => {
+    useEffect(() => {
 
 
-    //     AxiosInstance.get('/consultation/session/get-allbookings')
-    //         .then(resp => {
+        AxiosInstance.get('/consultation/session/get-allbookings-ofcounselor')
+            .then(resp => {
                 
-    //             console.log(resp.data)
-    //             makeUserList(resp.data)
-    //         }).catch(error => {
-    //             console.log('error in fetching data' + error)
-    //         })
+                console.log(resp.data)
+                makeUserList(resp.data)
+            }).catch(error => {
+                console.log('error in fetching data' + error)
+            })
         
 
-    // }, [])
+    }, [])
 
     useEffect(()=>{
         if (count.current !== 0) {
@@ -44,10 +43,9 @@ function ChatCounselor() {
             connect();
         }
         count.current++;
-    },[])
+    },[nickId])
 
     useEffect(() => {
-        // Scroll to the bottom of the chat container
         chatEndRef.current?.scrollIntoView({ behavior: 'smooth' });
      }, [history]);
 
@@ -69,27 +67,28 @@ function ChatCounselor() {
 
     const makeUserList = (resp) => {
         
-        setnickId(resp[0].sessionBooking.patientId)
+        setnickId(resp[0].sessionBooking.avilability.userId)
         const counselorDataArray = resp.map(response => ({
-            counselorId: response.counselorId,
-            counselorName: response.counselorName,
+            patientId: response.userDto.id,
+            patientName: response.userDto.fullname,
             slot: response.sessionBooking.avilability.slot,
             status: response.sessionBooking.status
         }));
         
 
-        const uniqueCounselorDataArray = counselorDataArray.filter((value, index, self) =>
-            index === self.findIndex((t) => t.counselorId === value.counselorId && value.status === 'BOOKED')
+        const uniqueUserDataArray = counselorDataArray.filter((value, index, self) =>
+            index === self.findIndex((t) => t.patientId === value.patientId && value.status === 'BOOKED')
         );
 
-        console.log(uniqueCounselorDataArray)
-        setConnectedUsers(uniqueCounselorDataArray)
+        console.log(uniqueUserDataArray)
+        setConnectedUsers(uniqueUserDataArray)
     }
 
     const handleUserSelection = (id) => {
         if (id === selectedUserId) {
             return;
         }
+        console.log('selected')
         setSelectedUserId(id)
 
     }
@@ -105,10 +104,12 @@ function ChatCounselor() {
         console.log('recieved')
         console.log('Message received', payload);
         const message = JSON.parse(payload.body);
-        if (selectedUserId && selectedUserId == message.senderId) {
+        console.log(selectedUserId , typeof(selectedUserId))
+        console.log(message.senderId , typeof(message.senderId))
+        
+            console.log('condition passed')
             setHistory(prev => [...prev,message])
-        }
-
+       
         
     };
 
@@ -155,27 +156,27 @@ function ChatCounselor() {
         setMessageContent('')
     };
 
-    const logout = () => {
-        stompClient.send("/app/user.disconnectUser", {}, JSON.stringify({ nickId: nickId, fullName: fullname, status: 'OFFLINE' }));
-        window.location.reload();
-    };
+    // const logout = () => {
+    //     stompClient.send("/app/user.disconnectUser", {}, JSON.stringify({ nickId: nickId, fullName: fullname, status: 'OFFLINE' }));
+    //     window.location.reload();
+    // };
   return (
     <>
     <DashHeader />
     <div className='flex '>
         <CounselorSidebar />
         <div className='sm:w-full  p-4  '>
-            {/* <div className=''> */}
-            <div className='  sm:grid grid-cols-12 rounded-t-lg bg-slate-100  rounded-lg  shadow-md shadow-slate-400  h-5/6'>
+            
+            <div className='  sm:grid grid-cols-12 rounded-t-lg bg-slate-100  rounded-lg  shadow-md shadow-slate-400  '>
                 <div className='col-span-3 '>
                     <div className='text-center border-r-2 p-3 border-slate-300 bg-orange-200 shadow-md rounded-t-lg shadow-slate-400'>
-                        <h1>Counselors</h1>
+                        <h1>Patients</h1>
                     </div>
                     <div className='   block'>
                         {connectedUsers && connectedUsers.map((item) => (
-                            <div className='border-b-2 flex border-white p-3 cursor-pointer ' onClick={() => handleUserSelection(item.counselorId)}>
-                                <InitialsAvatar name={item.counselorName} />
-                                <h1 className='font-bold my-auto pl-4'>{item.counselorName}</h1>
+                            <div className='border-b-2 flex border-white p-3 cursor-pointer ' onClick={() => handleUserSelection(item.patientId)}>
+                                <InitialsAvatar name={item.patientName} />
+                                <h1 className='font-bold my-auto pl-4'>{item.patientName}</h1>
                             </div>
                         ))}
 
@@ -184,7 +185,7 @@ function ChatCounselor() {
                 </div>
                 <div className='col-span-9 '>
                     <div className='text-center  p-3 border-slate-300 bg-orange-200 shadow-md rounded-t-lg shadow-slate-400'>
-                        <h1>Name</h1>
+                        <h1>Chat</h1>
                     </div>
                     <div className=' bg-white h-[30rem] overflow-y-auto scrollbar-hide' >
                         <div className="p-4 ">
@@ -203,7 +204,7 @@ function ChatCounselor() {
                 </div>
             </div>
 
-            {/* </div> */}
+         
         </div>
     </div>
 
