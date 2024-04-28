@@ -39,6 +39,8 @@ import SessionPage from './Pages/Dashboard/User/SessionPage';
 import Chat from './Components/Chat/Chat';
 import ChatCounselor from './Pages/Dashboard/Counselor/ChatCounselor';
 import SessionCounselor from './Pages/Dashboard/Counselor/SessionCounselor';
+import CounselorPayment from './Pages/Dashboard/Counselor/CounselorPayment';
+import VideoCall from './Pages/Dashboard/User/VideoCall';
 
 
 function App() {
@@ -65,6 +67,7 @@ function App() {
         <Route path='/user/booked' element={<UserRoute> <SessionBooked /> </UserRoute>} />
         <Route path='/user/sessions' element={<UserRoute> <SessionPage /> </UserRoute>} />
         <Route path='/user/chat' element={<UserRoute> <Chat /></UserRoute>} />
+        <Route path='/user/videocall' element={<UserRoute> <VideoCall /></UserRoute>} />
 
 
 
@@ -95,6 +98,9 @@ function App() {
         <Route path='counselor/profile' element={<CounselorRoute> <CounselorProfile /> </CounselorRoute>} />
         <Route path='counselor/chat' element={<CounselorRoute> <ChatCounselor /> </CounselorRoute>} />
         <Route path='counselor/sessions' element={<CounselorRoute> <SessionCounselor /> </CounselorRoute>} />
+        <Route path='counselor/payment' element={<CounselorRoute> <CounselorPayment /> </CounselorRoute>} />
+
+
 
 
 

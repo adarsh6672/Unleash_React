@@ -106,7 +106,7 @@ function CounselorProfile() {
   const handleUpload =async()=>{
       setLoading(true)
       
-      await axios.post(BASE_URL+'/counselor/profile-data-updation',{
+      await axios.post(BASE_URL+'/user/counselor/profile-data-updation',{
           qualificationId : qualification,
           fullname : fullname,
           languages : laguages,

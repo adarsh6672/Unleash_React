@@ -14,7 +14,7 @@ const userDateSlice = createSlice({
     initialState,
     reducers:{
         setUserData : (state , action)=>{
-            state.userData = action.payload
+            state.userData = action.payload.user
             localStorage.setItem("role",action.payload.role)
             state.userRole=action.payload.role
         },

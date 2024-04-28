@@ -99,6 +99,7 @@ function Payment() {
         });
       
         rzp1.open();
+        
       };
 
  

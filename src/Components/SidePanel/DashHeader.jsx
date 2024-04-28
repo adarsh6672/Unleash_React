@@ -9,6 +9,7 @@ import {useNavigate} from 'react-router-dom'
 import { UseSelector } from 'react-redux';
 
 function DashHeader() {
+    const userData = useSelector(state => state.userData.userData)
     const dispatch = useDispatch();
     const navigate = useNavigate();
     const role = useSelector(state=> state.userData.userRole);
@@ -32,8 +33,10 @@ function DashHeader() {
             
             </div>
             <div className=' sm:col-span-8'>
+                
                 <div className='text-end font-bold text-indigo-800 pt-7 text-xl'>
-                    {role}
+                    <span >{userData.fullname} </span>
+
                 </div>
             </div>
             
