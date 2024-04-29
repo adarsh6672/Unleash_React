@@ -5,12 +5,14 @@ import { AxiosInstance } from '../../../Utils/AxiosInstance'
 import img from '../../../Assets/imgs/Frame-11-768x479.webp'
 import moment from 'moment'
 import SessionBooked from '../User/SessionBooked';
+import { useNavigate } from 'react-router-dom'
 
 function SessionCounselor() {
     const [bookings, setBookings] = useState([]);
     const [TABLE_ROWS, setTableRows] = useState([]);
     const TABLE_HEAD = ['NAME', 'PHONE', 'SCHEDULED ON', 'VIEW', 'STATUS']
     const [now, setNow] = useState(true)
+    const navigate = useNavigate();
 
     useEffect(() => {
         AxiosInstance.get('/consultation/session/get-allbookings-ofcounselor')
@@ -53,6 +55,10 @@ function SessionCounselor() {
             return true
         }
         return false;
+    }
+
+    const handleSession=(id)=>{
+        navigate('/counselor/videocall',{state:id})
     }
     return (
         <>
@@ -126,7 +132,7 @@ function SessionCounselor() {
                                                     </div>
                                                 </td>
                                                 <td className="p-4">
-                                                    <div as="a" href="#" variant="small" color="blue-gray" className="font-medium text-orange-500">
+                                                    <div className="font-medium text-orange-500" onClick={()=>handleSession(booking.userDto.id)}>
                                                         view
                                                     </div>
                                                 </td>
@@ -181,7 +187,7 @@ function SessionCounselor() {
                                                     </div>
                                                 </td>
                                                 <td className="p-4">
-                                                    <div as="a" href="#" variant="small" color="blue-gray" className="font-medium text-orange-500">
+                                                    <div  className="font-medium text-orange-500 cursor-pointer" onClick={()=>handleSession(booking.userDto.id)}>
                                                         view
                                                     </div>
                                                 </td>

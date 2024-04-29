@@ -41,6 +41,9 @@ import ChatCounselor from './Pages/Dashboard/Counselor/ChatCounselor';
 import SessionCounselor from './Pages/Dashboard/Counselor/SessionCounselor';
 import CounselorPayment from './Pages/Dashboard/Counselor/CounselorPayment';
 import VideoCall from './Pages/Dashboard/User/VideoCall';
+import CounselorVideoCall from './Pages/Dashboard/Counselor/CounselorVideoCall';
+import EndCallUser from './Pages/Dashboard/User/EndCallUser';
+import EndCall from './Pages/Dashboard/Counselor/EndCall';
 
 
 function App() {
@@ -68,6 +71,8 @@ function App() {
         <Route path='/user/sessions' element={<UserRoute> <SessionPage /> </UserRoute>} />
         <Route path='/user/chat' element={<UserRoute> <Chat /></UserRoute>} />
         <Route path='/user/videocall' element={<UserRoute> <VideoCall /></UserRoute>} />
+        <Route path='/user/end-call' element={<UserRoute> <EndCallUser /></UserRoute>} />
+
 
 
 
@@ -99,6 +104,9 @@ function App() {
         <Route path='counselor/chat' element={<CounselorRoute> <ChatCounselor /> </CounselorRoute>} />
         <Route path='counselor/sessions' element={<CounselorRoute> <SessionCounselor /> </CounselorRoute>} />
         <Route path='counselor/payment' element={<CounselorRoute> <CounselorPayment /> </CounselorRoute>} />
+        <Route path='counselor/videocall' element={<CounselorRoute> <CounselorVideoCall /> </CounselorRoute>} />
+        <Route path='counselor/end-call' element={<CounselorRoute> <EndCall /> </CounselorRoute>} />
+
 
 
 

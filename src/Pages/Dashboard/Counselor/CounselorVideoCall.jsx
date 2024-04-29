@@ -1,3 +1,4 @@
+
 import React, { useEffect, useRef, useState } from 'react'
 import DashHeader from '../../../Components/SidePanel/DashHeader'
 import UserSidebar from '../../../Components/SidePanel/UserSidebar'
@@ -5,32 +6,34 @@ import { useSelector } from 'react-redux'
 import Peer from 'simple-peer'
 import SockJS from 'sockjs-client';
 import { over } from 'stompjs';
+import { Button } from 'flowbite-react'
+import { json, useLocation, useNavigate } from 'react-router-dom'
+import CounselorSidebar from '../../../Components/SidePanel/CounselorSidebar'
 import { FaVideoSlash } from "react-icons/fa";
 import { FaVideo } from "react-icons/fa";
 import { FaMicrophone } from "react-icons/fa";
 import { FaMicrophoneSlash } from "react-icons/fa6";
 import { MdCallEnd } from "react-icons/md";
-import { useNavigate } from 'react-router-dom'
 
 var stompClient = null;
-function VideoCall() {
+function CounselorVideoCall() {
     const [me, setMe] = useState("")
-    const [localStream, setStream] = useState()
+    const [stream, setStream] = useState()
     const [receivingCall, setReceivingCall] = useState(false)
-    const [caller, setCaller] = useState("")
+    const [called, setCalled] = useState(false)
     const [callerSignal, setCallerSignal] = useState()
     const [callAccepted, setCallAccepted] = useState(false)
-    const [idToCall, setIdToCall] = useState("")
-    const [callEnded, setCallEnded] = useState(false)
-    const [name, setName] = useState("")
     const [isVideoMuted, setIsVideoMuted] = useState(false);
     const [isAudioMuted, setIsAudioMuted] = useState(false);
-    const navigate = useNavigate()
+    const [callEnded, setCallEnded] = useState(false)
+    const [name, setName] = useState("")
     const count = useRef(0);
     const myVideo = useRef()
     const userVideo = useRef()
     const connectionRef = useRef()
-
+    const navigate = useNavigate()
+    const location = useLocation();
+    const idToCall = location.state;
     const userData = useSelector(state => state.userData.userData)
     console.log(userData)
 
@@ -45,10 +48,9 @@ function VideoCall() {
 
         return () => {
             console.log('came to return ')
-            if (localStream) {
-                localStream.getTracks().forEach(track => track.stop());
+            if (stream) {
+                stream.getTracks().forEach(track => track.stop());
             }
-            
             // Optionally, clear the video element's srcObject
             if (myVideo.current) {
                 myVideo.current.srcObject = null;
@@ -56,7 +58,6 @@ function VideoCall() {
             setStream(null);
 
         };
-
     }, [callEnded, callAccepted]);
 
     useEffect(() => {
@@ -67,7 +68,7 @@ function VideoCall() {
         count.current++;
     }, [])
 
-
+    
 
     const connect = () => {
 
@@ -103,17 +104,17 @@ function VideoCall() {
             case "callUser":
                 console.log('inside callUser====================')
                 setReceivingCall(true)
-                setCaller(message.data.from)
+
                 setName(message.data.name)
                 setCallerSignal(message.data.signalData)
                 break
             case "callAccepted":
                 console.log('call accepted=====================')
+                setCalled(!called)
                 setCallAccepted(true)
                 connectionRef.current.signal(message.data.signalData)
                 break
             case "endCall":
-                setCallEnded(true)
                 endCall()
                 break
             default:
@@ -121,17 +122,18 @@ function VideoCall() {
         }
     };
 
-    const callUser = (id) => {
+    const callUser = () => {
+        setCalled(!called)
         const peer = new Peer({
             initiator: true,
             trickle: false,
-            stream: localStream
+            stream: stream
         })
         peer.on("signal", (data) => {
             stompClient.send("/app/videocall", {}, JSON.stringify({
                 type: "callUser",
                 data: {
-                    userToCall: id,
+                    userToCall: idToCall,
                     signalData: data,
                     from: userData.id,
                     name: userData.fullname
@@ -146,21 +148,19 @@ function VideoCall() {
     }
 
 
-    const answerCall = async () => {
-
-
+    const answerCall = () => {
         setCallAccepted(true)
         const peer = new Peer({
             initiator: false,
             trickle: false,
-            stream: localStream
+            stream: stream
         })
         peer.on("signal", (data) => {
             stompClient.send("/app/videocall", {}, JSON.stringify({
                 type: "callAccepted",
                 data: {
                     signalData: data,
-                    userToCall: caller,
+                    userToCall: idToCall,
                     from: userData.id
                 }
             }))
@@ -168,17 +168,18 @@ function VideoCall() {
         peer.on("stream", (stream) => {
             userVideo.current.srcObject = stream
         })
-
+        setReceivingCall(false)
         peer.signal(callerSignal)
         connectionRef.current = peer
     }
 
     const leaveCall = () => {
+        
         stompClient.send("/app/videocall", {}, JSON.stringify({
             type: "endCall",
             data: {
                 signalData: null,
-                userToCall: caller,
+                userToCall: idToCall,
                 from: userData.id
             }
         }))
@@ -188,20 +189,20 @@ function VideoCall() {
     }
 
     const endCall = () => {
-        myVideo.current.pause();
-        myVideo.current.srcObject = null;
         
         
         setCallEnded(true)
         setCallAccepted(false)
-        setReceivingCall(false)
+        setCalled(false)
         setStream(null);
-        navigate('/user/end-call')
+        navigate('/counselor/end-call')
+            
     }
 
+
     const toggleVideoMute = () => {
-        if (localStream) {
-            const videoTracks = localStream.getVideoTracks();
+        if (myVideo.current) {
+            const videoTracks = stream.getVideoTracks();
             if (videoTracks.length > 0) {
                 videoTracks[0].enabled = !videoTracks[0].enabled;
                 setIsVideoMuted(!isVideoMuted);
@@ -215,7 +216,6 @@ function VideoCall() {
                 videoTrack.track.enabled = !videoTrack.track.enabled;
             }
         }
-
     };
 
     const toggleAudioMute = () => {
@@ -237,17 +237,14 @@ function VideoCall() {
     };
 
 
-
-
-
     return (
         <>
             <DashHeader />
             <div className='flex '>
-                <UserSidebar />
+                <CounselorSidebar />
                 <div className='sm:w-full  p-4'>
                     <div className="">
-                        <div className="flex items-center justify-center ">
+                        <div className="flex  justify-center ">
 
                             {callAccepted && (
                                 <div className=" flex gap-12">
@@ -259,7 +256,7 @@ function VideoCall() {
                                     </div>
                                 </div>
                             )}
-                            {localStream && !callAccepted && (
+                            {stream && !callAccepted && (
 
                                 <div className="">
 
@@ -268,8 +265,8 @@ function VideoCall() {
                             )}
 
                         </div>
-                        <div className='flex justify-center mt-5'>
-                            <div className="flex justify-center ">
+                        <div className='flex   justify-center mt-10 '>
+                            <div className="flex justify-center  ">
                                 <button onClick={toggleVideoMute} className="ml-4 text-3xl text-orange-500">
                                     {!isVideoMuted ? <FaVideo /> : <FaVideoSlash />}
                                 </button>
@@ -278,32 +275,19 @@ function VideoCall() {
                                 </button>
                             </div>
                             <div className="text-center">
-                                {!receivingCall && (
-                                    <div className=' text-center  ml-4 text-2xl font-bold text-indigo-800 '>
-                                        Please Wait....
-                                    </div>
-                                )}
+
                                 {callAccepted && !callEnded ? (
-                                    <button className='text-red-600 p-2 text-4xl rounded-md ' onClick={leaveCall}>
+                                    <button className=' p-2 text-4xl text-red-600 ml-4' onClick={leaveCall}>
                                         <MdCallEnd />
                                     </button>
                                 ) : (
-                                    <div className='text-center text-2xl font-bold text-indigo-800 mt-10'>
-
-                                    </div>
-                                )}
-                                {idToCall}
-                            </div>
-                            {receivingCall && !callAccepted ? (
-                                <div className="text-center">
-                                    <h1 className='text-indigo-800'>{name} is Started The Session. Please Join</h1>
-                                    <button className='bg-orange-500 p-2 rounded-lg' variant="contained" color="primary" onClick={answerCall}>
-                                        Join Now
+                                    <button className='text-center p-2 ml-4 rounded-lg bg-indigo-800 font-bold text-white  cursor-pointer' onClick={callUser}>
+                                        Start Session
                                     </button>
-                                </div>
-                            ) : (
-                                <div className='text-center text-2xl font-bold text-indigo-800 mt-10'></div>
-                            )}
+                                )}
+
+                            </div>
+
 
                         </div>
                     </div>
@@ -313,4 +297,4 @@ function VideoCall() {
     )
 }
 
-export default VideoCall
+export default CounselorVideoCall

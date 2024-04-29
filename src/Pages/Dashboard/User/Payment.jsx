@@ -4,12 +4,12 @@ import { BASE_URL } from '../../../Utils/const';
 import useRazorpay from "react-razorpay";
 import Header from '../../../Components/Header';
 import { useLocation, useNavigate } from 'react-router-dom';
+import { useSelector } from 'react-redux';
 
 function Payment() {
 
     const token = localStorage.getItem("token")
     const [Razorpay] = useRazorpay()
-    const [userData , setUserData] = useState();
     const location = useLocation()
     const plan= location.state;
     const navigate = useNavigate();
@@ -18,17 +18,7 @@ function Payment() {
     const [promo , setPromo]= useState(0)
     const [final , setFinal] = useState(plan.price);
 
-    useEffect(()=>{
-        axios.get(BASE_URL+'/user/get-user-data',{
-            headers :{
-                'Authorization':`Bearer ${token}`
-            }
-        }).then(res=>{
-            setUserData(res.data)
-        }).catch(err=>{
-            console.log(err)
-        })
-    },[])
+    const userData = useSelector(state => state.userData.userData)
 
     const createOrder = async () => {
         return await axios.get(BASE_URL+'/consultation/subscription/payment/'+final*100, {
