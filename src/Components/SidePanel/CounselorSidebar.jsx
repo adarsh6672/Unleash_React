@@ -11,7 +11,7 @@ function CounselorSidebar() {
                 <NavLink
                     to="/counselor/dashboard"
                     className={({ isActive }) =>
-                        isActive ? 'py-1 my-5 pl-24  pr-5 bg-white text-indigo-700 rounded-l-2xl ' : 'py-1 my-5 pr-5  rounded-l-2xl ml-16'
+                        isActive ? 'py-1 my-5 pl-5  pr-5 bg-white text-indigo-700 rounded-l-2xl ' : 'py-1 my-5 pr-5  rounded-l-2xl ml-16'
                         }
                     >
                     Dashboard  
@@ -22,7 +22,7 @@ function CounselorSidebar() {
                 <NavLink
                     to="/counselor/sessions"
                     className={({ isActive }) =>
-                        isActive ? 'py-1 my-5 pl-32 pr-5 bg-white text-indigo-700 rounded-l-2xl ' : 'py-1 my-5  pr-5  rounded-l-2xl pl-2'
+                        isActive ? 'py-1 my-5 pl-5 pr-5 bg-white text-indigo-700 rounded-l-2xl ' : 'py-1 my-5  pr-5  rounded-l-2xl pl-2'
                         }
                     >
                     Sessions
@@ -33,7 +33,7 @@ function CounselorSidebar() {
                 <NavLink
                     to="/counselor/chat"
                     className={({ isActive }) =>
-                        isActive ? 'py-1 my-5  pr-5 bg-white text-indigo-700 rounded-l-2xl pl-2' : 'py-1 my-5  pr-5  rounded-l-2xl pl-2'
+                        isActive ? 'py-1 my-5  pr-5 bg-white text-indigo-700 rounded-l-2xl pl-5' : 'py-1 my-5  pr-5  rounded-l-2xl pl-2'
                         }
                     >
                     My Chats
@@ -44,7 +44,7 @@ function CounselorSidebar() {
                 <NavLink
                     to="/counselor/time-schedule"
                     className={({ isActive }) =>
-                        isActive ? 'py-1 my-5 pl-24  pr-5 bg-white text-indigo-700 rounded-l-2xl ' : 'py-1 my-5  pr-5  rounded-l-2xl pl-2'
+                        isActive ? 'py-1 my-5 pl-5  pr-5 bg-white text-indigo-700 rounded-l-2xl ' : 'py-1 my-5  pr-5  rounded-l-2xl pl-2'
                         }
                     >
                     Time Schedule
@@ -53,9 +53,9 @@ function CounselorSidebar() {
 
                 <div className='py-5'>
                 <NavLink
-                    to="/dashbard"
+                    to="/counselor/article"
                     className={({ isActive }) =>
-                        isActive ? 'py-1 my-5 pl-28 pr-5 bg-white text-indigo-700 rounded-l-2xl ml-16' : 'py-1 my-5  pr-5  rounded-l-2xl pl-2'
+                        isActive ? 'py-1 my-5 pl-5 pr-5 bg-white text-indigo-700 rounded-l-2xl ml-16' : 'py-1 my-5  pr-5  rounded-l-2xl pl-2'
                         }
                     >
                     Write Article
@@ -87,7 +87,7 @@ function CounselorSidebar() {
                 <NavLink
                     to="/counselor/profile"
                     className={({ isActive }) =>
-                        isActive ? 'py-1 my-5 pl-28 pr-5 bg-white text-indigo-700 rounded-l-2xl ml-16' : 'py-1 my-5  pr-5  rounded-l-2xl pl-2'
+                        isActive ? 'py-1 my-5 pl-5 pr-5 bg-white text-indigo-700 rounded-l-2xl ml-16' : 'py-1 my-5  pr-5  rounded-l-2xl pl-2'
                         }
                     >
                     Profile

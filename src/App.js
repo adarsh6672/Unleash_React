@@ -44,11 +44,16 @@ import VideoCall from './Pages/Dashboard/User/VideoCall';
 import CounselorVideoCall from './Pages/Dashboard/Counselor/CounselorVideoCall';
 import EndCallUser from './Pages/Dashboard/User/EndCallUser';
 import EndCall from './Pages/Dashboard/Counselor/EndCall';
+import ArticleCounselor from './Pages/Dashboard/Counselor/ArticleCounselor';
+import NewArticle from './Pages/Dashboard/Counselor/NewArticle';
+import { Toaster} from 'react-hot-toast'
 
 
 function App() {
   return (
+    
     <BrowserRouter>
+    <Toaster />
       <Routes >
         <Route path='/' element={<Home />} />
         <Route path='/counsellors' element={<CounsellorsList/>} />
@@ -106,6 +111,9 @@ function App() {
         <Route path='counselor/payment' element={<CounselorRoute> <CounselorPayment /> </CounselorRoute>} />
         <Route path='counselor/videocall' element={<CounselorRoute> <CounselorVideoCall /> </CounselorRoute>} />
         <Route path='counselor/end-call' element={<CounselorRoute> <EndCall /> </CounselorRoute>} />
+        <Route path='counselor/article' element={<CounselorRoute> <ArticleCounselor /> </CounselorRoute>} />
+        <Route path='counselor/new-article' element={<CounselorRoute> <NewArticle /> </CounselorRoute>} />
+
 
 
 
