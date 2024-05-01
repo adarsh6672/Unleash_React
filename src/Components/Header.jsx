@@ -69,7 +69,7 @@ function Header() {
                         >Our Counsellors</NavLink>
                         <NavLink to='/plan-pricing' className={({ isActive }) => isActive ? 'text-orange-500 font-bold' : 'text-gray-800 hover:text-orange-500 font-bold'}
                         >Plan & Pricing</NavLink>
-                        <NavLink to='/wo'  className={({ isActive }) => isActive ? 'text-orange-500 font-bold' : 'text-gray-800 hover:text-orange-500 font-bold'}
+                        <NavLink to='/articlehub'  className={({ isActive }) => isActive ? 'text-orange-500 font-bold' : 'text-gray-800 hover:text-orange-500 font-bold'}
                         >Article Hub</NavLink>
                     </div>
                 </div>

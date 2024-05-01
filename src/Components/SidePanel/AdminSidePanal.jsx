@@ -67,7 +67,7 @@ function AdminSidepanal() {
                 <NavLink
                     to="/dashbard"
                     className={({ isActive }) =>
-                        isActive ? 'py-1 my-5 pl-28 pr-5 bg-white text-indigo-700 rounded-l-2xl ml-16' : 'py-1 my-5  pr-5  rounded-l-2xl pl-2'
+                        isActive ? 'py-1 my-5 pl-5 pr-5 bg-white text-indigo-700 rounded-l-2xl ml-16' : 'py-1 my-5  pr-5  rounded-l-2xl pl-2'
                         }
                     >
                     Bookings
@@ -78,7 +78,7 @@ function AdminSidepanal() {
                 <NavLink
                     to="/dashb  ard"
                     className={({ isActive }) =>
-                        isActive ? 'py-1 my-5 pl-28 pr-5 bg-white text-indigo-700 rounded-l-2xl ml-16' : 'py-1 my-5  pr-5  rounded-l-2xl pl-2'
+                        isActive ? 'py-1 my-5 pl-5 pr-5 bg-white text-indigo-700 rounded-l-2xl ml-16' : 'py-1 my-5  pr-5  rounded-l-2xl pl-2'
                         }
                     >
                     Feedbacks
@@ -88,7 +88,7 @@ function AdminSidepanal() {
                 <NavLink
                     to="/dashb  ard"
                     className={({ isActive }) =>
-                        isActive ? 'py-1 my-5 pl-28 pr-5 bg-white text-indigo-700 rounded-l-2xl ml-16' : 'py-1 my-5  pr-5  rounded-l-2xl pl-2'
+                        isActive ? 'py-1 my-5 pl-5 pr-5 bg-white text-indigo-700 rounded-l-2xl ml-16' : 'py-1 my-5  pr-5  rounded-l-2xl pl-2'
                         }
                     >
                     Transactions
@@ -99,7 +99,7 @@ function AdminSidepanal() {
                 <NavLink
                     to="/dashb  ard"
                     className={({ isActive }) =>
-                        isActive ? 'py-1 my-5 pl-28 pr-5 bg-white text-indigo-700 rounded-l-2xl ml-16' : 'py-1 my-5  pr-5  rounded-l-2xl pl-2'
+                        isActive ? 'py-1 my-5 pl-5 pr-5 bg-white text-indigo-700 rounded-l-2xl ml-16' : 'py-1 my-5  pr-5  rounded-l-2xl pl-2'
                         }
                     >
                     Payments Process
@@ -108,9 +108,9 @@ function AdminSidepanal() {
 
                 <div className='py-5'>
                 <NavLink
-                    to="/dashb  ard"
+                    to="/admin/article/manage"
                     className={({ isActive }) =>
-                        isActive ? 'py-1 my-5 pl-28 pr-5 bg-white text-indigo-700 rounded-l-2xl ml-16' : 'py-1 my-5  pr-5  rounded-l-2xl pl-2'
+                        isActive ? 'py-1 my-5 pl-5 pr-5 bg-white text-indigo-700 rounded-l-2xl ml-16' : 'py-1 my-5  pr-5  rounded-l-2xl pl-2'
                         }
                     >
                     Manage Articles
@@ -121,7 +121,7 @@ function AdminSidepanal() {
                 <NavLink
                     to="/dashb  ard"
                     className={({ isActive }) =>
-                        isActive ? 'py-1 my-5 pl-28 pr-5 bg-white text-indigo-700 rounded-l-2xl ml-16' : 'py-1 my-5  pr-5  rounded-l-2xl pl-2'
+                        isActive ? 'py-1 my-5 pl-5 pr-5 bg-white text-indigo-700 rounded-l-2xl ml-16' : 'py-1 my-5  pr-5  rounded-l-2xl pl-2'
                         }
                     >
                     Promo Code

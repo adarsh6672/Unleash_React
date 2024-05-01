@@ -47,6 +47,10 @@ import EndCall from './Pages/Dashboard/Counselor/EndCall';
 import ArticleCounselor from './Pages/Dashboard/Counselor/ArticleCounselor';
 import NewArticle from './Pages/Dashboard/Counselor/NewArticle';
 import { Toaster} from 'react-hot-toast'
+import ArticleEdit from './Pages/Dashboard/Counselor/ArticleEdit';
+import Articles from './Pages/Home/Articles';
+import ArticleHub from './Pages/Home/ArticleHub';
+import ManageArticles from './Pages/Dashboard/Admin/ManageArticles';
 
 
 function App() {
@@ -59,6 +63,9 @@ function App() {
         <Route path='/counsellors' element={<CounsellorsList/>} />
         <Route path='/open-profile' element={<OpenProfile />} />
         <Route path='/plan-pricing' element={<PlanPricing />} />
+        <Route path='/articles/open' element={<Articles />} />
+        <Route path='/articlehub' element={<ArticleHub />} />
+
 
 
         <Route path='/login' element={<Unautherized><Login /></Unautherized>} />
@@ -90,6 +97,8 @@ function App() {
         <Route path='/admin/updation-requests' element={<AdminRoutes> <UpdationRequest/> </AdminRoutes>} />
         <Route path='/admin/request/view-updation/' element={<AdminRoutes> <OpenUpdation /> </AdminRoutes>} />
         <Route path='/admin/plans/' element={<AdminRoutes><Plans /></AdminRoutes>} />
+        <Route path='/admin/article/manage' element={<AdminRoutes><ManageArticles /></AdminRoutes>} />
+
 
 
 
@@ -113,6 +122,8 @@ function App() {
         <Route path='counselor/end-call' element={<CounselorRoute> <EndCall /> </CounselorRoute>} />
         <Route path='counselor/article' element={<CounselorRoute> <ArticleCounselor /> </CounselorRoute>} />
         <Route path='counselor/new-article' element={<CounselorRoute> <NewArticle /> </CounselorRoute>} />
+        <Route path='counselor/article/edit' element={<CounselorRoute> <ArticleEdit /> </CounselorRoute>} />
+
 
 
 

@@ -1,22 +1,21 @@
 import React, { useEffect, useState } from 'react'
 import DashHeader from '../../../Components/SidePanel/DashHeader'
-import CounselorSidebar from '../../../Components/SidePanel/CounselorSidebar'
-import img from '../../../Assets/imgs/article.webp'
-import sample from '../../../Assets/imgs/sample.jpg'
-import { FaPenToSquare } from "react-icons/fa6";
-import { FaTrash } from "react-icons/fa";
+import AdminSidepanal from '../../../Components/SidePanel/AdminSidePanal'
 import { useNavigate } from 'react-router-dom'
 import { AxiosInstance } from '../../../Utils/AxiosInstance'
 
-function ArticleCounselor() {
+import { FaTrash } from "react-icons/fa";
+
+function ManageArticles() {
     const navigate = useNavigate()
     const [articles, setArticles] = useState([])
     const [isOpen, setOpen] = useState(false)
     const [articleId, setDeleteId] = useState()
     const [update, setUpdate] = useState(false)
 
+
     useEffect(() => {
-        AxiosInstance.get('/article/get-my-article')
+        AxiosInstance.get('/article/get-all-articles')
             .then(res => {
                 setArticles(res.data)
             })
@@ -34,6 +33,10 @@ function ArticleCounselor() {
         };
 
         return date.toLocaleString('en-US', options);
+    }
+
+    const handleView = (data) => {
+        navigate('/articles/open', { state: data })
     }
 
     const deleteArticle = async () => {
@@ -58,36 +61,13 @@ function ArticleCounselor() {
         setOpen(true)
 
     }
-    const handleEdit=(data)=>{
-        navigate('/counselor/article/edit' , {state:data})
-    }
-
-    const handleView =(data)=>{
-        navigate('/articles/open',{state:data})
-    }
-
     return (
         <>
             <DashHeader />
             <div className='flex '>
-                <CounselorSidebar />
-                <div className='sm:w-full  p-4  '>
-
-                    <div className=' p-5 w-3/4 mx-auto flex sm:grid grid-cols-3 bg-gradient-to-r from-orange-300 to-indigo-300 rounded-lg shadow-lg shadow-slate-300'>
-                        <div className='col-span-2 my-auto text-center'>
-                            <h1 className='text-4xl font-medium'>Share Your Thoughts Here</h1>
-                            <button className='p-2 bg-indigo-800 rounded-xl mt-3 text-white font-bold' onClick={() => navigate('/counselor/new-article')}>Click To Write</button>
-                        </div>
-                        <div className=' col-span-1 flex justify-end'>
-                            <img src={img} alt=""
-                                className='object-cover rounded-xl w-52  ' />
-                        </div>
-                    </div>
-
-                    {/* my articles  */}
-
-                    <div className='p-5 mt-10'>
-                        <h1 className='text-2xl text-orange-500 font-bold text-center'>My Articles</h1>
+                <AdminSidepanal />
+                <div className='sm:w-full  p-4'>
+                    <div className='p-5 '>
                         {articles[0] && (articles.map(item => (
                             <div className='mt-10'>
                                 <div className='min-h-48 p-5 w-3/4 mx-auto flex sm:grid grid-cols-3 bg-slate-100 rounded-lg shadow-lg shadow-slate-300'>
@@ -99,8 +79,8 @@ function ArticleCounselor() {
                                             <p>{formatDateTime(item.uploadedOn)}</p>
                                         </div>
                                         <div className='flex justify-end gap-10 '>
-                                            <button className=' text-lg text-orange-400 ' onClick={()=>{handleView(item)}}>View</button>
-                                            <button className='text-indigo-500' onClick={()=>handleEdit(item)}><FaPenToSquare /></button>
+                                            <button className=' text-lg text-orange-400 ' onClick={() => { handleView(item) }}>View</button>
+                                            
                                             <button className='text-red-400 ' onClick={() => handleDelete(item.id)}><FaTrash /></button>
                                         </div>
                                     </div>
@@ -120,7 +100,6 @@ function ArticleCounselor() {
                         )}
 
                     </div>
-
                 </div>
             </div>
             {isOpen && (
@@ -134,10 +113,9 @@ function ArticleCounselor() {
                     </div>
                 </div>
             )}
+
         </>
     )
 }
 
-export default ArticleCounselor
-
-
+export default ManageArticles
