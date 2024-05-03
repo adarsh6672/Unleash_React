@@ -86,7 +86,7 @@ function AdminSidepanal() {
                 </div>
                 <div className='py-5'>
                 <NavLink
-                    to="/dashb  ard"
+                    to="/admin/transactions/counselor"
                     className={({ isActive }) =>
                         isActive ? 'py-1 my-5 pl-5 pr-5 bg-white text-indigo-700 rounded-l-2xl ml-16' : 'py-1 my-5  pr-5  rounded-l-2xl pl-2'
                         }
@@ -97,9 +97,9 @@ function AdminSidepanal() {
 
                 <div className='py-5'>
                 <NavLink
-                    to="/dashb  ard"
+                    to="/admin/payments"
                     className={({ isActive }) =>
-                        isActive ? 'py-1 my-5 pl-5 pr-5 bg-white text-indigo-700 rounded-l-2xl ml-16' : 'py-1 my-5  pr-5  rounded-l-2xl pl-2'
+                        isActive ? 'py-1 my-5 pl-5 pr-5 bg-white text-indigo-700 rounded-l-2xl ' : 'py-1 my-5  pr-5  rounded-l-2xl pl-2'
                         }
                     >
                     Payments Process
@@ -110,7 +110,7 @@ function AdminSidepanal() {
                 <NavLink
                     to="/admin/article/manage"
                     className={({ isActive }) =>
-                        isActive ? 'py-1 my-5 pl-5 pr-5 bg-white text-indigo-700 rounded-l-2xl ml-16' : 'py-1 my-5  pr-5  rounded-l-2xl pl-2'
+                        isActive ? 'py-1 my-5 pl-5 pr-5 bg-white text-indigo-700 rounded-l-2xl ' : 'py-1 my-5  pr-5  rounded-l-2xl pl-2'
                         }
                     >
                     Manage Articles
@@ -121,7 +121,7 @@ function AdminSidepanal() {
                 <NavLink
                     to="/dashb  ard"
                     className={({ isActive }) =>
-                        isActive ? 'py-1 my-5 pl-5 pr-5 bg-white text-indigo-700 rounded-l-2xl ml-16' : 'py-1 my-5  pr-5  rounded-l-2xl pl-2'
+                        isActive ? 'py-1 my-5 pl-5 pr-5 bg-white text-indigo-700 rounded-l-2xl ' : 'py-1 my-5  pr-5  rounded-l-2xl pl-2'
                         }
                     >
                     Promo Code

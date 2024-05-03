@@ -51,6 +51,8 @@ import ArticleEdit from './Pages/Dashboard/Counselor/ArticleEdit';
 import Articles from './Pages/Home/Articles';
 import ArticleHub from './Pages/Home/ArticleHub';
 import ManageArticles from './Pages/Dashboard/Admin/ManageArticles';
+import PaymentProcess from './Pages/Dashboard/Admin/PaymentProcess';
+import Transactions from './Pages/Dashboard/Admin/Transactions';
 
 
 function App() {
@@ -98,6 +100,10 @@ function App() {
         <Route path='/admin/request/view-updation/' element={<AdminRoutes> <OpenUpdation /> </AdminRoutes>} />
         <Route path='/admin/plans/' element={<AdminRoutes><Plans /></AdminRoutes>} />
         <Route path='/admin/article/manage' element={<AdminRoutes><ManageArticles /></AdminRoutes>} />
+        <Route path='/admin/payments' element={<AdminRoutes><PaymentProcess /></AdminRoutes>} />
+        <Route path='/admin/transactions/counselor' element={<AdminRoutes><Transactions /></AdminRoutes>} />
+
+
 
 
 
