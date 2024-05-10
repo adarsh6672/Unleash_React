@@ -59,7 +59,7 @@ function App() {
   return (
     
     <BrowserRouter>
-    <Toaster />
+    <Toaster  />
       <Routes >
         <Route path='/' element={<Home />} />
         <Route path='/counsellors' element={<CounsellorsList/>} />

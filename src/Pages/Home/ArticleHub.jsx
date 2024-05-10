@@ -13,7 +13,7 @@ function ArticleHub() {
 
 
     useEffect(() => {
-        AxiosInstance.get('/article/get-all-articles')
+        AxiosInstance.get('/article/public/get-all-articles')
             .then(res => {
                 setArticles(res.data)
             })
@@ -21,7 +21,7 @@ function ArticleHub() {
 
     useEffect(() => {
 
-        AxiosInstance.get('/user/counselor/getselectiondata').then(resp => {
+        AxiosInstance.get('/public/selection-data').then(resp => {
             setSelection(resp.data.specializations)
             console.log(resp.data.specializations)
         }).catch(err => {
@@ -63,9 +63,9 @@ function ArticleHub() {
                                 <div className='col-span-2 my-auto ' >
                                     <h1 className='text-2xl font-medium'>{item.title}</h1>
 
-                                    <div className='mt-5 flex justify-between text-slate-600'>
+                                    <div className='mt-5  text-slate-600'>
                                         <p className='text-indigo-900'>{item.counselorName}</p>
-                                        <p className='text-orange-500'>{formatDateTime(item.uploadedOn)}</p>
+                                        <p className='text-orange-500 text-sm'>{formatDateTime(item.uploadedOn)}</p>
                                     </div>
 
                                 </div>
@@ -92,7 +92,7 @@ function ArticleHub() {
                     <div className=' gap-10 mt-5 flex flex-wrap'>
                         {selection && selection.map((item)=>(
                             <div className='w-fit'>
-                                <h1 className='bg-slate-300 px-2 rounded-3xl cursor-pointer shadow-md shadow-slate-400' >{item.specilization}</h1>
+                                <h1 className='bg-slate-200 px-2 rounded-3xl cursor-pointer shadow-md shadow-slate-400' >{item.specilization}</h1>
                             </div>
                         ))}
                     </div>
