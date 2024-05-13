@@ -10,7 +10,7 @@ import { FaVideo } from "react-icons/fa";
 import { FaMicrophone } from "react-icons/fa";
 import { FaMicrophoneSlash } from "react-icons/fa6";
 import { MdCallEnd } from "react-icons/md";
-import { useNavigate } from 'react-router-dom'
+import { useLocation, useNavigate } from 'react-router-dom'
 
 var stompClient = null;
 function VideoCall() {
@@ -30,6 +30,8 @@ function VideoCall() {
     const myVideo = useRef()
     const userVideo = useRef()
     const connectionRef = useRef()
+    const location = useLocation()
+    const data = location.state;
 
     const userData = useSelector(state => state.userData.userData)
     console.log(userData)
@@ -196,7 +198,7 @@ function VideoCall() {
         setCallAccepted(false)
         setReceivingCall(false)
         setStream(null);
-        navigate('/user/end-call')
+        navigate('/user/end-call',{state:data})
     }
 
     const toggleVideoMute = () => {

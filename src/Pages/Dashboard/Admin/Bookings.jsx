@@ -2,20 +2,21 @@ import React, { useEffect, useState } from 'react'
 import DashHeader from '../../../Components/SidePanel/DashHeader'
 import AdminSidepanal from '../../../Components/SidePanel/AdminSidePanal'
 import { AxiosInstance } from '../../../Utils/AxiosInstance';
-import ReactPaginate from 'react-paginate'
 import moment from 'moment';
+import ReactPaginate from 'react-paginate';
 
-function Transactions() {
+function Bookings() {
+
     const [TABLE_ROWS, setTableRows] = useState([]);
     const [pageNo, setPageNo] = useState(0)
     const [recData, setRecData] = useState();
-    const TABLE_HEAD = ['SL.NO', 'COUNSELOR ID', 'TRANSACTION ID', 'DATE & TIME', 'AMOUNT IN RS.']
+    const TABLE_HEAD = ['SL.NO','BOOKING ID', 'COUNSELOR ID', 'COUNSELOR NAME ', 'USER ID', 'BOOKED AT' ,'SESSION TIME' , 'STATUS']
 
 
     useEffect(() => {
-        AxiosInstance.get(`/consultation/payment/admin/get-alltransaction/${pageNo}`)
+        AxiosInstance.get(`/consultation/admin/get-all-bookings/${pageNo}`)
             .then(res => {
-                setTableRows(res.data.content)
+                setTableRows(res.data.response)
                 setRecData(res.data)
                 console.log(res.data)
             }).catch(err => {
@@ -66,25 +67,47 @@ function Transactions() {
                                         </td>
                                         <td className="p-4">
                                             <div variant="small" color="blue-gray" className="font-normal">
-                                                ULCID{item.userId}
+                                                SID{item.sessionBooking.id}
                                             </div>
                                         </td>
                                         <td className="p-4">
                                             <div variant="small" color="blue-gray" className="font-normal">
-                                                {item.payoutId}
+                                                ULCID{item.counselorId}
                                             </div>
                                         </td>
                                         <td className="p-4">
                                             <div as="a" href="#" variant="small" color="blue-gray" className="font-normal">
-                                                {dateConvert(item.payedOn)}
+                                                {item.counselorName}
                                             </div>
                                         </td>
                                         <td className="p-4">
-                                            <div as="a" href="#" variant="small" color="blue-gray" className="font-medium">
-                                                {item.amount}
+                                            <div as="a" href="#" variant="small" color="blue-gray" className="font-normal">
+                                               ULPID {item.sessionBooking.patientId}
                                             </div>
                                         </td>
-                                        
+                                        <td className="p-4">
+                                            <div as="a" href="#" variant="small" color="blue-gray" className="font-normal">
+                                            {dateConvert(item.sessionBooking.bookingTime)}
+                                            </div>
+                                        </td>
+                                        <td className="p-4">
+                                            <div as="a" href="#" variant="small" color="blue-gray" className="font-normal">
+                                                {dateConvert(item.sessionBooking.avilability.slot)}
+                                            </div>
+                                        </td>
+                                        <td className="p-4">
+                                            <div as="a" href="#" variant="small" color="blue-gray" 
+                                            className={`font-bold ${
+                                                item.sessionBooking.status === 'BOOKED'
+                                                  ? 'text-green-500'
+                                                  
+                                                  : item.sessionBooking.status === 'CANCELED'
+                                                  ? 'text-red-500'
+                                                  : 'text-blue-gray-500'
+                                              }`}>
+                                                {item.sessionBooking.status}
+                                            </div>
+                                        </td>
 
 
                                     </tr>
@@ -100,8 +123,8 @@ function Transactions() {
                     </div>
                     {recData && (
                         <ReactPaginate
-                            pageCount={recData.totalPages}
-                            pageRangeDisplayed={5}
+                            pageCount={recData.totalPage}
+                            pageRangeDisplayed={10}
                             marginPagesDisplayed={2}
                             onPageChange={handlePageChange}
                             containerClassName="flex justify-end gap-10   p-3 text-indigo-800"
@@ -111,8 +134,9 @@ function Transactions() {
 
                 </div>
             </div>
+
         </>
     )
 }
 
-export default Transactions
+export default Bookings

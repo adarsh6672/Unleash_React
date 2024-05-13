@@ -113,8 +113,9 @@ function SessionPage() {
     })
   }
 
-  const handleVideoCall=(id)=>{
-    navigate('/user/videocall',{state:id})
+  const handleVideoCall=( sessionId)=>{
+    
+    navigate('/user/videocall',{state:sessionId})
   }
   return (
     <>
@@ -164,7 +165,7 @@ function SessionPage() {
                       {isSlotWithinOneHour(item.sessionBooking.avilability.slot) ? (
                         <button className='bg-orange-500 px-5 py-1 text-white rounded-md '>Join</button>
                       ) : (
-                        <button className=' bg-slate-300 px-5 py-1 rounded-md ' onClick={() => handleVideoCall(item.counselorId)}>Join</button>
+                        <button className=' bg-slate-300 px-5 py-1 rounded-md ' onClick={() => handleVideoCall(item.sessionBooking.id)}>Join</button>
                       )}
 
                       {isSlotCancel(item.sessionBooking.avilability.slot) ? (

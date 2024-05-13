@@ -5,6 +5,8 @@ import useRazorpay from "react-razorpay";
 import Header from '../../../Components/Header';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { useSelector } from 'react-redux';
+import { AxiosInstance } from '../../../Utils/AxiosInstance';
+import { toast} from 'react-hot-toast';
 
 function Payment() {
 
@@ -14,11 +16,19 @@ function Payment() {
     const plan= location.state;
     const navigate = useNavigate();
     const [error , setError] = useState();
-
+    const [promocode , setPromocode] = useState('')
     const [promo , setPromo]= useState(0)
     const [final , setFinal] = useState(plan.price);
+    const [promoId , setPromoId] = useState(0)
 
     const userData = useSelector(state => state.userData.userData)
+
+    const notify = (message) => {
+        toast.error(message);
+     };
+     const success = (message) => {
+        toast.success(message);
+     };
 
     const createOrder = async () => {
         return await axios.get(BASE_URL+'/consultation/subscription/payment/'+final*100, {
@@ -50,7 +60,8 @@ function Payment() {
             axios.put(BASE_URL+'/consultation/subscription/payment/update',{
                     paymentId: response.razorpay_payment_id,
                     orderId : response.razorpay_order_id,
-                    planId : plan.id
+                    planId : plan.id,
+                    promoId : promoId
             },{
                 headers :{
                     'Authorization':`Bearer ${token}`
@@ -92,6 +103,24 @@ function Payment() {
         
       };
 
+      const handlePromocode=async()=>{
+        await AxiosInstance.get(`/consultation/subscription/check-promocode?promocode=${promocode}`)
+        .then(res=>{
+            console.log(res.data)
+            if(res.data.minimumAmount>plan.price){
+                notify('This Code Not Avilable For This Purchase..!')
+            }else{
+
+                setPromo(res.data.discountAmount)
+                setFinal(plan.price-res.data.discountAmount)
+                setPromoId(res.data.id)
+                success('Promocode Applied Successfully')
+            }
+        }).catch(err=>{
+            console.log(err)
+            notify('Invalid Promocode...!')
+        })
+      }
  
 
   return (
@@ -120,9 +149,9 @@ function Payment() {
     )}
     <div className='flex justify-center p-10 border-b-2 border-black w-2/3 mx-auto'>
         <h1 className='my-auto mx-5'>Promo Code If Any</h1>
-        <input type="text"  className='w-1/3 my-auto mx-5' />
+        <input type="text"  className='w-1/3 my-auto mx-5' value={promocode} onChange={(e)=>setPromocode(e.target.value)}/>
         
-        <button className='my-auto mx-5 bg-indigo-800 text-white font-bold p-2 w-1/6'>Apply</button>
+        <button className='my-auto mx-5 bg-indigo-800 text-white font-bold p-2 w-1/6' onClick={handlePromocode}>Apply</button>
         
     </div>
     <div className=' grid gap-6 grid-cols-6 w-2/3 mx-auto py-5 text-xl border-b-2 border-black'>
@@ -138,7 +167,7 @@ function Payment() {
             <h1 className='mt-5'>₹ {final}</h1> 
         </div>
     </div>
-    <div className='bg-orange-500 cursor-pointer w-fit mx-auto text-center p-2 mt-5 w-1/5 rounded-lg text-white font-bold shadow-lg shadow-slate-300' onClick={handlepay} >Pay Now</div>
+    <div className='bg-orange-500 cursor-pointer  mx-auto text-center p-2 mt-5 w-1/5 rounded-lg text-white font-bold shadow-lg shadow-slate-300' onClick={handlepay} >Pay Now</div>
    </>
   )
 }

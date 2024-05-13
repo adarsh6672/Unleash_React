@@ -124,15 +124,15 @@ function PaymentProcess() {
                             <table className="w-full min-w-max px-3 table-auto text-center ">
                                 <thead>
                                     <tr>
-                                        <th className="border-b border-blue-gray-100 bg-orange-200  p-4">
+                                        <th className="border-b border-blue-gray-100 bg-orange-300  p-4">
                                             <input type="checkbox" onChange={handleAllSelection} className='text-orange-500 outline-none' />
                                         </th>
                                         {TABLE_HEAD.map((head) => (
-                                            <th key={head} className="border-b border-blue-gray-100 bg-orange-200  p-4">
+                                            <th key={head} className="border-b border-blue-gray-100 bg-orange-300  p-4">
                                                 <div
                                                     variant="small"
                                                     color="blue-gray"
-                                                    className="font-normal leading-none opacity-70"
+                                                    className=" leading-none opacity-70 font-bold"
                                                 >
                                                     {head}
                                                 </div>

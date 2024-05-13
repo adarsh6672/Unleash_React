@@ -53,6 +53,8 @@ import ArticleHub from './Pages/Home/ArticleHub';
 import ManageArticles from './Pages/Dashboard/Admin/ManageArticles';
 import PaymentProcess from './Pages/Dashboard/Admin/PaymentProcess';
 import Transactions from './Pages/Dashboard/Admin/Transactions';
+import Bookings from './Pages/Dashboard/Admin/Bookings';
+import Promocode from './Pages/Dashboard/Admin/Promocode';
 
 
 function App() {
@@ -102,6 +104,9 @@ function App() {
         <Route path='/admin/article/manage' element={<AdminRoutes><ManageArticles /></AdminRoutes>} />
         <Route path='/admin/payments' element={<AdminRoutes><PaymentProcess /></AdminRoutes>} />
         <Route path='/admin/transactions/counselor' element={<AdminRoutes><Transactions /></AdminRoutes>} />
+        <Route path='/admin/bookings' element={<AdminRoutes><Bookings /></AdminRoutes>} />
+        <Route path='/admin/promocode' element={<AdminRoutes><Promocode /></AdminRoutes>} />
+
 
 
 
