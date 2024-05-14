@@ -16,6 +16,7 @@ function ArticleHub() {
         AxiosInstance.get('/article/public/get-all-articles')
             .then(res => {
                 setArticles(res.data)
+                console.log(res.data)
             })
     }, [update])
 
@@ -48,6 +49,10 @@ function ArticleHub() {
         navigate('/articles/open', { state: data })
     }
 
+    const handleViewCounselor=(id)=>{
+        navigate('/open-profile',{state:id})
+    }
+
     return (
         <>
             <Header />
@@ -58,13 +63,13 @@ function ArticleHub() {
             <div className='sm:grid grid-cols-12 gap-10 py-5 px-10'>
                 <div className='col-span-9  '>
                     {articles[0] && (articles.map(item => (
-                        <div className='mt-10 cursor-pointer ' onClick={() => { handleView(item) }}>
+                        <div className='mt-10 cursor-pointer ' >
                             <div className='min-h-48 p-5  mx-auto flex sm:grid grid-cols-3 bg-slate-100 rounded-lg shadow-lg shadow-slate-300'>
                                 <div className='col-span-2 my-auto ' >
-                                    <h1 className='text-2xl font-medium'>{item.title}</h1>
+                                    <h1 className='text-2xl font-medium hover:text-indigo-800' onClick={() => { handleView(item) }}>{item.title}</h1>
 
                                     <div className='mt-5  text-slate-600'>
-                                        <p className='text-indigo-900'>{item.counselorName}</p>
+                                        <p className='text-indigo-900 hover:font-bold'onClick={()=>handleViewCounselor(item.counselorId)} >{item.counselorName}</p>
                                         <p className='text-orange-500 text-sm'>{formatDateTime(item.uploadedOn)}</p>
                                     </div>
 
