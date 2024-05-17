@@ -1,6 +1,6 @@
 import React from 'react'
 import Header from '../../Components/Header'
-import image from '../../Assets/imgs/home-asset.jpg'
+import image from '../../Assets/imgs/home1.jpg'
 import lapImage from '../../Assets/imgs/image2.jpg'
 import { FaVideo } from "react-icons/fa";
 import { FaMicrophone } from "react-icons/fa";

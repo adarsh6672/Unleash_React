@@ -12,6 +12,7 @@ function SessionCounselor() {
     const [TABLE_ROWS, setTableRows] = useState([]);
     const TABLE_HEAD = ['NAME', 'PHONE', 'SCHEDULED ON', 'VIEW', 'STATUS']
     const [now, setNow] = useState(true)
+    const [matchingSlot , setMatchingSlot] = useState()
     const navigate = useNavigate();
 
     useEffect(() => {
@@ -19,6 +20,20 @@ function SessionCounselor() {
             .then(res => {
                 console.log(res.data)
                 setBookings(res.data)
+
+                const matchingSlots = res.data.map(item => 
+                    isSlotWithinOneHour(item.sessionBooking.avilability.slot)? item : null
+                ).filter(Boolean); // Filter out null values
+                
+                // Then, check if there are any matching slots and update your state
+                if (matchingSlots.length > 0) {
+                    setMatchingSlot(matchingSlots[0]); // Or however you want to handle multiple matching slots
+                }
+
+                // Set matching slots
+                
+                console.log(matchingSlots)
+               
             })
             .catch(err => console.log(err))
     }, [])
@@ -56,9 +71,10 @@ function SessionCounselor() {
         }
         return false;
     }
+   
 
-    const handleSession=(id)=>{
-        navigate('/counselor/videocall',{state:id})
+    const handleSession = (id) => {
+        navigate('/counselor/videocall', { state: id })
     }
     return (
         <>
@@ -71,21 +87,27 @@ function SessionCounselor() {
                         <div className='w-2/3 border-2 border-slate-100 shadow-lg shadow-slate-300 rounded-lg mx-auto m-5 flex justify-around'>
                             <img className='h-2/6 w-2/6 opacity-45' src={img} alt="images" />
                             <div className=' text-indigo-900 text-center rounded-lg my-auto h-fit'>
-                                {bookings && bookings.map((booking) => {
-                                    if (isSlotWithinOneHour(booking.sessionBooking.avilability.slot)) {
-                                        setNow(false)
-                                        return (
-                                            <div>
+                                {/* {bookings && bookings.map((booking) => (
+                                     (isSlotWithinOneHour(booking.sessionBooking.avilability.slot))?(
+                                        <div>
                                                 <h1 className='pt-5 font-bold text-2xl text-indigo-800'>{booking.userDto.fullname}</h1>
                                                 <h1 className='py-5  text-indigo-800'>Time : {formatTime(booking.sessionBooking.avilability.slot)}</h1>
                                                 <button className='bg-orange-500 p-2 rounded-lg text-white'>Start Now</button>
-
                                             </div>
-                                        );
-                                    }
+                                     ):(
+                                        <div></div>
+                                     ) 
+    
+                                )
+                                )} */}
 
-
-                                })}
+                                {matchingSlot && (
+                                    <div>
+                                        <h1 className='pt-5 font-bold text-2xl text-indigo-800'>{matchingSlot.userDto.fullname}</h1>
+                                                <h1 className='py-5  text-indigo-800'>Time : {formatTime(matchingSlot.sessionBooking.avilability.slot)}</h1>
+                                                <button className='bg-orange-500 p-2 rounded-lg text-white'>Start Now</button>
+                                    </div>
+                                )}
                                 {now && (
                                     <div>
                                         <h1 className='text-2xl font-bold text-indigo-800'>NO SESSION ON THIS TIME ..!</h1>
@@ -132,7 +154,7 @@ function SessionCounselor() {
                                                     </div>
                                                 </td>
                                                 <td className="p-4">
-                                                    <div className="font-medium text-orange-500" onClick={()=>handleSession(booking.userDto.id)}>
+                                                    <div className="font-medium text-orange-500" onClick={() => handleSession(booking.userDto.id)}>
                                                         view
                                                     </div>
                                                 </td>
@@ -187,7 +209,7 @@ function SessionCounselor() {
                                                     </div>
                                                 </td>
                                                 <td className="p-4">
-                                                    <div  className="font-medium text-orange-500 cursor-pointer" onClick={()=>handleSession(booking.userDto.id)}>
+                                                    <div className="font-medium text-orange-500 cursor-pointer" onClick={() => handleSession(booking.userDto.id)}>
                                                         view
                                                     </div>
                                                 </td>

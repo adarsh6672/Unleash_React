@@ -42,6 +42,19 @@ function Promocode() {
         setEndDate(d)
     }
 
+    const handleDate=(type , d)=>{
+        switch(type){
+            case "Start" :
+                setStartDate(d)
+                break;
+            case "End" :
+                setEndDate(d)
+                break
+            default:
+                return
+        }
+    }
+
     const handlePromocode = async () => {
         const data = {
             promocode: promocode,
