@@ -20,7 +20,7 @@ function UserSidebar() {
 
                 <div className='py-5 flex'>
                 <NavLink
-                    to="/profile"
+                    to="/user/profile"
                     className={({ isActive }) =>
                         isActive ? 'py-1  min-w-full text-start px-3 ml-7  bg-white text-indigo-700 rounded-l-2xl ' : 'py-1  pr-5 min-w-full text-start ml-10  rounded-l-2xl '                        }
                     >
@@ -28,7 +28,7 @@ function UserSidebar() {
                 </NavLink>
                 </div>
 
-                <div className='py-5 flex'>
+                {/* <div className='py-5 flex'>
                 <NavLink
                     to="/dasboard"
                     className={({ isActive }) =>
@@ -36,7 +36,7 @@ function UserSidebar() {
                     >
                     Personal Preference
                 </NavLink>  
-                </div>
+                </div> */}
 
                 <div className='py-5 flex'>
                 <NavLink

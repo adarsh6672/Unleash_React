@@ -5,6 +5,9 @@ import { useNavigate } from 'react-router-dom';
 import { IoIosClose } from "react-icons/io";
 import { BASE_URL } from '../../../Utils/const';
 import axios from 'axios'
+import ProfilePhoto from '../../../Components/profile/ProfilePhoto';
+import { AxiosInstance } from '../../../Utils/AxiosInstance';
+import Profile from '../User/Profile';
 
 
 function CounselorProfile() {
@@ -28,11 +31,9 @@ function CounselorProfile() {
 
 
     useEffect(()=>{
-        axios.get(BASE_URL+'/user/counselor/get-profile-data',{
-          headers :{
-            'Authorization':`Bearer ${token}`
-        }
-        }).then(res=>{
+        AxiosInstance.get('/user/counselor/get-profile-data')
+        .then(res=>{
+          console.log(res)
           setProfileData(res.data)
           initialSet(res.data)
         }).catch(err=>{
@@ -141,6 +142,7 @@ function CounselorProfile() {
       }
       
   }
+  
 
   return (
     <>
@@ -148,17 +150,10 @@ function CounselorProfile() {
         <div className='flex gap-3'>
             <CounselorSidebar/>
             <div className='sm:w-full  p-4 '>
-            {profileData && (
-            <div className='  w-2/3 mx-auto flex sm:grid grid-cols-3 bg-gradient-to-r from-orange-300 to-indigo-300 rounded-lg shadow-lg shadow-slate-300'>
-                <div className='p-5 col-span-1'>
-                  <img src={profileData.user.profilePic} alt="" 
-                  className='object-cover rounded-full w-40 h-40'/>
-                </div>
-                <div className='col-span-2 my-auto'>
-                  <h1 className='text-5xl font-medium'>Hello ,{profileData.user.fullname}</h1>
-                </div>
-            </div>
-            )}
+              {profileData && (
+                <ProfilePhoto profileName={profileData.user.fullname} profilePic={profileData.user.profilePic} />
+              )}
+            
 
             
                 <div className="flex min-h-full flex-1 flex-col justify-center px-6  lg:px-8">

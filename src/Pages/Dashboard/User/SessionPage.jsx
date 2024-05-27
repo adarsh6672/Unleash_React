@@ -113,9 +113,9 @@ function SessionPage() {
     })
   }
 
-  const handleVideoCall=( sessionId)=>{
-    
-    navigate('/user/videocall',{state:sessionId})
+  const handleVideoCall = (sessionId) => {
+
+    navigate('/user/videocall', { state: sessionId })
   }
   return (
     <>
@@ -150,7 +150,7 @@ function SessionPage() {
           <div className='sm:grid grid-cols-12 p-10 mt-10 justify-around w-4/5 mx-auto'>
 
             {sessions && upcoming && sessions.map((item, index) => (
-              <div className='col-span-3 p-7 border-2 border-slate-100 rounded-lg shadow-lg shadow-slate-300 w-fit bg-slate-100 text-center'
+              <div className='col-span-3 p-5 m-3 border-2 border-slate-100 rounded-lg shadow-lg shadow-slate-300 w-fit bg-slate-100 text-center'
                 style={{ display: compareDate(item.sessionBooking.avilability.slot) ? "block" : "none" }}>
                 <div>
                   <h1 className='font-bold p-2'>{item.counselorName}</h1>
