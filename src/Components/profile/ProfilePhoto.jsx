@@ -3,6 +3,8 @@ import profilepicPlaceHolder from '../../Assets/imgs/profilePic.jpg'
 import camicon from '../../Assets/imgs/camicon.png'
 import { FaCamera } from "react-icons/fa";
 import { AxiosInstance } from '../../Utils/AxiosInstance';
+import { toast} from 'react-hot-toast';
+
 
 function ProfilePhoto({ profilePic, profileName , onProfilePicUpdate }) {
   const fileInputRef = useRef(null);
@@ -10,6 +12,10 @@ function ProfilePhoto({ profilePic, profileName , onProfilePicUpdate }) {
   const handleCameraIconClick = () => {
     fileInputRef.current.click();
   };
+
+  const success = (message) => {
+    toast.success(message);
+ };
 
   const handleProfilePicUpdate=async(event)=>{
     const formData = new FormData();
@@ -19,6 +25,7 @@ function ProfilePhoto({ profilePic, profileName , onProfilePicUpdate }) {
     .then(res=>{
       console.log('profile photo updated ')
       onProfilePicUpdate()
+      success('Profile Picture Updated Successfully .... ')
     })
     .catch(err=>console.log(err))
   }

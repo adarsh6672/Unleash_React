@@ -1,6 +1,6 @@
 
 import Header from '../../Components/Header'
-import image from '../../Assets/imgs/banner2.jpg'
+import image from '../../Assets/imgs/banner.png'
 import FilterCounselor from '../../Components/Filter/FilterCounselor'
 import Footer from '../../Components/Footer'
 

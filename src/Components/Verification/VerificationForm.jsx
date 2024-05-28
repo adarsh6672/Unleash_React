@@ -3,6 +3,7 @@ import React, { useEffect, useState } from 'react'
 import { BASE_URL } from '../../Utils/const'
 import { useNavigate } from 'react-router-dom';
 import { IoIosClose } from "react-icons/io";
+import { AxiosInstance } from '../../Utils/AxiosInstance';
 function VerificationForm() {
 
     const navigate= useNavigate();
@@ -21,11 +22,7 @@ function VerificationForm() {
 
     useEffect(()=>{
         
-         axios.get(BASE_URL+'/user/counselor/getselectiondata',{
-            headers: {
-                'Authorization':`Bearer ${token}`
-            }
-        }).then(resp=>{
+         AxiosInstance.get('/user/counselor/getselectiondata').then(resp=>{
             setSelection(resp.data)
             console.log(resp.data)
         }).catch(err=>{
@@ -61,28 +58,22 @@ function VerificationForm() {
         formData.append('qualification',qaulfile);
         formData.append('experience',expfile);
         formData.append('profilePic',photo);
-        await axios.post(BASE_URL+'/counselor/dataupload',{
+        const obj={
             qualificationId : qualification,
             genderId : gender,
             languages : laguages,
             yoe : yoe,
             specializations : specialization
-        },{
-            headers :{
-                'Authorization':`Bearer ${token}`
-            }
-        }).then(resp=>{
+        }
+        console.log(obj)
+        await AxiosInstance.post('/user/counselor/dataupload',obj).then(resp=>{
             console.log(resp.data)
         }).catch(err=>{
             console.log(err)
             setLoading(false)
         })
 
-        await axios.post(BASE_URL+'/user/counselor/documentupload',formData,{
-            headers :{
-                'Authorization':`Bearer ${token}`
-            }
-        }).then(resp=>{
+        await AxiosInstance.post('/user/counselor/documentupload',formData).then(resp=>{
             console.log(resp.data)
             navigate('/counselor/submitted')
         }).catch(err =>{
