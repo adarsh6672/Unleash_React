@@ -16,6 +16,6 @@ jobs:
     - name: delete old docker image
       run: docker rm -f unleash-client || true
     - name: run docker container
-      run: docker run -d -p 3000:3000 --name unleash-client adarsh6672/unleashclient
+      run: sudo docker run -d -p 3000:3000 --name unleash-client adarsh6672/unleashclient
    
    
