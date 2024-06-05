@@ -1,0 +1,21 @@
+name: CD Pipeline
+
+on:
+  workflow_run:
+    workflows: [ "CI Pipeline" ]
+    types:
+      - completed
+
+jobs:
+  build:
+    runs-on: self-hosted
+
+    steps:
+    - name: pull docker image
+      run: sudo docker pull adarsh6672/unleashclient:latest
+    - name: delete old docker image
+      run: docker rm -f unleash-client || true
+    - name: run docker container
+      run: docker run -d -p 3000:3000 --name unleash-client adarsh6672/unleashclient
+   
+   
