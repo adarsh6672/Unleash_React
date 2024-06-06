@@ -12,9 +12,9 @@ jobs:
 
     steps:
     - name: pull docker image
-      run: sudo docker pull adarsh6672/unleashclient:latest
+      run: sudo docker pull adarsh6672/unleashclient
     - name: delete old docker image
-      run: docker rm -f unleash-client || true
+      run: sudo docker rm -f unleash-client || true
     - name: run docker container
       run: sudo docker run -d -p 3000:3000 --name unleash-client adarsh6672/unleashclient
    
