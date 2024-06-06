@@ -3,17 +3,8 @@ WORKDIR /app
 COPY package.json .
 RUN npm install
 COPY . .
-RUN npm run build
-##EXPOSE 3000
-##CMD ["npm", "run build"]
+EXPOSE 3000
+CMD ["npm", "start"]
 
 
 
-
-#nginx block
-
-FROM nginx:1.27-alpine
-WORKDIR /usr/share/nginx/html
-RUN rm -rf ./*
-COPY --from=nodework /app/build .
-ENTRYPOINT [ "nginx" , "-g" ,"daemon off;" ]
