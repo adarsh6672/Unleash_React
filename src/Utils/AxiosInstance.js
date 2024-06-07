@@ -1,7 +1,7 @@
 import axios from 'axios'
 
 export const AxiosInstance=axios.create({
-    baseURL:'https://gateway-service:8080/',
+    baseURL:'http://unleashwell.online/api/',
     'Content-type':'application/json',
 })
 
