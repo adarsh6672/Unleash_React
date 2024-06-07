@@ -14,8 +14,8 @@ jobs:
     - name: pull docker image
       run:  docker pull adarsh6672/unleashclient
     - name: delete old docker image
-      run:  docker rm -f unleash-client || true
+      run:  docker rm -f client-service || true
     - name: run docker container
-      run:  docker run -d -p 3000:3000 --name unleash-client adarsh6672/unleashclient
+      run:  docker run -d -p 3000:3000 --name client-service --network compose_app-network adarsh6672/unleashclient
    
    
