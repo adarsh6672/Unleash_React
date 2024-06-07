@@ -1,7 +1,7 @@
 import axios from 'axios'
 
 export const AxiosInstance=axios.create({
-    baseURL:'http://gateway-service:8080/',
+    baseURL:'https://gateway-service:8080/',
     'Content-type':'application/json',
 })
 
