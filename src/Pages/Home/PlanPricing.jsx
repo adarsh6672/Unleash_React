@@ -29,16 +29,16 @@ function PlanPricing() {
    <>
     <Header/>
     <div className='flex justify-center'>
-        <h1 className='font-bold text-3xl text-center border-b-4 border-orange-400 pb-2  max-w-lg mt-8'>Find A Plan That's Right For You</h1>
+        <h1 className='font-bold sm:text-3xl text-center border-b-4 border-orange-400 pb-2  max-w-lg mt-8'>Find A Plan That's Right For You</h1>
     </div>
 
-    <div className='sm:grid grid-cols-12 gap-14 px-10 pb-14'>
+    <div className='sm:grid grid-cols-12 gap-14 px-2 sm:px-10 pb-14'>
         {plans && plans.map((item, index)=>(
              <div className='col-span-4 bg-slate-100 p-5 rounded-2xl shadow-md shadow-slate-300 mt-6 '>
                 <img src={item.iconUrl} alt="" className='h-48 w-48 mx-auto rounded-xl ' />
-                <h1 className='text-center text-orange-500 font-bold text-2xl mt-3'>{item.planName}</h1>
-                <h1 className='text-center text-lg mt-3 text-indigo-800'>{item.noOfSession} Sessions</h1>
-                <h1 className='text-center text-orange-500  text-xl mt-6' >What To Expect ?</h1>
+                <h1 className='text-center text-orange-500 font-bold text-2xl sm:mt-3'>{item.planName}</h1>
+                <h1 className='text-center text-lg sm:mt-3 text-indigo-800'>{item.noOfSession} Sessions</h1>
+                <h1 className='text-center text-orange-500  text-xl sm:mt-6' >What To Expect ?</h1>
                 <p className='text-center px-10'>{item.description}</p>
 
                 <h1 className='text-center text-indigo-800 font-bold text-3xl mt-6'>₹ {item.price}</h1>

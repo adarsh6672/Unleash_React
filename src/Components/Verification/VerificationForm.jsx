@@ -1,6 +1,4 @@
-import axios from 'axios'
 import React, { useEffect, useState } from 'react'
-import { BASE_URL } from '../../Utils/const'
 import { useNavigate } from 'react-router-dom';
 import { IoIosClose } from "react-icons/io";
 import { AxiosInstance } from '../../Utils/AxiosInstance';

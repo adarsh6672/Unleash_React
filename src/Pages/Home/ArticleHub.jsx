@@ -57,24 +57,24 @@ function ArticleHub() {
         <>
             <Header />
             <div className='flex justify-center '>
-                <h1 className='font-bold text-3xl text-center border-b-4 border-orange-400 pb-2  max-w-lg mt-8'>Article Hub</h1>
+                <h1 className='font-bold sm:text-3xl text-center border-b-4 border-orange-400 pb-2  max-w-lg mt-4 sm:mt-8'>Article Hub</h1>
             </div>
 
-            <div className='sm:grid grid-cols-12 gap-10 py-5 px-10'>
+            <div className='sm:grid grid-cols-12 gap-10 py-1 sm:px-10 px-3'>
                 <div className='col-span-9  '>
                     {articles[0] && (articles.map(item => (
-                        <div className='mt-10 cursor-pointer ' >
-                            <div className='min-h-48 p-5  mx-auto flex sm:grid grid-cols-3 bg-slate-100 rounded-lg shadow-lg shadow-slate-300'>
-                                <div className='col-span-2 my-auto ' >
-                                    <h1 className='text-2xl font-medium hover:text-indigo-800' onClick={() => { handleView(item) }}>{item.title}</h1>
+                        <div className='mt-2 sm:m-5 cursor-pointer ' >
+                            <div className='min-h-48 p-5  mx-auto  sm:grid grid-cols-3 bg-slate-100 rounded-lg shadow-lg shadow-slate-300'>
+                                <div className='sm:col-span-2 my-auto ' >
+                                    <h1 className='sm:text-2xl font-medium hover:text-indigo-800' onClick={() => { handleView(item) }}>{item.title}</h1>
 
-                                    <div className='mt-5  text-slate-600'>
+                                    <div className='sm:mt-5 m-2  text-slate-600'>
                                         <p className='text-indigo-900 hover:font-bold'onClick={()=>handleViewCounselor(item.counselorId)} >{item.counselorName}</p>
                                         <p className='text-orange-500 text-sm'>{formatDateTime(item.uploadedOn)}</p>
                                     </div>
 
                                 </div>
-                                <div className=' col-span-1 flex justify-end '>
+                                <div className=' sm:col-span-1 flex justify-center sm:justify-end '>
                                     <img src={item.image} alt="" className='object-cover rounded-xl w-52  ' />
                                 </div>
 
@@ -86,7 +86,7 @@ function ArticleHub() {
                 </div>
 
                 {/* filter */}
-                <div className='col-span-3 pt-10' >
+                <div className='hidden sm:block col-span-3 pt-10' >
                     <div className='  text-right flex gap-4'>
                         <input type="text"  placeholder='Search ...' className='w-max rounded-lg border ' />
                         <button className='bg-orange-500 p-3  text-white font-bold rounded-lg'>

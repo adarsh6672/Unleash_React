@@ -23,12 +23,12 @@ function Footer() {
                     alt="Unleash"
                     />
                 </Link>
-                <div className='flex p-2 pt-3 justify-center'><FaLocationDot /> <span className='ml-5'>Location</span></div>
+                <div className='flex p-2 pt-3 justify-center'><FaLocationDot /> <span className='ml-5'>HSR Layout ,Bangalore</span></div>
                 <div className='flex p-2 justify-center'><MdAlternateEmail /> <span className='ml-5'>unleashonlinein@gmail.com</span></div>
                 <div className='flex p-2 justify-center'><FaPhoneAlt /> <span className='ml-5'>+91 9400686672</span></div>
             </div>
             <div className='col-span-1 text-white text-center'>
-                <h1 className='text-xl font-bold mb-20'>Quick Links</h1>
+                <h1 className='text-xl font-bold mb-2'>Quick Links</h1>
                 <ul className='text-lg leading-10'>
                     <li>For Therapists</li>
                     <li>About Us</li>
@@ -36,14 +36,14 @@ function Footer() {
                 </ul>
             </div>
             <div className='col-span-1 text-white text-center'>
-                <h1 className='text-xl font-bold mb-20'>Legal Stuff</h1>
+                <h1 className='text-xl font-bold mb-2'>Legal Stuff</h1>
                 <ul className='text-lg leading-10'>
                     <li>Disclaimer</li>
                     <li>Privacy & Policy</li>
                     <li>Terms Of Service</li>
                 </ul>
             </div>
-            <div className='col-span-1 text-center pt-10'>
+            <div className='col-span-1 text-center pt-2'>
                         <input className='rounded-xl w-72 h-10 p-2'
                         placeholder='Enter Phone Number'
                          type="text" />

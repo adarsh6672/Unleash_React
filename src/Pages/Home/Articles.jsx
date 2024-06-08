@@ -18,14 +18,14 @@ function Articles() {
                 <button className='bg-orange-500 m-5 px-10 rounded-2xl text-white text-sm'
                     onClick={() => navigate(-1)}>-Back</button>
             </div>
-            <div className='p-5'>
-                <h1 className='text-center text-3xl font-bold  p-2'>{data.title}</h1>
+            <div className='p-1 sm:p-5'>
+                <h1 className='text-center sm:text-3xl font-bold  sm:p-2'>{data.title}</h1>
 
-                <div className='p-5 px-10'>
-                    <img src={data.image} alt="" className='object-cover  rounded-xl w-screen h-96 shadow-md shadow-slate-300' />
+                <div className='p-5 sm:px-10'>
+                    <img src={data.image} alt="" className='object-contain sm:object-cover  rounded-xl w-screen sm:h-96 shadow-md shadow-slate-300' />
                 </div>
                
-                <div className='text-lg text-justify p-10 border-b-2  border-orange-500'>
+                <div className='text-lg text-justify p-5 sm:p-10 border-b-2  border-orange-500'>
                     {lines.map((line, index) => (
                         <React.Fragment key={index}>
                             {line}
