@@ -79,7 +79,7 @@ function Header() {
                         </div>
                     }
                      {isLogin &&
-                                <div onClick={handleRouting} className='place-content-center'>
+                                <div onClick={handleRouting} className='place-content-center sm:hidden'>
                                     <button className='bg-orange-500 hover:bg-orange-400 text-white font-bold py-2  w-full px-4 '>
                                         Dashboard
                                     </button>
