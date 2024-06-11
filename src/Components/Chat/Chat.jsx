@@ -8,6 +8,7 @@ import { AxiosInstance } from '../../Utils/AxiosInstance';
 import InitialsAvatar from 'react-initials-avatar';
 import 'react-initials-avatar/lib/ReactInitialsAvatar.css';
 import ChatMessage from './ChatComp';
+import { CHAT_URL } from '../../Utils/const';
 
 var stompClient = null;
 function Chat() {
@@ -128,7 +129,7 @@ function Chat() {
 
         console.log("connecting")
 
-        let Sock = new SockJS('http://localhost:8082/ws');
+        let Sock = new SockJS(CHAT_URL+'/ws');
         stompClient = over(Sock);
         stompClient.connect({}, onConnected, onError);
 

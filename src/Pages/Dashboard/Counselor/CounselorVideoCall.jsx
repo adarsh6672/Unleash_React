@@ -14,6 +14,7 @@ import { FaVideo } from "react-icons/fa";
 import { FaMicrophone } from "react-icons/fa";
 import { FaMicrophoneSlash } from "react-icons/fa6";
 import { MdCallEnd } from "react-icons/md";
+import { CHAT_URL } from '../../../Utils/const'
 
 var stompClient = null;
 function CounselorVideoCall() {
@@ -74,7 +75,7 @@ function CounselorVideoCall() {
 
         console.log("connecting")
 
-        let Sock = new SockJS('http://localhost:8082/ws');
+        let Sock = new SockJS(CHAT_URL+'/ws');
         stompClient = over(Sock);
         stompClient.connect({}, onConnected, onError);
 
