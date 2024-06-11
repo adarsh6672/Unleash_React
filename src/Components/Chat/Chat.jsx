@@ -1,7 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import SockJS from 'sockjs-client';
 import { over } from 'stompjs';
-import Stomp from 'stompjs';
 import DashHeader from '../SidePanel/DashHeader';
 import UserSidebar from '../SidePanel/UserSidebar';
 import { AxiosInstance } from '../../Utils/AxiosInstance';
