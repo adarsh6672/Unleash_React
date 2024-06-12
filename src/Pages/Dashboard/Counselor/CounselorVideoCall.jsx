@@ -51,7 +51,7 @@ function CounselorVideoCall() {
             setStream(null);
 
         };
-    }, [callEnded, callAccepted]);
+    }, []);
 
    
 

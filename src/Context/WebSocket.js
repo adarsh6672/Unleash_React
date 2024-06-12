@@ -1,5 +1,6 @@
 import React, { createContext, useState, useEffect, useContext, useRef } from 'react';
 import { toast } from 'react-hot-toast';
+import { showToast } from '../Utils/toastUtils';
 import SockJS from 'sockjs-client';
 import { CHAT_URL } from '../Utils/const';
 import { over } from 'stompjs';
@@ -39,6 +40,15 @@ const WebSocketProvider = ({ children }) => {
 
     const connectionRef = useRef()
 
+    const handleAccept = () => {
+        navigate('/user/sessions')
+      };
+    
+      const handleReject = () => {
+        console.log('Call rejected!');
+        // Perform reject action
+      };
+
     useEffect(() => {
         if (count !== 0) {
             connect();
@@ -75,7 +85,9 @@ const WebSocketProvider = ({ children }) => {
                     setCaller(message.data.from)
                     setName(message.data.name)
                     setCallerSignal(message.data.signalData)
-                    toast.success(`call received`);
+                    // toast.success(`Session Started ... Please Join...`);
+                    showToast('Session Started ... Please Join...', handleAccept, handleReject);
+
                     break
                 case "callAccepted":
                     console.log('call accepted=====================')
@@ -122,6 +134,8 @@ const WebSocketProvider = ({ children }) => {
 
         if (connectionRef.current) {
             connectionRef.current.destroy();
+
+            
         }
         // myVideo.current.pause();
         // myVideo.current.srcObject = null;
