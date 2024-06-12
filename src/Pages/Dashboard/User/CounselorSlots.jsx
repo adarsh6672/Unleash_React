@@ -26,7 +26,7 @@ const CounselorSlots = () => {
         console.log(date)
         axios.get(BASE_URL+'/consultation/counselor/get-time-slots',{
             params: {
-                date: date.toLocaleString({ hour12: false }),
+                date: date.toLocaleString('en-IN', { hour12: false }),
                 counselorId: counselorId
               },
             headers :{
