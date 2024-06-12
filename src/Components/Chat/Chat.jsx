@@ -1,25 +1,19 @@
-import React, { useState, useEffect, useRef } from 'react';
-import SockJS from 'sockjs-client';
-import { over } from 'stompjs';
+import React, { useState, useEffect, useRef, useContext } from 'react';
 import DashHeader from '../SidePanel/DashHeader';
 import UserSidebar from '../SidePanel/UserSidebar';
 import { AxiosInstance } from '../../Utils/AxiosInstance';
 import InitialsAvatar from 'react-initials-avatar';
 import 'react-initials-avatar/lib/ReactInitialsAvatar.css';
 import ChatMessage from './ChatComp';
-import { CHAT_URL } from '../../Utils/const';
+import { WebSocketContext } from '../../Context/WebSocket';
 
-var stompClient = null;
 function Chat() {
 
-    const [nickId, setnickId] = useState();
-    const [fullname, setFullname] = useState();
-    const [selectedUserId, setSelectedUserId] = useState();
     const [connectedUsers, setConnectedUsers] = useState([]);
-    const [messageContent, setMessageContent] = useState();
-    const [history, setHistory] = useState([])
-    const count = useRef(1);
+
     const chatEndRef = useRef(null);
+
+    const { sendMessage, setSelectedUserId, selectedUserId, messageContent, setMessageContent, history, setHistory, myId } = useContext(WebSocketContext);
 
     useEffect(() => {
 
@@ -36,21 +30,10 @@ function Chat() {
 
     }, [])
 
-    useEffect(() => {
-        if (count.current !== 0) {
-
-            connect();
-        }
-        count.current++;
-    }, [nickId])
-
-
-
-
 
     useEffect(() => {
         if (selectedUserId) {
-            AxiosInstance.get(`/ws/messages/${nickId}/${selectedUserId}`)
+            AxiosInstance.get(`/ws/messages/${myId}/${selectedUserId}`)
                 .then(res => {
                     console.log(res)
                     setHistory(res.data)
@@ -64,11 +47,10 @@ function Chat() {
     useEffect(() => {
         // Scroll to the bottom of the chat container
         chatEndRef.current?.scrollIntoView({ behavior: 'smooth' });
-     }, [history]);
+    }, [history]);
 
     const makeUserList = (resp) => {
 
-        setnickId(resp[0].sessionBooking.patientId)
         const counselorDataArray = resp.map(response => ({
             counselorId: response.counselorId,
             counselorName: response.counselorName,
@@ -92,71 +74,20 @@ function Chat() {
         setSelectedUserId(id);
 
     }
-
-    const onConnected = () => {
-        console.log("on connected")
-        stompClient.subscribe(`/user/${nickId}/queue/messages`, onMessageReceived);
-        console.log('subscibed')
-
-    };
-
-    const onMessageReceived = (payload) => {
-        console.log('recieved')
-        console.log('Message received', payload);
-        const message = JSON.parse(payload.body);
-        console.log(selectedUserId , typeof(selectedUserId))
-        console.log(message.senderId , typeof(message.senderId))
-        
-            console.log('passing the condition ')
-            setHistory(prev => [...prev,message])   
-       
-    };
-
-    const fetchAndDisplayConnectedUsers = async () => {
-        const connectedUsersResponse = await fetch('/users');
-        const connectedUsersData = await connectedUsersResponse.json();
-        const filteredUsers = connectedUsersData.filter(user => user.nickId !== nickId);
-        setConnectedUsers(filteredUsers);
-    };
-
-  
-    const onError = () => {
-        console.log('Could not connect to WebSocket server. Please refresh this page to try again!');
-    };
-
-    const connect = () => {
-
-        console.log("connecting")
-
-        let Sock = new SockJS(CHAT_URL+'/ws');
-        stompClient = over(Sock);
-        stompClient.connect({}, onConnected, onError);
-
-
-    };
-
-
-
-    const sendMessage = (event) => {
-        event.preventDefault();
-        if (messageContent && stompClient) {
-            const chatMessage = {
-                senderId: nickId,
-                recipientId: selectedUserId,
-                content: messageContent,
-                timestamp: new Date()
-            };
-            stompClient.send("/app/chat", {}, JSON.stringify(chatMessage));
-            setHistory(prev => [...prev,chatMessage])
+    const handleSendMessage = (event) => {
+        event.preventDefault()
+        const chatMessage = {
+            senderId: myId,
+            recipientId: selectedUserId,
+            content: messageContent,
+            timestamp: new Date()
         }
-        setMessageContent('')
-        
+        sendMessage(chatMessage);
     };
 
-    const logout = () => {
-        stompClient.send("/app/user.disconnectUser", {}, JSON.stringify({ nickId: nickId, fullName: fullname, status: 'OFFLINE' }));
-        window.location.reload();
-    };
+
+
+
 
     return (
         <>
@@ -172,7 +103,9 @@ function Chat() {
                             </div>
                             <div className='   block'>
                                 {connectedUsers && connectedUsers.map((item) => (
-                                    <div className='border-b-2 flex border-white p-3 cursor-pointer ' onClick={() => handleUserSelection(item.counselorId)}>
+                                    <div key={item.counselorId}
+                                        className={`border-b-2 flex border-white p-3 cursor-pointer ${item.counselorId === selectedUserId ? 'bg-orange-400' : ''}`}
+                                        onClick={() => handleUserSelection(item.counselorId)}>
                                         <InitialsAvatar name={item.counselorName} />
                                         <h1 className='font-bold my-auto pl-4'>{item.counselorName}</h1>
                                     </div>
@@ -183,21 +116,22 @@ function Chat() {
                         </div>
                         <div className='col-span-9 '>
                             <div className='text-center  p-3 border-slate-300 bg-orange-200 shadow-md rounded-t-lg shadow-slate-400'>
-                                <h1>Name</h1>
+                                <h1>Chat</h1>
                             </div>
                             <div className='bg-white h-[30rem] overflow-y-auto scrollbar-hide' >
                                 <div className="p-4">
-                                    {history.map((message, index) => (  
-                                        <ChatMessage key={index} message={message} sender={message.senderId == nickId ? 'You' : 'Other'} />
+                                    {history.map((message, index) => (
+                                        <ChatMessage key={index} message={message} sender={message.senderId == myId ? 'You' : 'Other'} />
                                     ))}
                                     <div ref={chatEndRef} />
                                 </div>
                             </div>
-                            <div className='bottom-auto p-3 mb-3'>
-                                <input type="text" className='w-5/6 rounded-3xl ' value={messageContent} onChange={(e) => setMessageContent(e.target.value)} />
-                                <button className='bg-indigo-900 text-white font-bold w-1/6 p-2 rounded-xl ' onClick={(e) => sendMessage(e)}>Send</button>
-                            </div>
-
+                            <form>
+                                <div className='bottom-auto p-3 mb-3'>
+                                    <input type="text" className='w-5/6 rounded-3xl ' value={messageContent} onChange={(e) => setMessageContent(e.target.value)} />
+                                    <button type='submit' className='bg-indigo-900 text-white font-bold w-1/6 p-2 rounded-xl ' onClick={(e) => handleSendMessage(e)}>Send</button>
+                                </div>
+                            </form>
                         </div>
                     </div>
 

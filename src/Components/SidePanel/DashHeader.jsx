@@ -1,5 +1,4 @@
-import React, { useState } from 'react'
-import { Link, NavLink } from 'react-router-dom'
+import { Link } from 'react-router-dom'
 import logo from './../../Assets/imgs/logo.png'
 import { IoLogOut } from "react-icons/io5";
 import { IoMdNotifications } from "react-icons/io";

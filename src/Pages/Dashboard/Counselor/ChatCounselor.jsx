@@ -1,26 +1,21 @@
-import React, { useEffect, useRef, useState } from 'react'
+import React, { useContext, useEffect, useRef, useState } from 'react'
 import CounselorSidebar from '../../../Components/SidePanel/CounselorSidebar'
 import DashHeader from '../../../Components/SidePanel/DashHeader'
 import ChatMessage from '../../../Components/Chat/ChatComp';
 import InitialsAvatar from 'react-initials-avatar';
-import SockJS from 'sockjs-client';
-import { over } from 'stompjs';
 import 'react-initials-avatar/lib/ReactInitialsAvatar.css';
 import { AxiosInstance } from '../../../Utils/AxiosInstance';
-import { CHAT_URL } from '../../../Utils/const';
+import { WebSocketContext } from '../../../Context/WebSocket';
 
 
-var stompClient = null;
 function ChatCounselor() {
 
 
-    const [nickId, setnickId] = useState();
-    const [selectedUserId, setSelectedUserId] = useState();
+    
     const [connectedUsers, setConnectedUsers] = useState([]);
-    const [messageContent, setMessageContent] = useState();
-    const [history, setHistory] = useState([])
-    const count = useRef(1);
     const chatEndRef = useRef(null);
+
+    const { sendMessage, setSelectedUserId, selectedUserId, messageContent, setMessageContent, history, setHistory, myId } = useContext(WebSocketContext);
 
 
     useEffect(() => {
@@ -38,13 +33,7 @@ function ChatCounselor() {
 
     }, [])
 
-    useEffect(()=>{
-        if (count.current !== 0) {
 
-            connect();
-        }
-        count.current++;
-    },[nickId])
 
     useEffect(() => {
         chatEndRef.current?.scrollIntoView({ behavior: 'smooth' });
@@ -55,7 +44,7 @@ function ChatCounselor() {
 
     useEffect(() => {
         if (selectedUserId) {
-            AxiosInstance.get(`/ws/messages/${nickId}/${selectedUserId}`)
+            AxiosInstance.get(`/ws/messages/${myId}/${selectedUserId}`)
                 .then(res => {
                     console.log(res)
                     setHistory(res.data)
@@ -68,7 +57,6 @@ function ChatCounselor() {
 
     const makeUserList = (resp) => {
         
-        setnickId(resp[0].sessionBooking.avilability.userId)
         const counselorDataArray = resp.map(response => ({
             patientId: response.userDto.id,
             patientName: response.userDto.fullname,
@@ -89,78 +77,21 @@ function ChatCounselor() {
         if (id === selectedUserId) {
             return;
         }
-        console.log('selected')
         setSelectedUserId(id)
 
     }
 
-    const onConnected = () => {
-        console.log("on connected")
-        stompClient.subscribe(`/user/${nickId}/queue/messages`, onMessageReceived);
-        console.log('subscibed')
-
-    };
-
-    const onMessageReceived = (payload) => {
-        console.log('recieved')
-        console.log('Message received', payload);
-        const message = JSON.parse(payload.body);
-        console.log(selectedUserId , typeof(selectedUserId))
-        console.log(message.senderId , typeof(message.senderId))
-        
-            console.log('condition passed')
-            setHistory(prev => [...prev,message])
-       
-        
-    };
-
-    const fetchAndDisplayConnectedUsers = async () => {
-        const connectedUsersResponse = await fetch('/users');
-        const connectedUsersData = await connectedUsersResponse.json();
-        const filteredUsers = connectedUsersData.filter(user => user.nickId !== nickId);
-        setConnectedUsers(filteredUsers);
-    };
-
-    
-
-    const onError = () => {
-        console.log('Could not connect to WebSocket server. Please refresh this page to try again!');
-    };
-
-    const connect = () => {
-
-        console.log("connecting")
-
-        let Sock = new SockJS(CHAT_URL+'/ws');
-        stompClient = over(Sock);
-        stompClient.connect({}, onConnected, onError);
-
-
-    };
-
-
-
-    const sendMessage = (event) => {
-        event.preventDefault();
-        if (messageContent && stompClient) {
-            const chatMessage = {
-                senderId: nickId,
-                recipientId: selectedUserId,
-                content: messageContent,
-                timestamp: new Date()
-            };
-            stompClient.send("/app/chat", {}, JSON.stringify(chatMessage));
-            setHistory(prev => [...prev,chatMessage])
-           
-
+    const handleSendMessage = (event) => {
+        event.preventDefault()
+        const chatMessage = {
+            senderId: myId,
+            recipientId: selectedUserId,
+            content: messageContent,
+            timestamp: new Date()
         }
-        setMessageContent('')
+        sendMessage(chatMessage);
     };
-
-    // const logout = () => {
-    //     stompClient.send("/app/user.disconnectUser", {}, JSON.stringify({ nickId: nickId, fullName: fullname, status: 'OFFLINE' }));
-    //     window.location.reload();
-    // };
+    
   return (
     <>
     <DashHeader />
@@ -175,7 +106,9 @@ function ChatCounselor() {
                     </div>
                     <div className='   block'>
                         {connectedUsers && connectedUsers.map((item) => (
-                            <div className='border-b-2 flex border-white p-3 cursor-pointer ' onClick={() => handleUserSelection(item.patientId)}>
+                            <div key={item.patientId}
+                            className={`border-b-2 flex border-white p-3 cursor-pointer ${item.patientId === selectedUserId ? 'bg-orange-400' : ''}`}
+                            onClick={() => handleUserSelection(item.patientId)}>
                                 <InitialsAvatar name={item.patientName} />
                                 <h1 className='font-bold my-auto pl-4'>{item.patientName}</h1>
                             </div>
@@ -191,7 +124,7 @@ function ChatCounselor() {
                     <div className=' bg-white h-[30rem] overflow-y-auto scrollbar-hide' >
                         <div className="p-4 ">
                             {history.map((message, index) => (
-                                <ChatMessage key={index} message={message} sender={message.senderId == nickId ? 'You' : 'Other'} />
+                                <ChatMessage key={index} message={message} sender={message.senderId == myId ? 'You' : 'Other'} />
                             ))}
                             <div ref={chatEndRef} />
                         </div>
@@ -199,7 +132,7 @@ function ChatCounselor() {
                     </div>
                     <div className='bottom-auto p-3 mb-3'>
                         <input type="text" className='w-5/6 rounded-3xl ' value={messageContent} onChange={(e) => setMessageContent(e.target.value)} />
-                        <button className='bg-indigo-900 text-white font-bold w-1/6 p-2 rounded-xl ' onClick={(e) => sendMessage(e)}>Send</button>
+                        <button className='bg-indigo-900 text-white font-bold w-1/6 p-2 rounded-xl ' onClick={(e) => handleSendMessage(e)}>Send</button>
                     </div>
 
                 </div>

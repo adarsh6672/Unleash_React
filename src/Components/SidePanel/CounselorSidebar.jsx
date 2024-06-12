@@ -38,7 +38,7 @@ function CounselorSidebar() {
                 <NavLink
                     to="/counselor/dashboard"
                     className={({ isActive }) =>
-                        isActive ? 'py-1  min-w-full text-start px-3 ml-7  bg-white text-indigo-700 rounded-l-2xl ' : 'py-1  pr-5 min-w-full text-start ml-10  rounded-l-2xl '
+                        isActive ? 'py-1  w-full text-start px-3 ml-7  bg-white text-indigo-700 rounded-l-2xl ' : 'py-1  pr-5 w-full text-start ml-10  rounded-l-2xl '
                         }
                     >
                     Dashboard  
@@ -49,7 +49,7 @@ function CounselorSidebar() {
                 <NavLink
                     to="/counselor/sessions"
                     className={({ isActive }) =>
-                        isActive ? 'py-1  min-w-full text-start px-3 ml-7  bg-white text-indigo-700 rounded-l-2xl ' : 'py-1  pr-5 min-w-full text-start ml-10  rounded-l-2xl '
+                        isActive ? 'py-1  w-full text-start px-3 ml-7  bg-white text-indigo-700 rounded-l-2xl ' : 'py-1  pr-5 w-full text-start ml-10  rounded-l-2xl '
                         }
                     >
                     Sessions
@@ -60,7 +60,7 @@ function CounselorSidebar() {
                 <NavLink
                     to="/counselor/chat"
                     className={({ isActive }) =>
-                        isActive ? 'py-1  min-w-full text-start px-3 ml-7  bg-white text-indigo-700 rounded-l-2xl ' : 'py-1  pr-5 min-w-full text-start ml-10  rounded-l-2xl '
+                        isActive ? 'py-1  w-full text-start px-3 ml-7  bg-white text-indigo-700 rounded-l-2xl ' : 'py-1  pr-5 w-full text-start ml-10  rounded-l-2xl '
                         }
                     >
                     My Chats
@@ -71,7 +71,7 @@ function CounselorSidebar() {
                 <NavLink
                     to="/counselor/time-schedule"
                     className={({ isActive }) =>
-                        isActive ? 'py-1  min-w-full text-start px-3 ml-7  bg-white text-indigo-700 rounded-l-2xl ' : 'py-1  pr-5 min-w-full text-start ml-10  rounded-l-2xl '
+                        isActive ? 'py-1  w-full text-start px-3 ml-7  bg-white text-indigo-700 rounded-l-2xl ' : 'py-1  pr-5 w-full text-start ml-10  rounded-l-2xl '
                         }
                     >
                     Time Schedule
@@ -82,7 +82,7 @@ function CounselorSidebar() {
                 <NavLink
                     to="/counselor/article"
                     className={({ isActive }) =>
-                        isActive ? 'py-1  min-w-full text-start px-3 ml-7  bg-white text-indigo-700 rounded-l-2xl ' : 'py-1  pr-5 min-w-full text-start ml-10  rounded-l-2xl '
+                        isActive ? 'py-1  w-full text-start px-3 ml-7  bg-white text-indigo-700 rounded-l-2xl ' : 'py-1  pr-5 w-full text-start ml-10  rounded-l-2xl '
                         }
                     >
                     Write Article
@@ -93,7 +93,7 @@ function CounselorSidebar() {
                 <NavLink
                     to="/dashb  ard"
                     className={({ isActive }) =>
-                        isActive ? 'py-1  min-w-full text-start px-3 ml-7  bg-white text-indigo-700 rounded-l-2xl ' : 'py-1  pr-5 min-w-full text-start ml-10  rounded-l-2xl '
+                        isActive ? 'py-1  w-full text-start px-3 ml-7  bg-white text-indigo-700 rounded-l-2xl ' : 'py-1  pr-5 w-full text-start ml-10  rounded-l-2xl '
                         }
                     >
                     Feedbacks
@@ -103,7 +103,7 @@ function CounselorSidebar() {
                 <NavLink
                     to="/counselor/payment"
                     className={({ isActive }) =>
-                        isActive ? 'py-1  min-w-full text-start px-3 ml-7  bg-white text-indigo-700 rounded-l-2xl ' : 'py-1  pr-5 min-w-full text-start ml-10  rounded-l-2xl '
+                        isActive ? 'py-1  w-full text-start px-3 ml-7  bg-white text-indigo-700 rounded-l-2xl ' : 'py-1  pr-5 w-full text-start ml-10  rounded-l-2xl '
                         }
                     >
                     Payments
@@ -114,7 +114,7 @@ function CounselorSidebar() {
                 <NavLink
                     to="/counselor/profile"
                     className={({ isActive }) =>
-                        isActive ? 'py-1  min-w-full text-start px-3 ml-7  bg-white text-indigo-700 rounded-l-2xl ' : 'py-1  pr-5 min-w-full text-start ml-10  rounded-l-2xl '
+                        isActive ? 'py-1  w-full text-start px-3 ml-7  bg-white text-indigo-700 rounded-l-2xl ' : 'py-1  pr-5 w-full text-start ml-10  rounded-l-2xl '
                         }
                     >
                     Profile
