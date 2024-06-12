@@ -27,7 +27,13 @@ const TimeSchedule = () => {
         console.log(date)
         axios.get(BASE_URL+'/consultation/counselor/get-my-slots',{
             params: {
-                date: date.toLocaleString()
+                date: date.toLocaleString('en-IN', { year: 'numeric',
+                month: '2-digit',
+                day: '2-digit',
+                hour: '2-digit',
+                minute: '2-digit',
+                second: '2-digit',
+                hour12: false })
               },
             headers :{
                 'Authorization':`Bearer ${token}`
@@ -44,7 +50,13 @@ const TimeSchedule = () => {
 
     const handleDate=(d)=>{
         setDate(d)
-        console.log(d.toISOString())
+        console.log(d.toISOString('en-IN', { year: 'numeric',
+        month: '2-digit',
+        day: '2-digit',
+        hour: '2-digit',
+        minute: '2-digit',
+        second: '2-digit',
+        hour12: false }))
         setSlot([]);
         setNewSlot([])
         setUpdated(!updated)

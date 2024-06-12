@@ -26,7 +26,13 @@ const CounselorSlots = () => {
         console.log(date)
         axios.get(BASE_URL+'/consultation/counselor/get-time-slots',{
             params: {
-                date: date.toLocaleString('en-IN', { hour12: false }),
+                date: date.toLocaleString('en-IN', { year: 'numeric',
+                month: '2-digit',
+                day: '2-digit',
+                hour: '2-digit',
+                minute: '2-digit',
+                second: '2-digit',
+                hour12: false }),
                 counselorId: counselorId
               },
             headers :{
@@ -43,7 +49,14 @@ const CounselorSlots = () => {
 
     const handleDate=(d)=>{
         setDate(d)
-        console.log(d.toISOString())
+        console.log(d.toLocaleString('en-IN', { year: 'numeric',
+        month: '2-digit',
+        day: '2-digit',
+        hour: '2-digit',
+        minute: '2-digit',
+        second: '2-digit',
+        hour12: false }))
+        console.log(d.toLocaleString())
         setNewSlot()
         setError()
         setUpdated(!updated)
