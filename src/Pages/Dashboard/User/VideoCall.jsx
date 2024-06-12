@@ -27,7 +27,7 @@ function VideoCall() {
     const [isVideoMuted, setIsVideoMuted] = useState(false);
     const [isAudioMuted, setIsAudioMuted] = useState(false);
     const navigate = useNavigate()
-    const count = useRef(0);
+    const count = useRef(1);
     const myVideo = useRef()
     const userVideo = useRef()
     const connectionRef = useRef()

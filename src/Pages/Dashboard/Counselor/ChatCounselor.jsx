@@ -19,7 +19,7 @@ function ChatCounselor() {
     const [connectedUsers, setConnectedUsers] = useState([]);
     const [messageContent, setMessageContent] = useState();
     const [history, setHistory] = useState([])
-    const count = useRef(0);
+    const count = useRef(1);
     const chatEndRef = useRef(null);
 
 
