@@ -126,7 +126,7 @@ const CounselorSlots = () => {
                 <button className='bg-orange-500 mt-10 ml-10 p-2 px-10 rounded-2xl text-white'
                 onClick={()=>navigate(-1)}>Back</button>
             </div>
-            <h1 className='font-bold text-center text-3xl  text-indigo-800 pb-5 bg-slate-100'>STIME SLOTS AVILABLE</h1>
+            <h1 className='font-bold text-center text-3xl  text-indigo-800 pb-5 bg-slate-100'>TIME SLOTS AVILABLE</h1>
             {error && (
                         <h1 className='text-center text-xl m-5  text-red-500 '>{error}</h1>
                     )}

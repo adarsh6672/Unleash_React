@@ -70,7 +70,13 @@ const TimeSchedule = () => {
         cpdate.setSeconds(0);
         cpdate.setMilliseconds(0);
         console.log(cpdate.toLocaleDateString())
-        const isodate= cpdate.toLocaleString()
+        const isodate= cpdate.toLocaleString('en-IN', { year: 'numeric',
+        month: '2-digit',
+        day: '2-digit',
+        hour: '2-digit',
+        minute: '2-digit',
+        second: '2-digit',
+        hour12: false })
        
         if(newSlot.includes(index)){
             var temp= newSlot.filter((item, i) => item !== index);
