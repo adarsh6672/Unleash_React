@@ -32,6 +32,7 @@
     "react-tailwindcss-datetimepicker": "^3.0.5",
     "react-toastify": "^10.0.5",
     "redux-persist": "^6.0.0",
+    "serve": "^14.2.3",
     "simple-peer": "^9.11.1",
     "sockjs": "^0.3.24",
     "sockjs-client": "^1.6.1",
@@ -45,8 +46,9 @@
     "test": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject",
     "flow": "flow",
-    "start:prod": "node dist/index.js"
-},
+    "start:prod": "node dist/index.js",
+    "prod": "serve -s build"
+  },
   "eslintConfig": {
     "extends": [
       "react-app",
