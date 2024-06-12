@@ -26,7 +26,7 @@ const CounselorSlots = () => {
         console.log(date)
         axios.get(BASE_URL+'/consultation/counselor/get-time-slots',{
             params: {
-                date: date.toLocaleString(),
+                date: date.toLocaleString({ hour12: false }),
                 counselorId: counselorId
               },
             headers :{
@@ -119,7 +119,7 @@ const CounselorSlots = () => {
                     )}
             <div className='sm:w-full  p-4 sm:grid grid-cols-12 px-10 bg-slate-100 pb-20 '>
                 <div className='col-span-3 mx-auto'>
-                    <Datepicker minDate={new Date()} showTodayButton={false} showClearButton={false}  inline onSelectedDateChanged={e=>handleDate(e)} />
+                    <Datepicker minDate={new Date()}  showTodayButton={false} showClearButton={false}  inline onSelectedDateChanged={e=>handleDate(e)} />
                 </div>
                
                 <div className='col-span-9   bg-white rounded-lg shadow-md shadow-slate-300 p-10 m-1'>
