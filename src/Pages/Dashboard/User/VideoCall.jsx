@@ -1,40 +1,57 @@
 import React, { useContext, useEffect, useRef, useState } from 'react'
 import DashHeader from '../../../Components/SidePanel/DashHeader'
 import UserSidebar from '../../../Components/SidePanel/UserSidebar'
+import { useSelector } from 'react-redux'
+import Peer from 'simple-peer'
+import SockJS from 'sockjs-client';
+import { over } from 'stompjs';
 import { FaVideoSlash } from "react-icons/fa";
 import { FaVideo } from "react-icons/fa";
 import { FaMicrophone } from "react-icons/fa";
 import { FaMicrophoneSlash } from "react-icons/fa6";
 import { MdCallEnd } from "react-icons/md";
 import { useLocation, useNavigate } from 'react-router-dom'
+import { CHAT_URL } from '../../../Utils/const'
 import { WebSocketContext } from '../../../Context/WebSocket'
 
 function VideoCall() {
-   
+    // const [me, setMe] = useState("")
+    // const [localStream, setStream] = useState()
+    // const [receivingCall, setReceivingCall] = useState(false)
+    // const [caller, setCaller] = useState("")
+    // const [callerSignal, setCallerSignal] = useState()
+    // const [callAccepted, setCallAccepted] = useState(false)
     const [idToCall, setIdToCall] = useState("")
+    // const [callEnded, setCallEnded] = useState(false)
+    //  const [name, setName] = useState("")
     const [isVideoMuted, setIsVideoMuted] = useState(false);
     const [isAudioMuted, setIsAudioMuted] = useState(false);
     const navigate = useNavigate()
     const count = useRef(1);
- 
+    // const myVideo = useRef()
+    // const userVideo = useRef()
+    // const connectionRef = useRef()
     const location = useLocation()
     const data = location.state;
 
-    
+    // const userData = useSelector(state => state.userData.userData)
+    // console.log(userData)
 
-    const {
+    const { callUser,
         answerCall,
         leaveCall,
-        receivingCall, 
-        callAccepted, 
-        name,
-        callEnded,
+        receivingCall, setReceivingCall,
+        caller, setCaller,
+        callerSignal, setCallerSignal,
+        callAccepted, setCallAccepted,
+        name, setName,
+        callEnded, setCallEnded,
         localStream, setStream,
         setDt,
         myVideo,
         userVideo,
         connectionRef,
-        } = useContext(WebSocketContext);
+        userData } = useContext(WebSocketContext);
 
         setDt(data)
     useEffect(() => {
@@ -60,7 +77,7 @@ function VideoCall() {
 
         };
 
-    }, []);
+    }, [callEnded, callAccepted]);
 
     // useEffect(() => {
     //     if (count.current !== 0) {
@@ -262,7 +279,7 @@ function VideoCall() {
                                     </div>
                                 </div>
                             )}
-                            {localStream && !callAccepted && (
+                            { !callAccepted && (
 
                                 <div className="">
 

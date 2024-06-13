@@ -1,8 +1,7 @@
 
-import React, { useContext, useEffect, useState } from 'react'
+import React, { useContext, useEffect, useRef, useState } from 'react'
 import DashHeader from '../../../Components/SidePanel/DashHeader'
-
-import {  useLocation } from 'react-router-dom'
+import {  useLocation, useNavigate } from 'react-router-dom'
 import CounselorSidebar from '../../../Components/SidePanel/CounselorSidebar'
 import { FaVideoSlash } from "react-icons/fa";
 import { FaVideo } from "react-icons/fa";
@@ -11,24 +10,27 @@ import { FaMicrophoneSlash } from "react-icons/fa6";
 import { MdCallEnd } from "react-icons/md";
 import { WebSocketContext } from '../../../Context/WebSocket';
 
-
+var stompClient = null;
 function CounselorVideoCall() {
-    
     const [isVideoMuted, setIsVideoMuted] = useState(false);
     const [isAudioMuted, setIsAudioMuted] = useState(false);
     const location = useLocation();
     const idToCall = location.state;
-    
+ 
+
 
     const { callUser,
-        callAccepted,       
-        callEnded,
+        
+        callAccepted, setCallAccepted,
+        name, setName,
+        callEnded, setCallEnded,
         localStream, setStream,
+        dt,setDt,
         myVideo,
         userVideo,
         connectionRef,
         leaveCallfn,
-         } = useContext(WebSocketContext);
+        userData } = useContext(WebSocketContext);
 
     useEffect(() => {
         navigator.mediaDevices.getUserMedia({ video: true, audio: true }).then((localStream) => {
@@ -44,16 +46,19 @@ function CounselorVideoCall() {
             if (localStream) {
                 localStream.getTracks().forEach(track => track.stop());
             }
-            
+            // Optionally, clear the video element's srcObject
             if (myVideo.current) {
                 myVideo.current.srcObject = null;
             }
             setStream(null);
 
         };
-    }, []);
+    }, [callEnded, callAccepted]);
 
-   
+
+    
+
+    
 
 
     const toggleVideoMute = () => {
@@ -112,7 +117,7 @@ function CounselorVideoCall() {
                                     </div>
                                 </div>
                             )}
-                            {localStream && !callAccepted && (
+                            { !callAccepted && (
 
                                 <div className="">
 
