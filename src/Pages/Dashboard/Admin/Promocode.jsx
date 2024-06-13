@@ -32,7 +32,7 @@ function Promocode() {
                 setTableRows(res.data.content)
                 setRecData(res.data)
             })
-    }, [update])
+    }, [pageNo,update])
 
     const handleStartDateDate = (d) => {
         setStartDate(d)

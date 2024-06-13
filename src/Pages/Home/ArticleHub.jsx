@@ -9,16 +9,21 @@ function ArticleHub() {
     const [update, setUpdate] = useState()
     const [articles, setArticles] = useState([])
     const navigate = useNavigate()
-    const [selection , setSelection ] = useState([])
+    const [selection, setSelection] = useState([])
+    const [filter, setFilter] = useState({
+        heading: null,
+        keywordId: 0
+    })
 
 
     useEffect(() => {
-        AxiosInstance.get('/article/public/get-all-articles')
-            .then(res => {
-                setArticles(res.data)
-                console.log(res.data)
-            })
-    }, [update])
+         AxiosInstance.post('/article/filter-all-articles', filter).then(res => {
+            setArticles(res.data)
+            console.log(res.data)
+        }).catch(err => {
+            console.log(err)
+        })
+    }, [filter.keywordId])
 
     useEffect(() => {
 
@@ -28,7 +33,7 @@ function ArticleHub() {
         }).catch(err => {
             console.log(err)
         })
-        
+
     }, []);
 
     function formatDateTime(timestamp) {
@@ -49,8 +54,32 @@ function ArticleHub() {
         navigate('/articles/open', { state: data })
     }
 
-    const handleViewCounselor=(id)=>{
-        navigate('/open-profile',{state:id})
+    const handleViewCounselor = (id) => {
+        navigate('/open-profile', { state: id })
+    }
+    const handleSearch = (e) => {
+        setFilter({
+            heading: e,
+            keywordId: 0
+        })
+    }
+    const handleKeyword = async (id) => {
+        setFilter({
+            heading: null,
+            keywordId: id
+        })
+        
+    }
+
+    const handleFilter = async () => {
+        console.log(filter)
+        await AxiosInstance.post('/article/filter-all-articles', filter).then(res => {
+            setArticles(res.data)
+            console.log(res.data)
+        }).catch(err => {
+            console.log(err)
+        })
+
     }
 
     return (
@@ -69,7 +98,7 @@ function ArticleHub() {
                                     <h1 className='sm:text-2xl font-medium hover:text-indigo-800' onClick={() => { handleView(item) }}>{item.title}</h1>
 
                                     <div className='sm:mt-5 m-2  text-slate-600'>
-                                        <p className='text-indigo-900 hover:font-bold'onClick={()=>handleViewCounselor(item.counselorId)} >{item.counselorName}</p>
+                                        <p className='text-indigo-900 hover:font-bold' onClick={() => handleViewCounselor(item.counselorId)} >{item.counselorName}</p>
                                         <p className='text-orange-500 text-sm'>{formatDateTime(item.uploadedOn)}</p>
                                     </div>
 
@@ -88,16 +117,17 @@ function ArticleHub() {
                 {/* filter */}
                 <div className='hidden sm:block col-span-3 pt-10' >
                     <div className='  text-right flex gap-4'>
-                        <input type="text"  placeholder='Search ...' className='w-max rounded-lg border ' />
-                        <button className='bg-orange-500 p-3  text-white font-bold rounded-lg'>
-                        <IoSearch />
+                        <input type="text" placeholder='Search ...' onChange={(e) => handleSearch(e.target.value)} className='w-max rounded-lg border ' />
+                        <button className='bg-orange-500 p-3  text-white font-bold rounded-lg' onClick={handleFilter}>
+                            <IoSearch />
                         </button>
                     </div>
                     <h1 className='text-orange-500 mt-10 '>Choose From Keywords</h1>
                     <div className=' gap-10 mt-5 flex flex-wrap'>
-                        {selection && selection.map((item)=>(
+                        {selection && selection.map((item) => (
                             <div className='w-fit'>
-                                <h1 className='bg-slate-200 px-2 rounded-3xl cursor-pointer shadow-md shadow-slate-400' >{item.specilization}</h1>
+                                <h1 className={item.id === filter.keywordId ? 'bg-orange-500 px-2 rounded-3xl cursor-pointer shadow-md shadow-slate-400 text-white' : 'bg-slate-200 px-2 rounded-3xl cursor-pointer shadow-md shadow-slate-400'}
+                                    onClick={() => handleKeyword(item.id)}>{item.specilization}</h1>
                             </div>
                         ))}
                     </div>

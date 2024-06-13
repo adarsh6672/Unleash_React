@@ -85,8 +85,15 @@ function UpdationRequest() {
               </td>
             </tr>
           ))}
+          
         </tbody>
       </table>
+      {! TABLE_ROWS[0] && (
+        <div className='place-items-center'>
+            <h1 className='text-center font-bold text-2xl'>No Data Available</h1>
+
+        </div>
+          )}
     </div>
         </div>
         </div>
