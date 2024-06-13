@@ -1,8 +1,8 @@
 import axios from 'axios'
 
 export const AxiosInstance=axios.create({
-    baseURL:'http://localhost:8080/api/',
-    //baseURL:'https://unleashwell.online/api/',
+    //baseURL:'http://localhost:8080/api/',
+    baseURL:'https://unleashwell.online/api/',
     'Content-type':'application/json',
 })
 
