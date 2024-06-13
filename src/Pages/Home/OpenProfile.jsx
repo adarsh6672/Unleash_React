@@ -13,6 +13,7 @@ import axios from 'axios';
 import { BASE_URL } from '../../Utils/const';
 import { AxiosInstance } from '../../Utils/AxiosInstance';
 import { InitialsAvatar } from 'react-initials-avatar';
+import Star from '../../Components/Rating/Star';
 
 
 const OpenProfile = () => {
@@ -48,7 +49,7 @@ const OpenProfile = () => {
         AxiosInstance.get(`/plan/public/getfeedback/${id}/${pageNo}`)
             .then(res => {
                 console.log(res.data)
-                setReviews(res.data.content)
+                setReviews(res.data)
                 setRes(res.data)
             }).catch(err => {
                 console.log(err)
@@ -134,13 +135,14 @@ const OpenProfile = () => {
                             </div>
 
                         </div>
-                        <div>
+                        <div className='col-span-2'>
                             <h1 className='text-lg font-bold'>Reviews</h1>
                             <div>
-                                { reviews.map(item => (
-                                    <div>
-                                       
-                                        <h1>{item.feedback}</h1>
+                                {reviews.map(item => (
+                                    <div className=' bg-slate-100 rounded-lg p-5 m-3'>
+                                        <h1 className='font-bold  '>{item.patient}</h1>
+                                        <Star rating={item.rating} />
+                                        <h1 className='mt-3'>{item.feedback}</h1>
                                     </div>
                                 ))}
 

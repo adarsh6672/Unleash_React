@@ -56,6 +56,8 @@ import Transactions from './Pages/Dashboard/Admin/Transactions';
 import Bookings from './Pages/Dashboard/Admin/Bookings';
 import Promocode from './Pages/Dashboard/Admin/Promocode';
 import { WebSocketProvider } from './Context/WebSocket';
+import Feedback from './Pages/Dashboard/Admin/Feedback';
+import FeedbacksCouns from './Pages/Dashboard/Counselor/FeedbacksCouns';
 
 
 function App() {
@@ -108,6 +110,8 @@ function App() {
           <Route path='/admin/transactions/counselor' element={<AdminRoutes><Transactions /></AdminRoutes>} />
           <Route path='/admin/bookings' element={<AdminRoutes><Bookings /></AdminRoutes>} />
           <Route path='/admin/promocode' element={<AdminRoutes><Promocode /></AdminRoutes>} />
+          <Route path='/admin/feedback' element={<AdminRoutes><Feedback /></AdminRoutes>} />
+
 
 
 
@@ -136,6 +140,8 @@ function App() {
           <Route path='counselor/article' element={<CounselorRoute> <ArticleCounselor /> </CounselorRoute>} />
           <Route path='counselor/new-article' element={<CounselorRoute> <NewArticle /> </CounselorRoute>} />
           <Route path='counselor/article/edit' element={<CounselorRoute> <ArticleEdit /> </CounselorRoute>} />
+          <Route path='counselor/feedbacks' element={<CounselorRoute> <FeedbacksCouns /> </CounselorRoute>} />
+
 
 
 

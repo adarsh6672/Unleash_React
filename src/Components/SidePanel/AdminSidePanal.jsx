@@ -103,7 +103,7 @@ function AdminSidepanal() {
 
                     <div className='py-2 flex'>
                         <NavLink
-                            to="/dashb  ard"
+                            to="/admin/feedback"
                             className={({ isActive }) =>
                                 isActive ? 'py-1  w-full text-start px-3 ml-7  bg-white text-indigo-700 rounded-l-2xl ' : 'py-1  pr-5 w-full text-start ml-10  rounded-l-2xl '
                             }
