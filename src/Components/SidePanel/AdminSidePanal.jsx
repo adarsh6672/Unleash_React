@@ -30,7 +30,7 @@ function AdminSidepanal() {
             </button>
 
             <div
-                className={`w-3/5 sm:w-1/5  bg-indigo-700 rounded-e-3xl min-h-[41.5rem] max-h-fit text-white font-bold text-xl fixed top-0 sm:static h-full z-40 transition-transform duration-300 ${isSidebarOpen ? 'translate-x-0' : '-translate-x-full'
+                className={`w-3/5 sm:w-1/5  bg-indigo-700 rounded-e-3xl min-h-[41.5rem]  text-white font-bold text-xl fixed top-0 sm:static  z-40 transition-transform duration-300 ${isSidebarOpen ? 'translate-x-0' : '-translate-x-full'
                     } sm:translate-x-0`}
             >
                 <div className='block   py-5 '>
