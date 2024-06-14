@@ -29,7 +29,7 @@ function Home() {
           <button
 
             className="flex w-32  justify-center rounded-2xl bg-orange-400  py-2 text-sm font-semibold  text-white shadow-sm shadow-slate-700 hover:bg-orange-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 "
-          >
+            onClick={nav('/plan-pricing')}>
             Get Started
           </button>
         </div>

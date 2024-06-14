@@ -94,14 +94,14 @@ function Chat() {
             <DashHeader />
             <div className='flex '>
                 <UserSidebar />
-                <div className='sm:w-full  p-4  '>
+                <div className='w-full  p-4  '>
                     {/* <div className=''> */}
                     <div className='  sm:grid grid-cols-12 rounded-t-lg bg-slate-100  rounded-lg  shadow-md shadow-slate-400  '>
-                        <div className='col-span-3 '>
+                        <div className='col-span-3 mx-auto'>
                             <div className='text-center border-r-2 p-3 border-slate-300 bg-orange-200 shadow-md rounded-t-lg shadow-slate-400'>
                                 <h1>Counselors</h1>
                             </div>
-                            <div className='   block'>
+                            <div className='block'>
                                 {connectedUsers && connectedUsers.map((item) => (
                                     <div key={item.counselorId}
                                         className={`border-b-2 flex border-white p-3 cursor-pointer ${item.counselorId === selectedUserId ? 'bg-orange-400' : ''}`}
@@ -112,7 +112,6 @@ function Chat() {
                                 ))}
 
                             </div>
-
                         </div>
                         <div className='col-span-9 '>
                             <div className='text-center  p-3 border-slate-300 bg-orange-200 shadow-md rounded-t-lg shadow-slate-400'>

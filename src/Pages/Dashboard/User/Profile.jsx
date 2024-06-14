@@ -27,7 +27,7 @@ function Profile() {
       <DashHeader />
       <div className='flex '>
         <UserSidebar />
-        <div className='sm:w-full  p-4'>
+        <div className='w-full  p-4'>
           {profileData && (
             <div>
               <ProfilePhoto profileName={profileData.fullname} profilePic={profileData.profilePic} onProfilePicUpdate={handleProfilePicUpdate} />

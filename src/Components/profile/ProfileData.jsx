@@ -48,8 +48,8 @@ function ProfileData(props) {
 
     return (
         <>
-            <div className="flex  justify-center px-6  lg:px-8">
-                <div className="sm:mx-auto sm:w-full sm:max-w-xl">
+            <div className="flex justify-center px-6  lg:px-8">
+                <div className="mx-auto w-full sm:max-w-xl">
                     <div className='text-end py-3'>
                         <button className='text-white bg-orange-500 font-bold rounded-md px-2 py-1'
                         onClick={toggleModal}>Change Password</button>

@@ -162,7 +162,7 @@ function CounselorProfile() {
       <DashHeader />
       <div className='flex gap-3'>
         <CounselorSidebar />
-        <div className='sm:w-full  p-4 '>
+        <div className='w-full  p-4 '>
           {profileData && (
             <ProfilePhoto profileName={profileData?.user?.fullname} profilePic={profileData?.user?.profilePic} />
           )}

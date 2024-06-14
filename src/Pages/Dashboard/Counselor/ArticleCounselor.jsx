@@ -73,12 +73,12 @@ function ArticleCounselor() {
                 <CounselorSidebar />
                 <div className='sm:w-full  p-4  '>
 
-                    <div className=' p-5 w-3/4 mx-auto flex sm:grid grid-cols-3 bg-gradient-to-r from-orange-300 to-indigo-300 rounded-lg shadow-lg shadow-slate-300'>
+                    <div className=' p-5 sm:w-3/4 mx-auto  sm:grid grid-cols-3 bg-gradient-to-r from-orange-300 to-indigo-300 rounded-lg shadow-lg shadow-slate-300'>
                         <div className='col-span-2 my-auto text-center'>
                             <h1 className='text-4xl font-medium'>Share Your Thoughts Here</h1>
                             <button className='p-2 bg-indigo-800 rounded-xl mt-3 text-white font-bold' onClick={() => navigate('/counselor/new-article')}>Click To Write</button>
                         </div>
-                        <div className=' col-span-1 flex justify-end'>
+                        <div className='hidden sm:flex col-span-1  justify-end'>
                             <img src={img} alt=""
                                 className='object-cover rounded-xl w-52  ' />
                         </div>
@@ -90,7 +90,7 @@ function ArticleCounselor() {
                         <h1 className='text-2xl text-orange-500 font-bold text-center'>My Articles</h1>
                         {articles[0] && (articles.map(item => (
                             <div className='mt-10'>
-                                <div className='min-h-48 p-5 w-3/4 mx-auto flex sm:grid grid-cols-3 bg-slate-100 rounded-lg shadow-lg shadow-slate-300'>
+                                <div className='min-h-48 p-5 sm:w-3/4 mx-auto  sm:grid grid-cols-3 bg-slate-100 rounded-lg shadow-lg shadow-slate-300'>
                                     <div className='col-span-2 my-auto '>
                                         <h1 className='text-2xl font-medium'>{item.title}</h1>
 
@@ -104,7 +104,7 @@ function ArticleCounselor() {
                                             <button className='text-red-400 ' onClick={() => handleDelete(item.id)}><FaTrash /></button>
                                         </div>
                                     </div>
-                                    <div className=' col-span-1 flex justify-end '>
+                                    <div className=' col-span-1 flex justify-center sm:justify-end '>
                                         <img src={item.image} alt="" className='object-cover rounded-xl w-52  ' />
                                     </div>
 

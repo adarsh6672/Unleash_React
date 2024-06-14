@@ -123,7 +123,7 @@ function SessionPage() {
       <div className='flex '>
         <UserSidebar />
         <div className='sm:w-full  p-4'>
-          <div className='w-2/3 border-2 border-slate-100 shadow-lg shadow-slate-300 rounded-lg mx-auto m-5 flex justify-around'>
+          <div className='sm:w-2/3 border-2 border-slate-100 shadow-lg shadow-slate-300 rounded-lg mx-auto m-5 flex justify-around'>
 
             <div className='text-center rounded-lg my-auto h-fit'>
               {data && data.subscription.sessionCount > 0 ? (
@@ -140,17 +140,17 @@ function SessionPage() {
               )}
 
             </div>
-            <img className='h-2/6 w-2/6' src={img} alt="images" />
+            <img className='hidden sm:block h-2/6 w-2/6' src={img} alt="images" />
           </div>
           <div className='flex justify-around'>
             <button className={`px-4 py-2 rounded-3xl ${upcoming ? 'bg-orange-500 text-white' : 'bg-gray-200 text-gray-800'}`} onClick={() => setUpcoming(true)}>Upcoming Sessions</button>
             <button className={`px-4 py-2 rounded-3xl ${!upcoming ? 'bg-orange-500 text-white' : 'bg-gray-200 text-gray-800'}`} onClick={() => setUpcoming(false)}>Completed Sessions</button>
           </div>
 
-          <div className='sm:grid grid-cols-12 p-10 mt-10 justify-around w-4/5 mx-auto'>
+          <div className='grid grid-cols-12 sm:p-10 mt-10 justify-around sm:w-4/5 mx-auto'>
 
             {sessions && upcoming && sessions.map((item, index) => (
-              <div className='col-span-3 p-5 m-3 border-2 border-slate-100 rounded-lg shadow-lg shadow-slate-300 w-fit bg-slate-100 text-center'
+              <div className='sm:col-span-3 col-span-6 p-5 m-3 border-2 border-slate-100 rounded-lg shadow-lg shadow-slate-300 w-fit bg-slate-100 text-center'
                 style={{ display: compareDate(item.sessionBooking.avilability.slot) ? "block" : "none" }}>
                 <div>
                   <h1 className='font-bold p-2'>{item.counselorName}</h1>
@@ -182,7 +182,7 @@ function SessionPage() {
 
 
             {sessions && !upcoming && sessions.map((item) => (
-              <div className='col-span-3 p-5 m-3 border-2 border-slate-100 rounded-lg shadow-lg shadow-slate-300 w-fit bg-slate-100 text-center'
+              <div className='sm:col-span-3 col-span-6 p-5 m-3 border-2 border-slate-100 rounded-lg shadow-lg shadow-slate-300 w-fit bg-slate-100 text-center'
                 style={{ display: compareDate(item.sessionBooking.avilability.slot) ? "none" : "block" }}>
                 <div>
                   <h1 className='font-bold p-2'>{item.counselorName}</h1>

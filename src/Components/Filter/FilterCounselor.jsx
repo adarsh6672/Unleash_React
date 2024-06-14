@@ -132,7 +132,7 @@ function FilterCounselor() {
                     </select>
                 </div>
                 <div className='col-span-1 sm:col-span-3 text-right '>
-                    <input type="text" placeholder='Search Counselor...' className='w-max rounded-lg border-none ' id="name" value={filter.name} onChange={handleFilterChange} name="name" />
+                    <input type="text" placeholder='Search Counselor...' className='w-full rounded-lg border-none ' id="name" value={filter.name} onChange={handleFilterChange} name="name" />
                 </div>
                 <div className='col-span-1 text-center flex'>
 

@@ -20,7 +20,7 @@ function CounselorPayment() {
     const [ifc, setIfc] = useState('')
     const [accDetails, setAccDetails] = useState()
     const [error, setError] = useState()
-    const [submitted , setSubmitted]= useState(false)
+    const [submitted, setSubmitted] = useState(false)
 
     const apiKey = RAZORPAY_API_KEY
     const apiSecret = RAZORPAY_API_SECRET
@@ -71,18 +71,18 @@ function CounselorPayment() {
             contact: userData.phone,
             referenceId: userData.id,
             accountNo: accNo,
-            ifcCode:ifc
+            ifcCode: ifc
         }
-        if(validation()){
+        if (validation()) {
             await AxiosInstance.post('/consultation/payment/create-contact', data)
-            .then(res => {
-                console.log(res)
-                setSubmitted(!submitted)
-            }).catch(err => {
-                console.log(err)
-            })
+                .then(res => {
+                    console.log(res)
+                    setSubmitted(!submitted)
+                }).catch(err => {
+                    console.log(err)
+                })
         }
-        
+
 
     }
 
@@ -91,10 +91,10 @@ function CounselorPayment() {
             <DashHeader />
             <div className='flex '>
                 <CounselorSidebar />
-                <div className='sm:w-full  p-4  '>
-                    
+                <div className='w-full  p-4  '>
+
                     {!accDetails && (
-                        <div className=' w-2/3 mx-auto  text-center bg-slate-100 rounded-lg shadow-lg shadow-slate-300 p-10'>
+                        <div className=' sm:w-2/3 mx-auto  text-center bg-slate-100 rounded-lg shadow-lg shadow-slate-300 p-10'>
                             <h1 className='font-bold text-2xl pb-10'>Register Your Account Details </h1>
                             {error && (
                                 <div className='p-5'>
@@ -120,27 +120,27 @@ function CounselorPayment() {
                     )}
 
                     {accDetails && (
-                        <div className=' w-2/3 mx-auto  text-center bg-slate-100 rounded-lg shadow-lg shadow-slate-300 p-5'>
-                        <h1 className='font-bold text-2xl pb-10 '> Your Account Details </h1>
-                        
-                        <div className='w-1/2 mx-auto'>
-                            <div className='flex justify-between p-2 '>
-                                <h1>Account Number :</h1>
-                                <h1>{accDetails.accountNo}</h1>
+                        <div className=' sm:w-2/3 mx-auto  text-center bg-slate-100 rounded-lg shadow-lg shadow-slate-300 p-5'>
+                            <h1 className='font-bold text-2xl pb-10 '> Your Account Details </h1>
+
+                            <div className='sm:w-1/2 mx-auto'>
+                                <div className='flex justify-between p-2 '>
+                                    <h1>Account Number :</h1>
+                                    <h1>{accDetails.accountNo}</h1>
+                                </div>
+                                <div className='flex justify-between p-2 '>
+                                    <h1>IFC Code :</h1>
+                                    <h1>{accDetails.ifcCode}</h1>
+                                </div>
+                                <div className='flex justify-between p-2 '>
+                                    <h1>Account Holder :</h1>
+                                    <h1>{userData.fullname}</h1>
+                                </div>
+
                             </div>
-                            <div className='flex justify-between p-2 '>
-                                <h1>IFC Code :</h1>
-                                <h1>{accDetails.ifcCode}</h1>
-                            </div>
-                            <div className='flex justify-between p-2 '>
-                                <h1>Account Holder :</h1>
-                                <h1>{userData.fullname}</h1>
-                            </div>
-                            
+                            <button className=' bg-indigo-800 text-white p-2 m-3 text-center rounded-md' >Edit  Details</button>
                         </div>
-                        <button className=' bg-indigo-800 text-white p-2 m-3 text-center rounded-md' >Edit  Details</button>
-                    </div>
-                        
+
                     )}
                 </div>
             </div>

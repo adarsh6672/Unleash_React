@@ -178,17 +178,17 @@ const TimeSchedule = () => {
             <DashHeader/>
             <div className='flex gap-3'>
             <CounselorSidebar/>
-            <div className='sm:w-full  p-4 sm:grid grid-cols-12 bg-slate-100'>
-                <div className='col-span-3 mx-auto'>
+            <div className='w-full  p-4 grid grid-cols-12 bg-slate-100'>
+                <div className='col-span-12 sm:col-span-3 mx-auto'>
                     <Datepicker minDate={new Date()}  showTodayButton={false} showClearButton={false} inline onSelectedDateChanged={e=>handleDate(e)} />
                 </div>
-                <div className='col-span-9   bg-white rounded-lg shadow-md shadow-slate-300 p-10 m-1 max-h-80 mt-3'>
+                <div className='col-span-12 sm:col-span-9   bg-white rounded-lg shadow-md shadow-slate-300 p-10 m-1 max-h-fit sm:max-h-80 mt-3'>
                 
-                    <div className='sm:grid lg:grid-cols-6 md:grid-cols-2 col-span-6 gap-6'>
+                    <div className='grid lg:grid-cols-6 grid-cols-2  gap-6'>
                     {time.map((item, index) => (
-                    <div key={index} className={localDateArray.includes(index+6) ? 'bg-slate-300 text-center max-h-10 p-2 cursor-pointer' 
+                    <div key={index} className={localDateArray.includes(index+6) ? 'bg-slate-300 text-center max-h-10 p-2 cursor-pointer cols' 
                     : newSlot.includes(index) ? 'bg-orange-400 text-white text-center max-h-10 p-2 cursor-pointer'
-                    : 'text-orange-500 border border-orange-500 text-center max-h-10 p-2 cursor-pointer'
+                    : 'text-orange-500 border border-orange-500 text-center max-h-10 p-2 cursor-pointer '
                     }
                     onClick={()=>handleTime(index)}>
                        {item}
@@ -197,7 +197,7 @@ const TimeSchedule = () => {
                     </div>
                
                 </div>
-                <div className=' flex  col-span-12 justify-around '>
+                <div className=' flex  col-span-12 justify-around my-4'>
                         <div className='col-span-6 '>
                             {/* <button className='bg-orange-500 text-white  p-2 rounded-md mx-2' onClick={selectAll}>Select All Slots</button> */}
                             <button className='bg-white border-2 border-red-500 text-red-500  p-2 rounded-md mx-2' onClick={()=>setIsOpen(true)}>Remove All Existing Schedule</button>

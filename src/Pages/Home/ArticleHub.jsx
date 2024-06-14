@@ -17,7 +17,7 @@ function ArticleHub() {
 
 
     useEffect(() => {
-         AxiosInstance.post('/article/filter-all-articles', filter).then(res => {
+         AxiosInstance.post('/article/public/filter-all-articles', filter).then(res => {
             setArticles(res.data)
             console.log(res.data)
         }).catch(err => {
@@ -73,7 +73,7 @@ function ArticleHub() {
 
     const handleFilter = async () => {
         console.log(filter)
-        await AxiosInstance.post('/article/filter-all-articles', filter).then(res => {
+        await AxiosInstance.post('/article/public/filter-all-articles', filter).then(res => {
             setArticles(res.data)
             console.log(res.data)
         }).catch(err => {

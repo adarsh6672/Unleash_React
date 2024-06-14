@@ -97,7 +97,7 @@ function ChatCounselor() {
     <DashHeader />
     <div className='flex '>
         <CounselorSidebar />
-        <div className='sm:w-full  p-4  '>
+        <div className='w-full  p-4  '>
             
             <div className='  sm:grid grid-cols-12 rounded-t-lg bg-slate-100  rounded-lg  shadow-md shadow-slate-400  '>
                 <div className='col-span-3 '>

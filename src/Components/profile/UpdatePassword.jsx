@@ -60,7 +60,7 @@ function UpdatePassword({ closeModal }) {
     return (
         <>
             <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
-                <div className="bg-white p-10 rounded shadow-md w-2/4">
+                <div className="bg-white p-10 rounded shadow-md sm:w-2/4">
                     <h1 className='text-xl text-orange-500 font-bold text-center'>Change Password </h1>
                     <div>
                         <label className="block text-sm font-medium  text-gray-900">

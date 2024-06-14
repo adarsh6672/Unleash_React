@@ -19,7 +19,7 @@ function DashHeader() {
 
     return (
         <>
-         <div className='sm:hidden fixed w-lvw  bg-white min-h-24'></div>
+         <div className=' fixed w-lvw  bg-white min-h-24'></div>
             <div className='min-h-24 sm:grid gap-4 fixed sm:sticky grid-cols-12  bg-white'>
 
                 <div className='col-span-6 sm:col-span-2'>
@@ -42,15 +42,18 @@ function DashHeader() {
 
                 <div className='hidden sm:block sm:col-span-2 '>
                     <div className='flex justify-evenly pt-6'>
-                        <Link to="/notification" className='text-4xl text-orange-500'>
+                        {/* <Link to="/notification" className='text-4xl text-orange-500'>
                             <IoMdNotifications />
-                        </Link>
+                        </Link> */}
                         <div className='text-4xl text-orange-500 cursor-pointer' onClick={logout}>
                             <IoLogOut />
                         </div>
 
                     </div>
                 </div>
+
+            </div>
+            <div className='sm:hidden min-h-24  gap-4   grid-cols-12  bg-white'>
 
             </div>
            

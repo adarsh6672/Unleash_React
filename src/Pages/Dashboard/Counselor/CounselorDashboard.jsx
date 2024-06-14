@@ -83,7 +83,7 @@ function CounselorDashboard() {
         <CounselorSidebar />
         <div className='sm:w-full  px-4 '>
           {dashData && (
-            <div className='sm:grid w-3/4 grid-cols-12 min-h-32 mx-auto gap-10'>
+            <div className='grid w-3/4 sm:grid-cols-12 min-h-32 mx-auto gap-10'>
               <div className='col-span-4 rounded-lg bg-slate-100 shadow-lg shadow-slate-400 p-5'>
                 <h1 className='text-center text-lg font-medium text-orange-500'>TODAYS SESSION</h1>
                 <h1 className='text-center text-lg font-bold text-indigo-800 p-5'>{dashData.todaysSession}</h1>
@@ -107,7 +107,7 @@ function CounselorDashboard() {
 
             <div className='w-3/4 border-2 border-slate-100 shadow-lg shadow-slate-300 rounded-lg mx-auto m-5 flex justify-around'>
 
-              <img className='h-2/6 w-2/6 opacity-45' src={img} alt="images" />
+              <img className='hidden sm:block h-2/6 w-2/6 opacity-45' src={img} alt="images" />
               <div className=' text-indigo-900 text-center rounded-lg my-auto h-fit'>
                 {matchingSlot && (
                   <div>
@@ -127,13 +127,13 @@ function CounselorDashboard() {
               </div>
             </div>
           </div>
-          <div className='mt-10'>
-            <div className=' p-5 w-3/4 mx-auto flex sm:grid grid-cols-3 bg-gradient-to-r from-orange-300 to-indigo-300 rounded-lg shadow-lg shadow-slate-300'>
+          <div className='my-10'>
+            <div className=' p-5 w-3/4 mx-auto  sm:grid grid-cols-3 bg-gradient-to-r from-orange-300 to-indigo-300 rounded-lg shadow-lg shadow-slate-300'>
               <div className='col-span-2 my-auto text-center'>
                 <h1 className='text-2xl font-medium'>Share Your Thoughts In Unleash Article Hub. Get More Attached With Our People..</h1>
                 <button className='p-2 bg-indigo-800 rounded-xl mt-3 text-white font-bold' onClick={() => navigate('/counselor/article')}>Take To Article Hub</button>
               </div>
-              <div className=' col-span-1 flex justify-end'>
+              <div className=' col-span-1 flex justify-center mt-3 sm:justify-end'>
                 <img src={img} alt=""
                   className='object-cover rounded-xl w-52  ' />
               </div>
