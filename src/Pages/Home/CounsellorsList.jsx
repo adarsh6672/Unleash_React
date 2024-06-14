@@ -21,7 +21,7 @@ function CounsellorsList() {
                 
                 className="flex w-auto p-2  justify-center rounded-xl bg-orange-600  text-lg font-semibold  text-white shadow-sm shadow-white hover:bg-orange-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 "
               >
-                Get A Recommendation
+                Connect With Our Counsellors
               </button>
           </div>
         </div>
@@ -32,7 +32,7 @@ function CounsellorsList() {
                 
                 className="  justify-center rounded-2xl bg-orange-400  p-2 text-sm font-semibold  text-white shadow-sm shadow-slate-700 hover:bg-orange-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 "
               >
-                Get A Recommendation
+                Connect With Our Counsellors
               </button>
           </div>
           <FilterCounselor/>

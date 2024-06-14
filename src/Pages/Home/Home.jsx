@@ -11,7 +11,7 @@ import { FaBusinessTime } from "react-icons/fa";
 import { FaArrowRight } from "react-icons/fa";
 import Footer from '../../Components/Footer';
 import Feedbacks from '../../Components/Feedbacks/Feedbacks';
-import { useNavigate } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 
 
 
@@ -26,24 +26,24 @@ function Home() {
           <h1 className='md:text-2xl lg:text-orange-400 text-4xl mb-6 font-bold '>Talk . Resolve . Heal </h1>
           <h1 className='md:text-md lg:text-lg font-bold text-left '> Online Counselling Therapy With Top Phsycologists</h1>
           <h1 className='md:text-sm lg:text-lg font-bold text-left  py-4'>  Anytime , Anywhere , Any Device.</h1>
-          <button
+          <Link
 
             className="flex w-32  justify-center rounded-2xl bg-orange-400  py-2 text-sm font-semibold  text-white shadow-sm shadow-slate-700 hover:bg-orange-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 "
-            onClick={nav('/plan-pricing')}>
+             to='/plan-pricing'>
             Get Started
-          </button>
+          </Link>
         </div>
       </div>
       <div className='block md:hidden px-5 text-center  text-black sm:h-72  w-full'>
         <h1 className='text-2xl text-orange-400 font-bold  '>Talk . Resolve . Heal </h1>
         <h1 className='text-md lg:text-lg font-bold  '> Online Counselling Therapy With Top Phsycologists</h1>
         <h1 className='text-sm lg:text-lg font-bold   py-4'>  Anytime , Anywhere , Any Device.</h1>
-        <button
+        <Link
 
-          className="w-32  justify-center rounded-2xl bg-orange-400  py-1.5 text-sm font-semibold  text-white shadow-sm shadow-slate-700 hover:bg-orange-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 "
-        >
+          className="w-32  justify-center rounded-2xl bg-orange-400  py-1.5 px-2 text-sm font-semibold  text-white shadow-sm shadow-slate-700 hover:bg-orange-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 "
+         to='/plan-pricing'>
           Get Started
-        </button>
+        </Link>
       </div>
       <div className='flex justify-center '>
         <h1 className='font-bold text-xl sm:text-3xl text-center border-b-4 border-orange-400 pb-2  max-w-lg mt-8'>Choose Help . Not Suffering</h1>
