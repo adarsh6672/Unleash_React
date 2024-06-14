@@ -35,9 +35,6 @@ const OpenProfile = () => {
         axios.get(BASE_URL + '/public/get-counselor-profile', {
             params: {
                 counsId: id
-            },
-            headers: {
-                'Authorization': `Bearer ${token}`
             }
         }).then(res => {
             console.log(res.data)
