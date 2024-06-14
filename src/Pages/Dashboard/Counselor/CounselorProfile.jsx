@@ -164,7 +164,7 @@ function CounselorProfile() {
         <CounselorSidebar />
         <div className='sm:w-full  p-4 '>
           {profileData && (
-            <ProfilePhoto profileName={profileData.user.fullname} profilePic={profileData.user.profilePic} />
+            <ProfilePhoto profileName={profileData?.user?.fullname} profilePic={profileData?.user?.profilePic} />
           )}
 
 
@@ -201,7 +201,7 @@ function CounselorProfile() {
                   <label for="countries" className="block mb-2 text-sm font-medium text-gray-900 ">Mail Id</label>
                   <div
                     className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 ">
-                    {profileData.user.email}
+                    {profileData?.user?.email}
                   </div>
                 </div>
               )}
@@ -213,18 +213,17 @@ function CounselorProfile() {
                   <label for="countries" className="block mb-2 text-sm font-medium text-gray-900 ">Gender</label>
                   <div
                     className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 ">
-                    {profileData.gender.gender}
+                    {profileData?.gender?.gender}
                   </div>
                 </div>
               )}
 
               <div className="my-5  mx-auto">
                 <label for="countries" className="block mb-2 text-sm font-medium text-gray-900 ">Language</label>
-                {laguages && (
+                {laguages && selection && (
                   <ul className='flex gap-5'>
                     {laguages.map((item, index) => (
                       <li className='flex' key={index} onClick={() => removeLanguage(index)}>{selection.languages[item - 1].language}<IoIosClose /></li>
-
                     ))}
                   </ul>
                 )}
@@ -232,8 +231,8 @@ function CounselorProfile() {
                   className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 ">
                   <option selected>Choose</option>
                   {selection && selection.languages.map((language) => (
-                    <option key={language.id} value={language.id}>
-                      {language.language}
+                    <option key={language?.id} value={language.id}>
+                      {language?.language}
                     </option>
                   ))}
                 </select>
@@ -243,7 +242,7 @@ function CounselorProfile() {
 
               <div className="my-5  mx-auto">
                 <label for="countries" className="block mb-2 text-sm font-medium text-gray-900 ">Specialization</label>
-                {laguages && (
+                {specialization && selection && (
                   <ul className='flex gap-5'>
                     {specialization.map((item, index) => (
                       <li className='flex' key={index} onClick={() => removeSpecialization(index)}>{selection.specializations[item - 1].specilization}<IoIosClose /></li>
@@ -256,7 +255,7 @@ function CounselorProfile() {
                   <option selected>Choose</option>
                   {selection && selection.specializations.map((specialization) => (
                     <option key={specialization.id} value={specialization.id}>
-                      {specialization.specilization}
+                      {specialization?.specilization}
                     </option>
                   ))}
                 </select>
