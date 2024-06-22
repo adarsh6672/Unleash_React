@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react'
 import axios from 'axios'
 import { BASE_URL } from '../../Utils/const';
 import { Link, useNavigate } from 'react-router-dom';
+import { FaEye, FaEyeSlash } from 'react-icons/fa';
 
 
 function SignUpForm({ isCounselor }) {
@@ -9,6 +10,14 @@ function SignUpForm({ isCounselor }) {
   const [err, setErr] = useState('');
   const navigate = useNavigate();
   const [loading, setLoading] = useState(false);
+  const [cPassword, setCPassword] = useState()
+  const [showPassword, setShowPassword] = useState(false);
+
+  const togglePasswordVisibility = () => {
+    setShowPassword((prevState) => !prevState);
+  };
+
+
   const [formData, setFormData] = useState({
     fullname: '',
     email: '',
@@ -34,11 +43,15 @@ function SignUpForm({ isCounselor }) {
 
 
     var pass = formData.password;
-    var reg = /^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)[A-Za-z\d]{6,}$/;
+    var reg = /^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[!@#$%^&*(),.?":{}|<>])[A-Za-z\d!@#$%^&*(),.?":{}|<>]{6,}$/;
     var test = reg.test(pass);
     if (test === false) {
       isValid = false;
       setErr("Password must contain at least one uppercase letter, one lowercase letter, and one digit");
+    }
+    if (formData.password !== cPassword){
+      isValid = false
+      setErr("Password and confirm password does not matching")
     }
     if (formData.phone.length < 10) {
       setErr("Enter Valid Mobile Number")
@@ -62,6 +75,9 @@ function SignUpForm({ isCounselor }) {
     return isValid;
   };
 
+  const handleCPassword = (value) => {
+    setCPassword(value)
+  }
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -176,17 +192,43 @@ function SignUpForm({ isCounselor }) {
                   Password
                 </label>
               </div>
-              <div className="mt-2">
+              <div className="mt-2 relative">
                 <input
                   id="password"
                   name="password"
-                  type="password"
+                  type={showPassword ? 'text' : 'password'}
                   value={formData.password}
                   onChange={handleChange}
                   autoComplete="current-password"
                   required
+                  className="block w-full rounded-2xl border-0 p-4 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-orange-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-orange-600 sm:text-sm sm:leading-6 pr-10"
+                />
+                <span
+                  className="absolute inset-y-0 right-0 pr-3 flex items-center cursor-pointer"
+                  onClick={togglePasswordVisibility}
+                >
+                  {showPassword ? <FaEye className="text-gray-600 hover:text-gray-900" /> : <FaEyeSlash className="text-gray-600 hover:text-gray-900" />}
+                </span>
+              </div>
+            </div>
+            <div>
+              <div className="flex items-center justify-between">
+                <label htmlFor="password" className="block text-sm font-medium leading-6 text-gray-900">
+                  Confirm Password
+                </label>
+              </div>
+              <div className="mt-2 ">
+                <input
+                  id="cPassword"
+                  name="cPassword"
+                  type={showPassword ? 'text' : 'password'}
+                  value={cPassword}
+                  onChange={(e) => handleCPassword(e.target.value)}
+                  autoComplete="current-password"
+                  required
                   className="block w-full rounded-2xl border-0 p-4 py-1.5 text-gray-900 shadow-sm ring-1  ring-inset ring-orange-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-orange-600 sm:text-sm sm:leading-6"
                 />
+              
               </div>
             </div>
 
